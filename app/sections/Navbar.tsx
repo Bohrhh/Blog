@@ -2,8 +2,9 @@
 
 import { useState } from "react"
 import { motion } from "framer-motion"
-import { Search, Volume2, Sun, Rss, Menu, X, ChevronDown } from "lucide-react"
+import { Search, Volume2, VolumeX, Sun, Rss, Menu, X, ChevronDown } from "lucide-react"
 import { cn } from "@/app/lib/utils"
+import { useSound } from "@/app/context/SoundContext"
 
 const navItems = [
   { label: "Categories", hasDropdown: true },
@@ -14,6 +15,7 @@ const navItems = [
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const { isSoundEnabled, toggleSound } = useSound()
 
   return (
     <motion.nav
@@ -57,10 +59,15 @@ export default function Navbar() {
           </button>
 
           <button
-            className="hidden sm:flex p-2 text-slate-700 hover:text-magenta transition-colors duration-200 rounded-lg hover:bg-slate-100/50"
+            onClick={toggleSound}
+            className={cn(
+              "hidden sm:flex p-2 transition-colors duration-200 rounded-lg hover:bg-slate-100/50",
+              isSoundEnabled ? "text-magenta" : "text-slate-700"
+            )}
             aria-label="Toggle sound"
+            aria-pressed={isSoundEnabled}
           >
-            <Volume2 className="w-5 h-5" />
+            {isSoundEnabled ? <Volume2 className="w-5 h-5" /> : <VolumeX className="w-5 h-5" />}
           </button>
 
           <button

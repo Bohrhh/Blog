@@ -1,8 +1,10 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Search, Volume2, Sun, Rss, Github, Linkedin } from "lucide-react"
+import { Search, Volume2, VolumeX, Sun, Rss, Github, Linkedin } from "lucide-react"
 import { categories } from "@/app/data/articles"
+import { useSound } from "@/app/context/SoundContext"
+import { cn } from "@/app/lib/utils"
 
 const courses = [
   { name: "CSS for JS Developers", href: "https://css-for-js.dev" },
@@ -17,6 +19,7 @@ const generalLinks = [
 ]
 
 export default function Footer() {
+  const { isSoundEnabled, toggleSound } = useSound()
   return (
     <footer className="bg-slate-50 border-t border-slate-200 mt-16">
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6 py-12">
@@ -133,10 +136,15 @@ export default function Footer() {
                 <Search className="w-4 h-4" />
               </button>
               <button
-                className="p-2 text-slate-600 hover:text-magenta transition-colors duration-200 rounded-lg hover:bg-slate-100"
+                onClick={toggleSound}
+                className={cn(
+                  "p-2 transition-colors duration-200 rounded-lg hover:bg-slate-100",
+                  isSoundEnabled ? "text-magenta" : "text-slate-600"
+                )}
                 aria-label="Toggle sound"
+                aria-pressed={isSoundEnabled}
               >
-                <Volume2 className="w-4 h-4" />
+                {isSoundEnabled ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
               </button>
               <button
                 className="p-2 text-slate-600 hover:text-magenta transition-colors duration-200 rounded-lg hover:bg-slate-100"
