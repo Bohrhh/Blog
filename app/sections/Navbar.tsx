@@ -25,9 +25,9 @@ export default function Navbar() {
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6 h-full flex items-center justify-between">
         {/* Logo */}
         <a href="/" className="flex items-center gap-0.5 text-xl font-bold tracking-tight">
-          <span className="text-blue-500">Josh</span>
-          <span className="text-amber-400">W</span>
-          <span className="text-blue-500">Comeau</span>
+          <span className="text-blue-500">KMLee</span>
+          <span className="text-amber-400">X</span>
+          <span className="text-blue-500">Blog</span>
         </a>
 
         {/* Desktop Navigation */}

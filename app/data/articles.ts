@@ -17,7 +17,7 @@ export const articles: Article[] = [
     id: "2",
     title: "Springs and Bounces in Native CSS",
     subtitle: "The magic of the `linear()` timing function",
-    description: 'The "linear()" timing function is a game-changer; it allows us to model physics-based motion right in vanilla CSS! That said, there are some limitations and quirks to be aware of. I've been experimenting with this API for a while now, and in this post, I'll share all of the tips and tricks I've learned for using it effectively. ✨',
+    description: "The \"linear()\" timing function is a game-changer; it allows us to model physics-based motion right in vanilla CSS! That said, there are some limitations and quirks to be aware of. I've been experimenting with this API for a while now, and in this post, I'll share all of the tips and tricks I've learned for using it effectively. ✨",
     slug: "linear-timing-function"
   },
   {
@@ -75,13 +75,13 @@ export const articles: Article[] = [
   {
     id: "11",
     title: "Container Queries Unleashed",
-    description: 'Container queries expand the universe of designs that can be implemented, giving us whole new superpowers. Now that container queries are broadly available, I think it's time we start exploring this potential! In this post, I'll share the "killer pattern" I can't stop using in my work, and explore what's possible with this new capability.',
+    description: "Container queries expand the universe of designs that can be implemented, giving us whole new superpowers. Now that container queries are broadly available, I think it's time we start exploring this potential! In this post, I'll share the \"killer pattern\" I can't stop using in my work, and explore what's possible with this new capability.",
     slug: "container-queries"
   },
   {
     id: "12",
     title: "Next-level frosted glass with `backdrop-filter`",
-    description: 'Glassy headers have become a core part of the "slick startup" UI toolkit, but they're all missing that final 10% that really makes it shine. In this tutorial, you'll learn how to create the most realistic lush frosted glass anywhere on the internet.',
+    description: "Glassy headers have become a core part of the \"slick startup\" UI toolkit, but they're all missing that final 10% that really makes it shine. In this tutorial, you'll learn how to create the most realistic lush frosted glass anywhere on the internet.",
     slug: "backdrop-filter"
   }
 ]

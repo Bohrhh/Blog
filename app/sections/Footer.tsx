@@ -25,9 +25,9 @@ export default function Footer() {
           {/* Logo and tagline */}
           <div className="lg:col-span-1">
             <a href="/" className="flex items-center gap-0.5 text-xl font-bold tracking-tight mb-4">
-              <span className="text-blue-500">Josh</span>
-              <span className="text-amber-400">W</span>
-              <span className="text-blue-500">Comeau</span>
+              <span className="text-blue-500">KMLee</span>
+              <span className="text-amber-400">X</span>
+              <span className="text-blue-500">Blog</span>
             </a>
             <p className="text-slate-600 text-sm leading-relaxed">
               Keep your ideals high. The sky belongs to no one. ✨
