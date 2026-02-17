@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import "./globals.css"
 import { SoundProvider } from "@/app/context/SoundContext"
+import { ThemeProvider } from "@/app/context/ThemeContext"
 
 export const metadata: Metadata = {
   title: "KMLeeX Blog - Articles and Tutorials",
@@ -14,10 +15,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="antialiased">
-        <SoundProvider>
-          {children}
-        </SoundProvider>
+      <body className="antialiased transition-colors duration-300">
+        <ThemeProvider>
+          <SoundProvider>
+            {children}
+          </SoundProvider>
+        </ThemeProvider>
       </body>
     </html>
   )

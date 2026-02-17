@@ -3,6 +3,7 @@
 import { motion } from "framer-motion"
 import { ArrowRight } from "lucide-react"
 import { popularContent } from "@/app/data/articles"
+import { cn } from "@/app/lib/utils"
 
 export default function PopularContent() {
   return (
@@ -20,9 +21,13 @@ export default function PopularContent() {
             viewport={{ once: true }}
             transition={{ duration: 0.3, delay: index * 0.05 }}
           >
-            <a 
+            <a
               href={`/${item.toLowerCase().replace(/\s+/g, "-")}`}
-              className="group flex items-start gap-2 text-slate-800 hover:text-magenta transition-colors duration-200"
+              className={cn(
+                "group flex items-start gap-2 transition-colors duration-200",
+                "text-slate-800 hover:text-magenta",
+                "dark:text-white dark:hover:text-magenta"
+              )}
             >
               <ArrowRight className="w-4 h-4 mt-1 flex-shrink-0 group-hover:translate-x-1 transition-transform duration-200" />
               <span className="leading-snug">{item}</span>
