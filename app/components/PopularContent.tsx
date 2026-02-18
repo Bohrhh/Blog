@@ -4,8 +4,11 @@ import { motion } from "framer-motion"
 import { ArrowRight } from "lucide-react"
 import { popularContent } from "@/app/data/articles"
 import { cn } from "@/app/lib/utils"
+import { useSound } from "@/app/context/SoundContext"
 
 export default function PopularContent() {
+  const { playSound } = useSound()
+
   return (
     <div className="space-y-4">
       <h3 className="text-sm font-semibold tracking-widest text-magenta uppercase">
@@ -23,6 +26,7 @@ export default function PopularContent() {
           >
             <a
               href={`/${item.toLowerCase().replace(/\s+/g, "-")}`}
+              onMouseEnter={() => playSound("hover")}
               className={cn(
                 "group flex items-start gap-2 transition-colors duration-200",
                 "text-slate-800 hover:text-magenta",
