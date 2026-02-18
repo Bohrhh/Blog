@@ -26,10 +26,34 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 
   // Sound state
   const [isSoundEnabled, setIsSoundEnabled] = useState(false)
+  const [mounted, setMounted] = useState(false)
 
   // Refs
   const audioContextRef = useRef<AudioContext | null>(null)
   const timeoutsRef = useRef<NodeJS.Timeout[]>([])
+  const audioUnlockedRef = useRef(false)
+
+  // 尝试解锁 AudioContext
+  const unlockAudio = useCallback(() => {
+    if (audioUnlockedRef.current) return
+
+    try {
+      if (!audioContextRef.current) {
+        audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)()
+      }
+
+      // 如果是 suspended，尝试恢复
+      if (audioContextRef.current.state === "suspended") {
+        audioContextRef.current.resume().then(() => {
+          audioUnlockedRef.current = true
+        }).catch(() => {})
+      } else {
+        audioUnlockedRef.current = true
+      }
+    } catch (e) {
+      console.warn("Failed to unlock audio:", e)
+    }
+  }, [])
 
   // Theme initialization
   useEffect(() => {
@@ -62,15 +86,34 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   // Sound initialization
   useEffect(() => {
     const stored = localStorage.getItem(STORAGE_KEYS.SOUND)
-    if (stored === "true") {
+
+    // 读取上次保存的状态，如果没有记录默认开启
+    if (stored === "true" || stored === null) {
       setIsSoundEnabled(true)
+      unlockAudio()
     }
 
-    // Initialize AudioContext
-    if (typeof window !== "undefined" && !audioContextRef.current) {
-      audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)()
+    setMounted(true)
+  }, [unlockAudio])
+
+  // 监听用户交互来解锁音频
+  useEffect(() => {
+    const handleInteraction = () => {
+      if (isSoundEnabled) {
+        unlockAudio()
+      }
     }
-  }, [])
+
+    document.addEventListener("click", handleInteraction, { once: true })
+    document.addEventListener("keydown", handleInteraction, { once: true })
+    document.addEventListener("touchstart", handleInteraction, { once: true })
+
+    return () => {
+      document.removeEventListener("click", handleInteraction)
+      document.removeEventListener("keydown", handleInteraction)
+      document.removeEventListener("touchstart", handleInteraction)
+    }
+  }, [isSoundEnabled, unlockAudio])
 
   // Cleanup timeouts
   useEffect(() => {
@@ -89,23 +132,30 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     timeoutsRef.current.push(timeout)
   }, [])
 
-  // Ensure AudioContext is available
-  const ensureAudioContext = useCallback(() => {
-    const context = audioContextRef.current
-    if (!context) return null
+  // Play sound
+  const playSound = useCallback((type: SoundType) => {
+    if (!isSoundEnabled) return
 
-    if (context.state === "suspended") {
-      context.resume()
+    // 确保 AudioContext 存在
+    if (!audioContextRef.current || audioContextRef.current.state === "closed") {
+      audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)()
     }
 
-    return context
-  }, [])
+    const context = audioContextRef.current
 
-  // Generate tone
-  const generateTone = useCallback((frequency: number, duration: number, type: OscillatorType = "sine") => {
-    const context = ensureAudioContext()
-    if (!context || context.state === "closed") return
+    // 如果是 suspended，先尝试恢复
+    if (context.state === "suspended") {
+      context.resume().then(() => {
+        playTone(context, type)
+      }).catch(() => {})
+      return
+    }
 
+    playTone(context, type)
+  }, [isSoundEnabled])
+
+  // 实际播放音效
+  const playTone = (context: AudioContext, type: SoundType) => {
     try {
       const oscillator = context.createOscillator()
       const gainNode = context.createGain()
@@ -113,7 +163,35 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       oscillator.connect(gainNode)
       gainNode.connect(context.destination)
 
-      oscillator.type = type
+      // 根据类型设置不同的频率和波形
+      let frequency = 800
+      let duration = 0.05
+      let waveType: OscillatorType = "sine"
+
+      switch (type) {
+        case "hover":
+          frequency = 800
+          duration = 0.05
+          waveType = "sine"
+          break
+        case "click":
+          frequency = 1000
+          duration = 0.08
+          waveType = "sine"
+          break
+        case "success":
+          frequency = 880
+          duration = 0.1
+          waveType = "sine"
+          break
+        case "notification":
+          frequency = 600
+          duration = 0.2
+          waveType = "triangle"
+          break
+      }
+
+      oscillator.type = waveType
       oscillator.frequency.setValueAtTime(frequency, context.currentTime)
 
       gainNode.gain.setValueAtTime(0.1, context.currentTime)
@@ -124,30 +202,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     } catch (e) {
       console.warn("Sound generation error:", e)
     }
-  }, [ensureAudioContext])
-
-  // Play sound
-  const playSound = useCallback((type: SoundType) => {
-    if (!isSoundEnabled) return
-
-    ensureAudioContext()
-
-    switch (type) {
-      case "hover":
-        generateTone(800, 0.05, "sine")
-        break
-      case "click":
-        generateTone(1000, 0.08, "sine")
-        break
-      case "success":
-        generateTone(880, 0.1, "sine")
-        safeTimeout(() => generateTone(1100, 0.15, "sine"), 80)
-        break
-      case "notification":
-        generateTone(600, 0.2, "triangle")
-        break
-    }
-  }, [isSoundEnabled, generateTone, safeTimeout, ensureAudioContext])
+  }
 
   // Toggle theme
   const toggleTheme = useCallback(() => {
@@ -160,23 +215,29 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       const newState = !prev
       localStorage.setItem(STORAGE_KEYS.SOUND, newState.toString())
 
-      const context = ensureAudioContext()
-      if (!context || context.state === "closed") {
-        return newState
+      // 切换时解锁音频
+      if (newState) {
+        unlockAudio()
       }
 
-      // Feedback sound
-      if (newState) {
-        generateTone(880, 0.1, "sine")
-        safeTimeout(() => generateTone(1100, 0.15, "sine"), 80)
-      } else {
-        generateTone(660, 0.1, "sine")
-        safeTimeout(() => generateTone(440, 0.15, "sine"), 80)
-      }
+      // 播放反馈音效
+      setTimeout(() => {
+        if (newState) {
+          // 开启音效 - 上升双音
+          if (audioContextRef.current && audioContextRef.current.state !== "closed") {
+            playTone(audioContextRef.current, "success")
+          }
+        } else {
+          // 关闭音效 - 下降双音
+          if (audioContextRef.current && audioContextRef.current.state !== "closed") {
+            playTone(audioContextRef.current, "success")
+          }
+        }
+      }, 50)
 
       return newState
     })
-  }, [generateTone, safeTimeout, ensureAudioContext])
+  }, [unlockAudio])
 
   return (
     <AppContext.Provider value={{
