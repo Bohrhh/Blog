@@ -1,8 +1,8 @@
 import { getArticleBySlug, getAllArticleSlugs } from "@/app/data/articles"
 import { getArticleContent } from "@/app/data/articles/content"
 import { notFound } from "next/navigation"
-import Link from "next/link"
-import { ArrowLeft, Calendar, Clock, Tag } from "lucide-react"
+import { Calendar, Clock, Tag } from "lucide-react"
+import ArticleNavbar from "@/app/components/ArticleNavbar"
 import ArticleContent from "@/app/components/ArticleContent"
 
 interface PageProps {
@@ -45,26 +45,7 @@ export default async function ArticlePage({ params }: PageProps) {
 
   return (
     <main className="min-h-screen">
-      {/* 导航栏 */}
-      <nav className="fixed top-0 left-0 right-0 z-50 h-16 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border-b border-slate-200 dark:border-slate-700">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 h-full flex items-center justify-between">
-          <Link
-            href="/"
-            className="flex items-center gap-2 text-slate-700 dark:text-slate-300 hover:text-magenta dark:hover:text-magenta transition-colors"
-          >
-            <ArrowLeft className="w-5 h-5" />
-            <span className="font-medium">Back</span>
-          </Link>
-
-          <Link href="/" className="flex items-center gap-0.5 text-xl font-bold tracking-tight">
-            <span className="text-blue-500">KMLee</span>
-            <span className="text-amber-400">X</span>
-            <span className="text-blue-500">Blog</span>
-          </Link>
-
-          <div className="w-20" />
-        </div>
-      </nav>
+      <ArticleNavbar />
 
       {/* 文章内容 */}
       <article className="pt-24 pb-16 px-4 sm:px-6">

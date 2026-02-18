@@ -4,7 +4,7 @@ import { motion } from "framer-motion"
 import { ArrowRight } from "lucide-react"
 import { popularContent } from "@/app/data/articles"
 import { cn } from "@/app/lib/utils"
-import { useSound } from "@/app/context/SoundContext"
+import { useSound } from "@/app/context/AppContext"
 
 export default function PopularContent() {
   const { playSound } = useSound()

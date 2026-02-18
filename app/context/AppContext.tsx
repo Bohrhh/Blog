@@ -1,42 +1,78 @@
 "use client"
 
 import { createContext, useContext, useState, useCallback, useRef, useEffect } from "react"
+import { STORAGE_KEYS } from "@/app/lib/constants"
 
+// 类型定义
+type Theme = "light" | "dark"
 type SoundType = "hover" | "click" | "success" | "notification"
 
-interface SoundContextType {
+interface AppContextType {
+  // Theme
+  theme: Theme
+  toggleTheme: () => void
+
+  // Sound
   isSoundEnabled: boolean
   toggleSound: () => void
   playSound: (type: SoundType) => void
 }
 
-const SoundContext = createContext<SoundContextType | undefined>(undefined)
+const AppContext = createContext<AppContextType | undefined>(undefined)
 
-const SOUND_KEY = "blog-sound-enabled"
+export function AppProvider({ children }: { children: React.ReactNode }) {
+  // Theme state
+  const [theme, setTheme] = useState<Theme>("light")
 
-export function SoundProvider({ children }: { children: React.ReactNode }) {
+  // Sound state
   const [isSoundEnabled, setIsSoundEnabled] = useState(false)
-  const [mounted, setMounted] = useState(false)
+
+  // Refs
   const audioContextRef = useRef<AudioContext | null>(null)
   const timeoutsRef = useRef<NodeJS.Timeout[]>([])
 
-  // 初始化 AudioContext 和读取 localStorage
+  // Theme initialization
   useEffect(() => {
-    // 读取音效状态
-    const stored = localStorage.getItem(SOUND_KEY)
+    const storedTheme = localStorage.getItem(STORAGE_KEYS.THEME) as Theme | null
+    const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches
+
+    if (storedTheme) {
+      setTheme(storedTheme)
+    } else if (systemPrefersDark) {
+      setTheme("dark")
+    }
+
+    // Set dark class on document
+    if (storedTheme === "dark" || (!storedTheme && systemPrefersDark)) {
+      document.documentElement.classList.add("dark")
+    }
+  }, [])
+
+  // Sync theme to document
+  useEffect(() => {
+    const root = document.documentElement
+    if (theme === "dark") {
+      root.classList.add("dark")
+    } else {
+      root.classList.remove("dark")
+    }
+    localStorage.setItem(STORAGE_KEYS.THEME, theme)
+  }, [theme])
+
+  // Sound initialization
+  useEffect(() => {
+    const stored = localStorage.getItem(STORAGE_KEYS.SOUND)
     if (stored === "true") {
       setIsSoundEnabled(true)
     }
-    setMounted(true)
 
-    // 初始化 AudioContext
+    // Initialize AudioContext
     if (typeof window !== "undefined" && !audioContextRef.current) {
       audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)()
     }
-    // 不关闭 AudioContext，让它保持可用
   }, [])
 
-  // 清理所有 setTimeout
+  // Cleanup timeouts
   useEffect(() => {
     return () => {
       timeoutsRef.current.forEach(timeout => clearTimeout(timeout))
@@ -44,7 +80,7 @@ export function SoundProvider({ children }: { children: React.ReactNode }) {
     }
   }, [])
 
-  // 安全的 setTimeout
+  // Safe timeout helper
   const safeTimeout = useCallback((callback: () => void, delay: number) => {
     const timeout = setTimeout(() => {
       callback()
@@ -53,7 +89,7 @@ export function SoundProvider({ children }: { children: React.ReactNode }) {
     timeoutsRef.current.push(timeout)
   }, [])
 
-  // 确保 AudioContext 可用
+  // Ensure AudioContext is available
   const ensureAudioContext = useCallback(() => {
     const context = audioContextRef.current
     if (!context) return null
@@ -65,7 +101,7 @@ export function SoundProvider({ children }: { children: React.ReactNode }) {
     return context
   }, [])
 
-  // 音效生成器
+  // Generate tone
   const generateTone = useCallback((frequency: number, duration: number, type: OscillatorType = "sine") => {
     const context = ensureAudioContext()
     if (!context || context.state === "closed") return
@@ -80,7 +116,6 @@ export function SoundProvider({ children }: { children: React.ReactNode }) {
       oscillator.type = type
       oscillator.frequency.setValueAtTime(frequency, context.currentTime)
 
-      // 增加音量到 0.3（原来是 0.1）
       gainNode.gain.setValueAtTime(0.1, context.currentTime)
       gainNode.gain.exponentialRampToValueAtTime(0.001, context.currentTime + duration)
 
@@ -91,7 +126,7 @@ export function SoundProvider({ children }: { children: React.ReactNode }) {
     }
   }, [ensureAudioContext])
 
-  // 播放不同类型的音效
+  // Play sound
   const playSound = useCallback((type: SoundType) => {
     if (!isSoundEnabled) return
 
@@ -114,25 +149,27 @@ export function SoundProvider({ children }: { children: React.ReactNode }) {
     }
   }, [isSoundEnabled, generateTone, safeTimeout, ensureAudioContext])
 
+  // Toggle theme
+  const toggleTheme = useCallback(() => {
+    setTheme((prev) => (prev === "light" ? "dark" : "light"))
+  }, [])
+
+  // Toggle sound
   const toggleSound = useCallback(() => {
     setIsSoundEnabled((prev) => {
       const newState = !prev
-
-      // 保存到 localStorage
-      localStorage.setItem(SOUND_KEY, newState.toString())
+      localStorage.setItem(STORAGE_KEYS.SOUND, newState.toString())
 
       const context = ensureAudioContext()
       if (!context || context.state === "closed") {
         return newState
       }
 
-      // 开启或关闭时的反馈音效
+      // Feedback sound
       if (newState) {
-        // 开启音效 - 上升双音
         generateTone(880, 0.1, "sine")
         safeTimeout(() => generateTone(1100, 0.15, "sine"), 80)
       } else {
-        // 关闭音效 - 下降双音
         generateTone(660, 0.1, "sine")
         safeTimeout(() => generateTone(440, 0.15, "sine"), 80)
       }
@@ -142,16 +179,38 @@ export function SoundProvider({ children }: { children: React.ReactNode }) {
   }, [generateTone, safeTimeout, ensureAudioContext])
 
   return (
-    <SoundContext.Provider value={{ isSoundEnabled, toggleSound, playSound }}>
+    <AppContext.Provider value={{
+      theme,
+      toggleTheme,
+      isSoundEnabled,
+      toggleSound,
+      playSound,
+    }}>
       {children}
-    </SoundContext.Provider>
+    </AppContext.Provider>
   )
 }
 
-export function useSound() {
-  const context = useContext(SoundContext)
+// Custom hooks
+export function useTheme() {
+  const context = useContext(AppContext)
   if (!context) {
-    throw new Error("useSound must be used within SoundProvider")
+    throw new Error("useTheme must be used within AppProvider")
   }
-  return context
+  return {
+    theme: context.theme,
+    toggleTheme: context.toggleTheme,
+  }
+}
+
+export function useSound() {
+  const context = useContext(AppContext)
+  if (!context) {
+    throw new Error("useSound must be used within AppProvider")
+  }
+  return {
+    isSoundEnabled: context.isSoundEnabled,
+    toggleSound: context.toggleSound,
+    playSound: context.playSound,
+  }
 }

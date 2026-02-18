@@ -4,8 +4,7 @@ import { useState } from "react"
 import { motion } from "framer-motion"
 import { Search, Volume2, VolumeX, Sun, Moon, Rss, Menu, X, ChevronDown } from "lucide-react"
 import { cn } from "@/app/lib/utils"
-import { useSound } from "@/app/context/SoundContext"
-import { useTheme } from "@/app/context/ThemeContext"
+import { useSound, useTheme } from "@/app/context/AppContext"
 
 const navItems = [
   { label: "Categories", hasDropdown: true },

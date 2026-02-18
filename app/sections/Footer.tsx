@@ -3,8 +3,7 @@
 import { motion } from "framer-motion"
 import { Search, Volume2, VolumeX, Sun, Moon, Rss, Github, Linkedin } from "lucide-react"
 import { categories } from "@/app/data/articles"
-import { useSound } from "@/app/context/SoundContext"
-import { useTheme } from "@/app/context/ThemeContext"
+import { useSound, useTheme } from "@/app/context/AppContext"
 import { cn } from "@/app/lib/utils"
 
 const courses = [

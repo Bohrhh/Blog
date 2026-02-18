@@ -3,7 +3,7 @@
 import { motion } from "framer-motion"
 import { ArrowRight } from "lucide-react"
 import { Article } from "@/app/data/articles"
-import { useSound } from "@/app/context/SoundContext"
+import { useSound } from "@/app/context/AppContext"
 import { cn } from "@/app/lib/utils"
 
 interface ArticleCardProps {

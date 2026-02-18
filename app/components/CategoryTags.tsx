@@ -3,7 +3,7 @@
 import { motion } from "framer-motion"
 import { categories } from "@/app/data/articles"
 import { cn } from "@/app/lib/utils"
-import { useSound } from "@/app/context/SoundContext"
+import { useSound } from "@/app/context/AppContext"
 
 export default function CategoryTags() {
   const { playSound } = useSound()
