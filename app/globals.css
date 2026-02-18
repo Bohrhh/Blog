@@ -16,18 +16,24 @@
 
 html {
   scroll-behavior: smooth;
+  overscroll-behavior: none;
+}
+
+html,
+body {
+  min-height: 100vh;
+  color: rgb(var(--foreground-rgb));
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
   background: linear-gradient(
     180deg,
     #a8d8f0 0%,
     #e8f4fc 30%,
     #ffffff 60%
-  );
-  min-height: 100vh;
-  transition: background 0.3s ease, color 0.3s ease;
+  ) !important;
+  background-attachment: fixed !important;
 }
 
 .dark body {
@@ -36,7 +42,8 @@ body {
     #0f172a 0%,
     #1e293b 50%,
     #0f172a 100%
-  );
+  ) !important;
+  background-attachment: fixed !important;
 }
 
 @layer utilities {
