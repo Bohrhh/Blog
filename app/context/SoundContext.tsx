@@ -12,13 +12,24 @@ interface SoundContextType {
 
 const SoundContext = createContext<SoundContextType | undefined>(undefined)
 
+const SOUND_KEY = "blog-sound-enabled"
+
 export function SoundProvider({ children }: { children: React.ReactNode }) {
   const [isSoundEnabled, setIsSoundEnabled] = useState(false)
+  const [mounted, setMounted] = useState(false)
   const audioContextRef = useRef<AudioContext | null>(null)
   const timeoutsRef = useRef<NodeJS.Timeout[]>([])
 
-  // 初始化 AudioContext（仅在客户端）
+  // 初始化 AudioContext 和读取 localStorage
   useEffect(() => {
+    // 读取音效状态
+    const stored = localStorage.getItem(SOUND_KEY)
+    if (stored === "true") {
+      setIsSoundEnabled(true)
+    }
+    setMounted(true)
+
+    // 初始化 AudioContext
     if (typeof window !== "undefined" && !audioContextRef.current) {
       audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)()
     }
@@ -106,6 +117,9 @@ export function SoundProvider({ children }: { children: React.ReactNode }) {
   const toggleSound = useCallback(() => {
     setIsSoundEnabled((prev) => {
       const newState = !prev
+
+      // 保存到 localStorage
+      localStorage.setItem(SOUND_KEY, newState.toString())
 
       const context = ensureAudioContext()
       if (!context || context.state === "closed") {
