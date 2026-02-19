@@ -21,8 +21,14 @@ interface AppContextType {
 const AppContext = createContext<AppContextType | undefined>(undefined)
 
 export function AppProvider({ children }: { children: React.ReactNode }) {
-  // Theme state
-  const [theme, setTheme] = useState<Theme>("light")
+  // Theme state - default to dark mode
+  const [theme, setTheme] = useState<Theme>(() => {
+    if (typeof window !== "undefined") {
+      const stored = localStorage.getItem(STORAGE_KEYS.THEME) as Theme | null
+      return stored || "dark"
+    }
+    return "dark"
+  })
 
   // Sound state
   const [isSoundEnabled, setIsSoundEnabled] = useState(false)
@@ -55,31 +61,17 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     }
   }, [])
 
-  // Theme initialization
+  // Theme initialization - apply theme class to document
   useEffect(() => {
-    const storedTheme = localStorage.getItem(STORAGE_KEYS.THEME) as Theme | null
-    const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches
-
-    if (storedTheme) {
-      setTheme(storedTheme)
-    } else if (systemPrefersDark) {
-      setTheme("dark")
-    }
-
-    // Set dark class on document
-    if (storedTheme === "dark" || (!storedTheme && systemPrefersDark)) {
-      document.documentElement.classList.add("dark")
-    }
-  }, [])
-
-  // Sync theme to document
-  useEffect(() => {
-    const root = document.documentElement
     if (theme === "dark") {
-      root.classList.add("dark")
+      document.documentElement.classList.add("dark")
     } else {
-      root.classList.remove("dark")
+      document.documentElement.classList.remove("dark")
     }
+  }, [theme])
+
+  // Save theme to localStorage when it changes
+  useEffect(() => {
     localStorage.setItem(STORAGE_KEYS.THEME, theme)
   }, [theme])
 
