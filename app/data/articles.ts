@@ -137,6 +137,18 @@ export function getAllArticleSlugs(): string[] {
   return articles.map(article => article.slug)
 }
 
+// 根据分类获取文章
+export function getArticlesByCategory(category: string): Article[] {
+  return articles.filter(
+    article => article.category.toLowerCase() === category.toLowerCase()
+  )
+}
+
+// 获取所有分类
+export function getAllCategories(): string[] {
+  return categories
+}
+
 export const categories = [
   "CSS",
   "React",
