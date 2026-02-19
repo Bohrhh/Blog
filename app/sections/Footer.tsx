@@ -1,10 +1,11 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Search, Volume2, VolumeX, Sun, Moon, Rss, Github, Linkedin } from "lucide-react"
+import { Search, Rss, Github, Linkedin } from "lucide-react"
 import { categories } from "@/app/data/articles"
-import { useSound, useTheme } from "@/app/context/AppContext"
 import { cn } from "@/app/lib/utils"
+import Logo from "@/app/components/Logo"
+import ToolButtons from "@/app/components/ToolButtons"
 
 const courses = [
   { name: "CSS for JS Developers", href: "https://css-for-js.dev" },
@@ -19,8 +20,6 @@ const generalLinks = [
 ]
 
 export default function Footer() {
-  const { isSoundEnabled, toggleSound } = useSound()
-  const { theme, toggleTheme } = useTheme()
   return (
     <footer className={cn(
       "border-t mt-16",
@@ -32,11 +31,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
           {/* Logo and tagline */}
           <div className="lg:col-span-1">
-            <a href="/" className="flex items-center gap-0.5 text-xl font-bold tracking-tight mb-4">
-              <span className="text-blue-500">KMLee</span>
-              <span className="text-amber-400">X</span>
-              <span className="text-blue-500">Blog</span>
-            </a>
+            <Logo className="mb-4" />
             <p className={cn(
               "text-sm leading-relaxed",
               "text-slate-600 dark:text-slate-400"
@@ -174,30 +169,9 @@ export default function Footer() {
               >
                 <Search className="w-4 h-4" />
               </button>
-              <button
-                onClick={toggleSound}
-                className={cn(
-                  "p-2 transition-colors duration-200 rounded-lg hover:bg-slate-100",
-                  "dark:hover:bg-slate-800",
-                  isSoundEnabled ? "text-magenta" : "text-slate-600 dark:text-slate-400"
-                )}
-                aria-label="Toggle sound"
-                aria-pressed={isSoundEnabled}
-              >
-                {isSoundEnabled ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
-              </button>
-              <button
-                onClick={toggleTheme}
-                className={cn(
-                  "p-2 transition-colors duration-200 rounded-lg hover:bg-slate-100",
-                  "dark:hover:bg-slate-800",
-                  theme === "dark" ? "text-magenta" : "text-slate-600 dark:text-slate-400"
-                )}
-                aria-label="Toggle theme"
-                aria-pressed={theme === "dark"}
-              >
-                {theme === "dark" ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />}
-              </button>
+
+              <ToolButtons iconSize="sm" className="gap-2" />
+
               <a
                 href="/rss"
                 className={cn(

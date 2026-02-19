@@ -2,6 +2,7 @@
 
 import Link from "next/link"
 import { ArrowLeft } from "lucide-react"
+import Logo from "@/app/components/Logo"
 
 interface ArticleNavbarProps {
   showBackButton?: boolean
@@ -23,11 +24,7 @@ export default function ArticleNavbar({ showBackButton = true }: ArticleNavbarPr
           <div />
         )}
 
-        <Link href="/" className="flex items-center gap-0.5 text-xl font-bold tracking-tight">
-          <span className="text-blue-500">KMLee</span>
-          <span className="text-amber-400">X</span>
-          <span className="text-blue-500">Blog</span>
-        </Link>
+        <Logo />
 
         <div className="w-20" />
       </div>

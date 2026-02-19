@@ -2,9 +2,10 @@
 
 import { useState } from "react"
 import { motion } from "framer-motion"
-import { Search, Volume2, VolumeX, Sun, Moon, Rss, Menu, X, ChevronDown } from "lucide-react"
+import { Search, Rss, Menu, X, ChevronDown } from "lucide-react"
 import { cn } from "@/app/lib/utils"
-import { useSound, useTheme } from "@/app/context/AppContext"
+import Logo from "@/app/components/Logo"
+import ToolButtons from "@/app/components/ToolButtons"
 
 const navItems = [
   { label: "Categories", hasDropdown: true },
@@ -15,8 +16,6 @@ const navItems = [
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const { isSoundEnabled, toggleSound } = useSound()
-  const { theme, toggleTheme } = useTheme()
 
   return (
     <motion.nav
@@ -27,11 +26,7 @@ export default function Navbar() {
     >
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6 h-full flex items-center justify-between">
         {/* Logo */}
-        <a href="/" className="flex items-center gap-0.5 text-xl font-bold tracking-tight">
-          <span className="text-blue-500">KMLee</span>
-          <span className="text-amber-400">X</span>
-          <span className="text-blue-500">Blog</span>
-        </a>
+        <Logo />
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center gap-1">
@@ -63,31 +58,7 @@ export default function Navbar() {
             <Search className="w-5 h-5" />
           </button>
 
-          <button
-            onClick={toggleSound}
-            className={cn(
-              "hidden sm:flex p-2 transition-colors duration-200 rounded-lg hover:bg-slate-100/50",
-              "dark:hover:bg-slate-800/50",
-              isSoundEnabled ? "text-magenta" : "text-slate-700 dark:text-slate-300"
-            )}
-            aria-label="Toggle sound"
-            aria-pressed={isSoundEnabled}
-          >
-            {isSoundEnabled ? <Volume2 className="w-5 h-5" /> : <VolumeX className="w-5 h-5" />}
-          </button>
-
-          <button
-            onClick={toggleTheme}
-            className={cn(
-              "hidden sm:flex p-2 transition-colors duration-200 rounded-lg hover:bg-slate-100/50",
-              "dark:hover:bg-slate-800/50",
-              theme === "dark" ? "text-magenta" : "text-slate-700 dark:text-slate-300"
-            )}
-            aria-label="Toggle theme"
-            aria-pressed={theme === "dark"}
-          >
-            {theme === "dark" ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
-          </button>
+          <ToolButtons />
 
           <a
             href="/rss"
