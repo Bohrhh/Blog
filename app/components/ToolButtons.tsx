@@ -1,5 +1,6 @@
 "use client"
 
+import { useState, useEffect } from "react"
 import { Volume2, VolumeX, Sun, Moon } from "lucide-react"
 import { useSound, useTheme } from "@/app/context/AppContext"
 import { cn } from "@/app/lib/utils"
@@ -17,8 +18,27 @@ export default function ToolButtons({
 }: ToolButtonsProps) {
   const { isSoundEnabled, toggleSound } = useSound()
   const { theme, toggleTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   const iconClass = iconSize === "sm" ? "w-4 h-4" : "w-5 h-5"
+
+  // Avoid hydration mismatch by not rendering until mounted
+  if (!mounted) {
+    return (
+      <div className={cn("flex items-center gap-1", className)}>
+        <div className={cn(showOnMobile ? "flex" : "hidden sm:flex", "p-2")}>
+          <VolumeX className={iconClass} />
+        </div>
+        <div className={cn(showOnMobile ? "flex" : "hidden sm:flex", "p-2")}>
+          <Moon className={iconClass} />
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className={cn("flex items-center gap-1", className)}>
