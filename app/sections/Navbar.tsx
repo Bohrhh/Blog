@@ -13,6 +13,7 @@ const navItems = [
   { label: "Categories", hasDropdown: true },
   { label: "Courses", hasDropdown: true },
   { label: "Goodies", hasDropdown: true },
+  { label: "About", href: "/about" },
 ]
 
 export default function Navbar() {
@@ -51,25 +52,37 @@ export default function Navbar() {
         <div className="hidden md:flex items-center gap-1" ref={dropdownRef}>
           {navItems.map((item) => (
             <div key={item.label} className="relative">
-              <button
-                onClick={() => item.hasDropdown && handleDropdownClick(item.label)}
-                className={cn(
-                  "px-3 py-2 text-sm font-medium text-slate-800 dark:text-slate-200 rounded-lg",
-                  "hover:text-magenta transition-colors duration-200",
-                  "flex items-center gap-1",
-                  item.hasDropdown && "cursor-pointer"
-                )}
-              >
-                {item.label}
-                {item.hasDropdown && (
-                  <ChevronDown
-                    className={cn(
-                      "w-4 h-4 transition-transform duration-200",
-                      openDropdown === item.label && "rotate-180"
-                    )}
-                  />
-                )}
-              </button>
+              {item.href ? (
+                <a
+                  href={item.href}
+                  className={cn(
+                    "px-3 py-2 text-sm font-medium text-slate-800 dark:text-slate-200 rounded-lg",
+                    "hover:text-magenta transition-colors duration-200"
+                  )}
+                >
+                  {item.label}
+                </a>
+              ) : (
+                <button
+                  onClick={() => item.hasDropdown && handleDropdownClick(item.label)}
+                  className={cn(
+                    "px-3 py-2 text-sm font-medium text-slate-800 dark:text-slate-200 rounded-lg",
+                    "hover:text-magenta transition-colors duration-200",
+                    "flex items-center gap-1",
+                    item.hasDropdown && "cursor-pointer"
+                  )}
+                >
+                  {item.label}
+                  {item.hasDropdown && (
+                    <ChevronDown
+                      className={cn(
+                        "w-4 h-4 transition-transform duration-200",
+                        openDropdown === item.label && "rotate-180"
+                      )}
+                    />
+                  )}
+                </button>
+              )}
 
               {/* Categories Dropdown */}
               {item.label === "Categories" && openDropdown === "Categories" && (
@@ -180,17 +193,6 @@ export default function Navbar() {
           ))}
         </div>
 
-        {/* About link */}
-        <a
-          href="/about"
-          className={cn(
-            "hidden md:block px-3 py-2 text-sm font-medium text-slate-800 dark:text-slate-200 rounded-lg",
-            "hover:text-magenta transition-colors duration-200"
-          )}
-        >
-          About
-        </a>
-
         {/* Right side tools */}
         <div className="flex items-center gap-1">
           <button
@@ -250,17 +252,31 @@ export default function Navbar() {
         >
           <div className="px-4 py-4 space-y-2">
             {navItems.map((item) => (
-              <button
-                key={item.label}
-                className={cn(
-                  "w-full px-4 py-3 text-left rounded-lg transition-colors duration-200 flex items-center justify-between",
-                  "text-slate-800 hover:text-magenta hover:bg-slate-50",
-                  "dark:text-slate-200 dark:hover:bg-slate-800"
-                )}
-              >
-                {item.label}
-                {item.hasDropdown && <ChevronDown className="w-4 h-4" />}
-              </button>
+              item.href ? (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  className={cn(
+                    "block px-4 py-3 rounded-lg transition-colors duration-200",
+                    "text-slate-800 hover:text-magenta hover:bg-slate-50",
+                    "dark:text-slate-200 dark:hover:bg-slate-800"
+                  )}
+                >
+                  {item.label}
+                </a>
+              ) : (
+                <button
+                  key={item.label}
+                  className={cn(
+                    "w-full px-4 py-3 text-left rounded-lg transition-colors duration-200 flex items-center justify-between",
+                    "text-slate-800 hover:text-magenta hover:bg-slate-50",
+                    "dark:text-slate-200 dark:hover:bg-slate-800"
+                  )}
+                >
+                  {item.label}
+                  {item.hasDropdown && <ChevronDown className="w-4 h-4" />}
+                </button>
+              )
             ))}
           </div>
         </motion.div>
