@@ -9,6 +9,19 @@ interface ArticleContentProps {
   content: string
 }
 
+// Helper function to generate ID from heading text
+function generateId(text: React.ReactNode): string {
+  if (typeof text !== "string") {
+    return ""
+  }
+  return text
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-")
+    .trim()
+}
+
 export default function ArticleContent({ content }: ArticleContentProps) {
   return (
     <motion.div
@@ -18,21 +31,30 @@ export default function ArticleContent({ content }: ArticleContentProps) {
     >
       <ReactMarkdown
         components={{
-          h1: ({ children }) => (
-            <h1 className="text-3xl font-bold text-slate-900 dark:text-white mt-8 mb-4">
-              {children}
-            </h1>
-          ),
-          h2: ({ children }) => (
-            <h2 className="text-2xl font-bold text-slate-800 dark:text-white mt-6 mb-3">
-              {children}
-            </h2>
-          ),
-          h3: ({ children }) => (
-            <h3 className="text-xl font-semibold text-slate-800 dark:text-white mt-4 mb-2">
-              {children}
-            </h3>
-          ),
+          h1: ({ children }) => {
+            const id = generateId(children as string)
+            return (
+              <h1 id={id} className="text-3xl font-bold text-slate-900 dark:text-white mt-8 mb-4 scroll-mt-24">
+                {children}
+              </h1>
+            )
+          },
+          h2: ({ children }) => {
+            const id = generateId(children as string)
+            return (
+              <h2 id={id} className="text-2xl font-bold text-slate-800 dark:text-white mt-6 mb-3 scroll-mt-24">
+                {children}
+              </h2>
+            )
+          },
+          h3: ({ children }) => {
+            const id = generateId(children as string)
+            return (
+              <h3 id={id} className="text-xl font-semibold text-slate-800 dark:text-white mt-4 mb-2 scroll-mt-24">
+                {children}
+              </h3>
+            )
+          },
           p: ({ children }) => (
             <p className="text-slate-700 dark:text-slate-300 leading-relaxed mb-4">
               {children}

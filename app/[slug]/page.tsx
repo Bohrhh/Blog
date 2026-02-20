@@ -4,6 +4,7 @@ import { notFound } from "next/navigation"
 import { Calendar, Clock, Tag } from "lucide-react"
 import ArticleNavbar from "@/app/components/ArticleNavbar"
 import ArticleContent from "@/app/components/ArticleContent"
+import TableOfContents from "@/app/components/TableOfContents"
 
 interface PageProps {
   params: Promise<{ slug: string }>
@@ -49,6 +50,7 @@ export default async function ArticlePage({ params }: PageProps) {
 
       {/* 文章内容 */}
       <article className="pt-24 pb-16 px-4 sm:px-6">
+        {/* 文章主体 - 始终居中显示 */}
         <div className="max-w-3xl mx-auto">
           {/* 文章头部信息 */}
           <header className="mb-8">
@@ -84,6 +86,11 @@ export default async function ArticlePage({ params }: PageProps) {
           {/* 文章正文 */}
           <ArticleContent content={content} />
         </div>
+
+        {/* Table of Contents - 固定在内容右侧 */}
+        <aside className="hidden xl:block fixed xl:right-8 2xl:right-[calc(50%-640px)] top-24">
+          <TableOfContents content={content} />
+        </aside>
       </article>
     </main>
   )

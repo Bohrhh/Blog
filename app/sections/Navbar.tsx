@@ -6,6 +6,7 @@ import { Search, Rss, Menu, X, ChevronDown } from "lucide-react"
 import { cn } from "@/app/lib/utils"
 import Logo from "@/app/components/Logo"
 import ToolButtons from "@/app/components/ToolButtons"
+import SearchModal from "@/app/components/SearchModal"
 import { categories } from "@/app/data/articles"
 
 const navItems = [
@@ -18,6 +19,7 @@ const navItems = [
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [openDropdown, setOpenDropdown] = useState<string | null>(null)
+  const [searchOpen, setSearchOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
 
   // Close dropdown when clicking outside
@@ -224,9 +226,12 @@ export default function Navbar() {
               "text-slate-700 dark:text-slate-300"
             )}
             aria-label="Search"
+            onClick={() => setSearchOpen(true)}
           >
             <Search className="w-5 h-5" />
           </button>
+
+          <SearchModal isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
 
           <ToolButtons />
 

@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import "./globals.css"
 import { AppProvider } from "@/app/context/AppContext"
+import BackToTop from "@/app/components/BackToTop"
 
 export const metadata: Metadata = {
   title: "KMLeeX Blog - Articles and Tutorials",
@@ -36,6 +37,7 @@ export default function RootLayout({
       <body className="antialiased transition-colors duration-300">
         <AppProvider>
           {children}
+          <BackToTop />
         </AppProvider>
       </body>
     </html>

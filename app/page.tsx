@@ -1,5 +1,6 @@
 "use client"
 
+import { Suspense } from "react"
 import { motion } from "framer-motion"
 import Navbar from "@/app/sections/Navbar"
 import Hero from "@/app/sections/Hero"
@@ -23,7 +24,9 @@ export default function Home() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
           {/* Articles - takes up 2 columns on large screens */}
           <div className="lg:col-span-2">
-            <ArticleList />
+            <Suspense fallback={null}>
+              <ArticleList />
+            </Suspense>
           </div>
 
           {/* Sidebar - takes up 1 column on large screens */}

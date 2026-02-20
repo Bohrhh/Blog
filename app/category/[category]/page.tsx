@@ -1,3 +1,4 @@
+import { Suspense } from "react"
 import { notFound } from "next/navigation"
 import { getArticlesByCategory, getAllCategories } from "@/app/data/articles"
 import ArticleNavbar from "@/app/components/ArticleNavbar"
@@ -69,7 +70,9 @@ export default async function CategoryPage({ params }: PageProps) {
           </header>
 
           {/* 文章列表 */}
-          <ArticleList articles={articles} />
+          <Suspense fallback={null}>
+            <ArticleList articles={articles} basePath={`/category/${category}`} />
+          </Suspense>
         </div>
       </div>
     </main>
