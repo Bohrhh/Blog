@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Search, X, FileText } from "lucide-react"
 import { articles, Article } from "@/app/data/articles"
+import { articleContent } from "@/app/data/articles/content"
 import Link from "next/link"
 
 interface SearchModalProps {
@@ -23,7 +24,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
     }
   }, [isOpen])
 
-  // Search through articles
+  // Search through articles (title, subtitle, description, category, and body content)
   useEffect(() => {
     if (!query.trim()) {
       setResults([])
@@ -32,12 +33,22 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
 
     const searchTerm = query.toLowerCase()
     const filtered = articles.filter((article) => {
-      return (
+      // Check title, subtitle, description, and category
+      const basicMatch =
         article.title.toLowerCase().includes(searchTerm) ||
         (article.subtitle && article.subtitle.toLowerCase().includes(searchTerm)) ||
         article.description.toLowerCase().includes(searchTerm) ||
         article.category.toLowerCase().includes(searchTerm)
-      )
+
+      if (basicMatch) return true
+
+      // Check article body content
+      const content = articleContent[article.slug]
+      if (content) {
+        return content.toLowerCase().includes(searchTerm)
+      }
+
+      return false
     })
     setResults(filtered)
   }, [query])
