@@ -14,9 +14,7 @@ const courses = [
 ]
 
 const generalLinks = [
-  { name: "About Josh", href: "/about" },
-  { name: "About This Blog", href: "/about-blog" },
-  { name: "Contact", href: "/contact" },
+  { name: "About", href: "/about" },
 ]
 
 export default function Footer() {

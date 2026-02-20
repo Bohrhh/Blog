@@ -11,11 +11,6 @@ export const ROUTES = {
   HOME: "/",
   RSS: "/rss",
   ABOUT: "/about",
-  ABOUT_BLOG: "/about-blog",
-  CONTACT: "/contact",
-  TERMS: "/terms",
-  PRIVACY: "/privacy",
-  CODE_OF_CONDUCT: "/code-of-conduct",
 } as const
 
 // 动画配置

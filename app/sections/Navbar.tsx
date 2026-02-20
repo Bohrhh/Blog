@@ -13,7 +13,6 @@ const navItems = [
   { label: "Categories", hasDropdown: true },
   { label: "Courses", hasDropdown: true },
   { label: "Goodies", hasDropdown: true },
-  { label: "About", hasDropdown: true },
 ]
 
 export default function Navbar() {
@@ -100,42 +99,6 @@ export default function Navbar() {
                 </motion.div>
               )}
 
-              {/* About Dropdown */}
-              {item.label === "About" && openDropdown === "About" && (
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className={cn(
-                    "absolute top-full left-0 mt-2 py-2 min-w-[180px] rounded-lg shadow-lg",
-                    "bg-white dark:bg-slate-800",
-                    "border border-slate-200 dark:border-slate-700"
-                  )}
-                >
-                  <a
-                    href="/about"
-                    onClick={() => setOpenDropdown(null)}
-                    className={cn(
-                      "block px-4 py-2 text-sm text-slate-700 dark:text-slate-300",
-                      "hover:bg-slate-100 dark:hover:bg-slate-700",
-                      "hover:text-magenta transition-colors duration-150"
-                    )}
-                  >
-                    About Me
-                  </a>
-                  <a
-                    href="/about-blog"
-                    onClick={() => setOpenDropdown(null)}
-                    className={cn(
-                      "block px-4 py-2 text-sm text-slate-700 dark:text-slate-300",
-                      "hover:bg-slate-100 dark:hover:bg-slate-700",
-                      "hover:text-magenta transition-colors duration-150"
-                    )}
-                  >
-                    About Blog
-                  </a>
-                </motion.div>
-              )}
-
               {/* Courses Dropdown */}
               {item.label === "Courses" && openDropdown === "Courses" && (
                 <motion.div
@@ -216,6 +179,17 @@ export default function Navbar() {
             </div>
           ))}
         </div>
+
+        {/* About link */}
+        <a
+          href="/about"
+          className={cn(
+            "hidden md:block px-3 py-2 text-sm font-medium text-slate-800 dark:text-slate-200 rounded-lg",
+            "hover:text-magenta transition-colors duration-200"
+          )}
+        >
+          About
+        </a>
 
         {/* Right side tools */}
         <div className="flex items-center gap-1">
