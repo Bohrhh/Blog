@@ -2,6 +2,8 @@
 
 A personal blog built with Next.js 14, featuring articles about CSS, React, Animation, and Web Development.
 
+## ![blog](./public/images/blog.png)
+
 ## Features
 
 - **Search** - Real-time search across article titles, descriptions, and content
