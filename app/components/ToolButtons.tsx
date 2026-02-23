@@ -47,8 +47,8 @@ export default function ToolButtons({
         className={cn(
           showOnMobile ? "flex" : "hidden sm:flex",
           "p-2 transition-colors duration-200 rounded-lg hover:bg-slate-100/50",
-          "dark:hover:bg-slate-800/50",
-          isSoundEnabled ? "text-magenta" : "text-slate-700 dark:text-slate-300"
+          "dark:hover:bg-dark-surfaceHover/50",
+          isSoundEnabled ? "text-magenta" : "text-slate-700 dark:text-dark-text"
         )}
         aria-label="Toggle sound"
         aria-pressed={isSoundEnabled}
@@ -61,8 +61,8 @@ export default function ToolButtons({
         className={cn(
           showOnMobile ? "flex" : "hidden sm:flex",
           "p-2 transition-colors duration-200 rounded-lg hover:bg-slate-100/50",
-          "dark:hover:bg-slate-800/50",
-          theme === "dark" ? "text-magenta" : "text-slate-700 dark:text-slate-300"
+          "dark:hover:bg-dark-surfaceHover/50",
+          theme === "dark" ? "text-magenta" : "text-slate-700 dark:text-dark-text"
         )}
         aria-label="Toggle theme"
         aria-pressed={theme === "dark"}

@@ -34,7 +34,7 @@ export default function ArticleContent({ content }: ArticleContentProps) {
           h1: ({ children }) => {
             const id = generateId(children as string)
             return (
-              <h1 id={id} className="text-3xl font-bold text-slate-900 dark:text-white mt-8 mb-4 scroll-mt-24">
+              <h1 id={id} className="text-3xl font-bold text-slate-900 dark:text-dark-text mt-8 mb-4 scroll-mt-24">
                 {children}
               </h1>
             )
@@ -42,7 +42,7 @@ export default function ArticleContent({ content }: ArticleContentProps) {
           h2: ({ children }) => {
             const id = generateId(children as string)
             return (
-              <h2 id={id} className="text-2xl font-bold text-slate-800 dark:text-white mt-6 mb-3 scroll-mt-24">
+              <h2 id={id} className="text-2xl font-bold text-slate-800 dark:text-dark-text mt-6 mb-3 scroll-mt-24">
                 {children}
               </h2>
             )
@@ -50,13 +50,13 @@ export default function ArticleContent({ content }: ArticleContentProps) {
           h3: ({ children }) => {
             const id = generateId(children as string)
             return (
-              <h3 id={id} className="text-xl font-semibold text-slate-800 dark:text-white mt-4 mb-2 scroll-mt-24">
+              <h3 id={id} className="text-xl font-semibold text-slate-800 dark:text-dark-text mt-4 mb-2 scroll-mt-24">
                 {children}
               </h3>
             )
           },
           p: ({ children }) => (
-            <p className="text-slate-700 dark:text-slate-300 leading-relaxed mb-4">
+            <p className="text-slate-700 dark:text-dark-text leading-relaxed mb-4">
               {children}
             </p>
           ),
@@ -66,7 +66,7 @@ export default function ArticleContent({ content }: ArticleContentProps) {
             </ul>
           ),
           li: ({ children }) => (
-            <li className="text-slate-700 dark:text-slate-300 ml-4">
+            <li className="text-slate-700 dark:text-dark-text ml-4">
               {children}
             </li>
           ),
@@ -77,7 +77,7 @@ export default function ArticleContent({ content }: ArticleContentProps) {
             if (isInline) {
               return (
                 <code
-                  className="px-1.5 py-0.5 bg-slate-100 dark:bg-slate-800 rounded text-magenta text-sm font-mono"
+                  className="px-1.5 py-0.5 bg-slate-100 dark:bg-dark-surfaceHover rounded text-magenta text-sm font-mono"
                   {...props}
                 >
                   {children}

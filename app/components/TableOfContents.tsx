@@ -92,7 +92,7 @@ export default function TableOfContents({ content }: TableOfContentsProps) {
       transition={{ duration: 0.3, delay: 0.1 }}
       className="hidden xl:block sticky top-24 max-h-[calc(100vh-8rem)] overflow-y-auto"
     >
-      <h4 className="text-xs font-semibold uppercase tracking-widest text-slate-500 dark:text-slate-400 mb-4">
+      <h4 className="text-xs font-semibold uppercase tracking-widest text-slate-500 dark:text-dark-textMuted mb-4">
         On This Page
       </h4>
       <ul className="space-y-2">
@@ -105,7 +105,7 @@ export default function TableOfContents({ content }: TableOfContentsProps) {
                 heading.level === 3 && "pl-3",
                 activeId === heading.id
                   ? "text-magenta font-medium"
-                  : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200"
+                  : "text-slate-600 dark:text-dark-textMuted hover:text-slate-900 dark:hover:text-dark-text"
               )}
             >
               {heading.text}

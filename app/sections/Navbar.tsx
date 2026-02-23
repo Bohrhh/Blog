@@ -42,7 +42,7 @@ export default function Navbar() {
       initial={{ y: -20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.4, ease: "easeOut" }}
-      className="fixed top-0 left-0 right-0 z-50 h-16 bg-slate-50/80 dark:bg-slate-900/80 backdrop-blur-lg backdrop-saturate-150 border-b border-slate-200/50 dark:border-slate-700/50"
+      className="fixed top-0 left-0 right-0 z-50 h-16 bg-slate-50/80 dark:bg-dark-surface/80 backdrop-blur-lg backdrop-saturate-150 border-b border-slate-200/50 dark:border-dark-border/50"
     >
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6 h-full flex items-center justify-between">
         {/* Logo */}
@@ -56,7 +56,7 @@ export default function Navbar() {
                 <a
                   href={item.href}
                   className={cn(
-                    "px-3 py-2 text-sm font-medium text-slate-800 dark:text-slate-200 rounded-lg",
+                    "px-3 py-2 text-sm font-medium text-slate-800 dark:text-dark-text rounded-lg",
                     "hover:text-magenta transition-colors duration-200"
                   )}
                 >
@@ -66,7 +66,7 @@ export default function Navbar() {
                 <button
                   onClick={() => item.hasDropdown && handleDropdownClick(item.label)}
                   className={cn(
-                    "px-3 py-2 text-sm font-medium text-slate-800 dark:text-slate-200 rounded-lg",
+                    "px-3 py-2 text-sm font-medium text-slate-800 dark:text-dark-text rounded-lg",
                     "hover:text-magenta transition-colors duration-200",
                     "flex items-center gap-1",
                     item.hasDropdown && "cursor-pointer"
@@ -91,8 +91,8 @@ export default function Navbar() {
                   animate={{ opacity: 1, y: 0 }}
                   className={cn(
                     "absolute top-full left-0 mt-2 py-2 min-w-[180px] rounded-lg shadow-lg",
-                    "bg-white dark:bg-slate-800",
-                    "border border-slate-200 dark:border-slate-700"
+                    "bg-white dark:bg-dark-surfaceHover",
+                    "border border-slate-200 dark:border-dark-border"
                   )}
                 >
                   {categories.map((category) => (
@@ -101,8 +101,8 @@ export default function Navbar() {
                       href={`/category/${category.toLowerCase()}`}
                       onClick={() => setOpenDropdown(null)}
                       className={cn(
-                        "block px-4 py-2 text-sm text-slate-700 dark:text-slate-300",
-                        "hover:bg-slate-100 dark:hover:bg-slate-700",
+                        "block px-4 py-2 text-sm text-slate-700 dark:text-dark-text",
+                        "hover:bg-slate-100 dark:hover:bg-dark-surfaceHover",
                         "hover:text-magenta transition-colors duration-150"
                       )}
                     >
@@ -119,8 +119,8 @@ export default function Navbar() {
                   animate={{ opacity: 1, y: 0 }}
                   className={cn(
                     "absolute top-full left-0 mt-2 py-2 min-w-[200px] rounded-lg shadow-lg",
-                    "bg-white dark:bg-slate-800",
-                    "border border-slate-200 dark:border-slate-700"
+                    "bg-white dark:bg-dark-surfaceHover",
+                    "border border-slate-200 dark:border-dark-border"
                   )}
                 >
                   <a
@@ -129,8 +129,8 @@ export default function Navbar() {
                     rel="noopener noreferrer"
                     onClick={() => setOpenDropdown(null)}
                     className={cn(
-                      "block px-4 py-2 text-sm text-slate-700 dark:text-slate-300",
-                      "hover:bg-slate-100 dark:hover:bg-slate-700",
+                      "block px-4 py-2 text-sm text-slate-700 dark:text-dark-text",
+                      "hover:bg-slate-100 dark:hover:bg-dark-surfaceHover",
                       "hover:text-magenta transition-colors duration-150"
                     )}
                   >
@@ -142,8 +142,8 @@ export default function Navbar() {
                     rel="noopener noreferrer"
                     onClick={() => setOpenDropdown(null)}
                     className={cn(
-                      "block px-4 py-2 text-sm text-slate-700 dark:text-slate-300",
-                      "hover:bg-slate-100 dark:hover:bg-slate-700",
+                      "block px-4 py-2 text-sm text-slate-700 dark:text-dark-text",
+                      "hover:bg-slate-100 dark:hover:bg-dark-surfaceHover",
                       "hover:text-magenta transition-colors duration-150"
                     )}
                   >
@@ -155,8 +155,8 @@ export default function Navbar() {
                     rel="noopener noreferrer"
                     onClick={() => setOpenDropdown(null)}
                     className={cn(
-                      "block px-4 py-2 text-sm text-slate-700 dark:text-slate-300",
-                      "hover:bg-slate-100 dark:hover:bg-slate-700",
+                      "block px-4 py-2 text-sm text-slate-700 dark:text-dark-text",
+                      "hover:bg-slate-100 dark:hover:bg-dark-surfaceHover",
                       "hover:text-magenta transition-colors duration-150"
                     )}
                   >
@@ -172,16 +172,16 @@ export default function Navbar() {
                   animate={{ opacity: 1, y: 0 }}
                   className={cn(
                     "absolute top-full left-0 mt-2 py-2 min-w-[180px] rounded-lg shadow-lg",
-                    "bg-white dark:bg-slate-800",
-                    "border border-slate-200 dark:border-slate-700"
+                    "bg-white dark:bg-dark-surfaceHover",
+                    "border border-slate-200 dark:border-dark-border"
                   )}
                 >
                   <a
                     href="/goodies"
                     onClick={() => setOpenDropdown(null)}
                     className={cn(
-                      "block px-4 py-2 text-sm text-slate-700 dark:text-slate-300",
-                      "hover:bg-slate-100 dark:hover:bg-slate-700",
+                      "block px-4 py-2 text-sm text-slate-700 dark:text-dark-text",
+                      "hover:bg-slate-100 dark:hover:bg-dark-surfaceHover",
                       "hover:text-magenta transition-colors duration-150"
                     )}
                   >
@@ -198,8 +198,8 @@ export default function Navbar() {
           <button
             className={cn(
               "p-2 hover:text-magenta transition-colors duration-200 rounded-lg hover:bg-slate-100/50",
-              "dark:hover:bg-slate-800/50",
-              "text-slate-700 dark:text-slate-300"
+              "dark:hover:bg-dark-surfaceHover/50",
+              "text-slate-700 dark:text-dark-text"
             )}
             aria-label="Search"
             onClick={() => setSearchOpen(true)}
@@ -215,8 +215,8 @@ export default function Navbar() {
             href="/rss"
             className={cn(
               "hidden sm:flex p-2 hover:text-magenta transition-colors duration-200 rounded-lg hover:bg-slate-100/50",
-              "dark:hover:bg-slate-800/50",
-              "text-slate-700 dark:text-slate-300"
+              "dark:hover:bg-dark-surfaceHover/50",
+              "text-slate-700 dark:text-dark-text"
             )}
             aria-label="RSS Feed"
           >
@@ -227,8 +227,8 @@ export default function Navbar() {
           <button
             className={cn(
               "md:hidden p-2 hover:text-magenta transition-colors duration-200 rounded-lg hover:bg-slate-100/50",
-              "dark:hover:bg-slate-800/50",
-              "text-slate-700 dark:text-slate-300"
+              "dark:hover:bg-dark-surfaceHover/50",
+              "text-slate-700 dark:text-dark-text"
             )}
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle menu"
@@ -246,8 +246,8 @@ export default function Navbar() {
           exit={{ opacity: 0, y: -10 }}
           className={cn(
             "md:hidden absolute top-16 left-0 right-0 backdrop-blur-sm border-b shadow-lg",
-            "bg-white/95 dark:bg-slate-900/95",
-            "border-slate-200 dark:border-slate-700"
+            "bg-white/95 dark:bg-dark-surface/95",
+            "border-slate-200 dark:border-dark-border"
           )}
         >
           <div className="px-4 py-4 space-y-2">
@@ -259,7 +259,7 @@ export default function Navbar() {
                   className={cn(
                     "block px-4 py-3 rounded-lg transition-colors duration-200",
                     "text-slate-800 hover:text-magenta hover:bg-slate-50",
-                    "dark:text-slate-200 dark:hover:bg-slate-800"
+                    "dark:text-dark-text dark:hover:bg-dark-surfaceHover"
                   )}
                 >
                   {item.label}
@@ -270,7 +270,7 @@ export default function Navbar() {
                   className={cn(
                     "w-full px-4 py-3 text-left rounded-lg transition-colors duration-200 flex items-center justify-between",
                     "text-slate-800 hover:text-magenta hover:bg-slate-50",
-                    "dark:text-slate-200 dark:hover:bg-slate-800"
+                    "dark:text-dark-text dark:hover:bg-dark-surfaceHover"
                   )}
                 >
                   {item.label}

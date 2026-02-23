@@ -22,7 +22,7 @@ export default function Footer() {
     <footer className={cn(
       "border-t mt-16",
       "bg-slate-50 border-slate-200",
-      "dark:bg-slate-900 dark:border-slate-800"
+      "dark:bg-dark-surface dark:border-dark-border"
     )}>
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6 py-12">
         {/* Top section */}
@@ -32,7 +32,7 @@ export default function Footer() {
             <Logo className="mb-4" />
             <p className={cn(
               "text-sm leading-relaxed",
-              "text-slate-600 dark:text-slate-400"
+              "text-slate-600 dark:text-dark-textMuted"
             )}>
               Keep your ideals high. The sky belongs to no one. ✨
             </p>
@@ -42,13 +42,13 @@ export default function Footer() {
           <div className="lg:col-span-1">
             <h4 className={cn(
               "text-sm font-semibold mb-3",
-              "text-slate-900 dark:text-slate-100"
+              "text-slate-900 dark:text-dark-text"
             )}>
               Want to know when I publish new content?
             </h4>
             <p className={cn(
               "text-sm mb-4",
-              "text-slate-600 dark:text-slate-400"
+              "text-slate-600 dark:text-dark-textMuted"
             )}>
               Enter your email to join my free newsletter:
             </p>
@@ -59,7 +59,7 @@ export default function Footer() {
                 className={cn(
                   "flex-1 px-3 py-2 text-sm border rounded-lg",
                   "border-slate-300 bg-white focus:ring-blue-500",
-                  "dark:border-slate-600 dark:bg-slate-800 dark:text-slate-200",
+                  "dark:border-dark-border dark:bg-dark-surfaceHover dark:text-dark-text",
                   "focus:outline-none focus:ring-2 focus:border-transparent"
                 )}
               />
@@ -67,7 +67,7 @@ export default function Footer() {
                 type="submit"
                 className="px-4 py-2 text-sm font-medium text-white bg-slate-900
                          rounded-lg hover:bg-slate-800 transition-colors duration-200
-                         dark:bg-slate-700 dark:hover:bg-slate-600"
+                         dark:bg-dark-surfaceHover dark:hover:bg-slate-600"
               >
                 Submit
               </button>
@@ -87,7 +87,7 @@ export default function Footer() {
                     className={cn(
                       "text-sm transition-colors duration-200",
                       "text-slate-600 hover:text-magenta",
-                      "dark:text-slate-400 dark:hover:text-magenta"
+                      "dark:text-dark-textMuted dark:hover:text-magenta"
                     )}
                   >
                     {category}
@@ -113,7 +113,7 @@ export default function Footer() {
                       className={cn(
                         "text-sm transition-colors duration-200",
                         "text-slate-600 hover:text-magenta",
-                        "dark:text-slate-400 dark:hover:text-magenta"
+                        "dark:text-dark-textMuted dark:hover:text-magenta"
                       )}
                     >
                       {course.name}
@@ -135,7 +135,7 @@ export default function Footer() {
                       className={cn(
                         "text-sm transition-colors duration-200",
                         "text-slate-600 hover:text-magenta",
-                        "dark:text-slate-400 dark:hover:text-magenta"
+                        "dark:text-dark-textMuted dark:hover:text-magenta"
                       )}
                     >
                       {link.name}
@@ -151,7 +151,7 @@ export default function Footer() {
         <div className={cn(
           "pt-8 border-t",
           "border-slate-200",
-          "dark:border-slate-800"
+          "dark:border-dark-border"
         )}>
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             {/* Tools */}
@@ -159,9 +159,9 @@ export default function Footer() {
               <button
                 className={cn(
                   "p-2 transition-colors duration-200 rounded-lg hover:bg-slate-100",
-                  "dark:hover:bg-slate-800",
+                  "dark:hover:bg-dark-surfaceHover",
                   "text-slate-600 hover:text-magenta",
-                  "dark:text-slate-400"
+                  "dark:text-dark-textMuted"
                 )}
                 aria-label="Search"
               >
@@ -174,9 +174,9 @@ export default function Footer() {
                 href="/rss"
                 className={cn(
                   "p-2 transition-colors duration-200 rounded-lg hover:bg-slate-100",
-                  "dark:hover:bg-slate-800",
+                  "dark:hover:bg-dark-surfaceHover",
                   "text-slate-600 hover:text-magenta",
-                  "dark:text-slate-400"
+                  "dark:text-dark-textMuted"
                 )}
                 aria-label="RSS Feed"
               >
@@ -192,9 +192,9 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 className={cn(
                   "p-2 transition-colors duration-200 rounded-lg hover:scale-110 transition-transform",
-                  "hover:bg-slate-100 dark:hover:bg-slate-800",
+                  "hover:bg-slate-100 dark:hover:bg-dark-surfaceHover",
                   "text-slate-600 hover:text-magenta",
-                  "dark:text-slate-400"
+                  "dark:text-dark-textMuted"
                 )}
                 aria-label="BlueSky"
               >
@@ -208,9 +208,9 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 className={cn(
                   "p-2 transition-colors duration-200 rounded-lg hover:scale-110 transition-transform",
-                  "hover:bg-slate-100 dark:hover:bg-slate-800",
+                  "hover:bg-slate-100 dark:hover:bg-dark-surfaceHover",
                   "text-slate-600 hover:text-magenta",
-                  "dark:text-slate-400"
+                  "dark:text-dark-textMuted"
                 )}
                 aria-label="GitHub"
               >
@@ -222,9 +222,9 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 className={cn(
                   "p-2 transition-colors duration-200 rounded-lg hover:scale-110 transition-transform",
-                  "hover:bg-slate-100 dark:hover:bg-slate-800",
+                  "hover:bg-slate-100 dark:hover:bg-dark-surfaceHover",
                   "text-slate-600 hover:text-magenta",
-                  "dark:text-slate-400"
+                  "dark:text-dark-textMuted"
                 )}
                 aria-label="LinkedIn"
               >
@@ -237,7 +237,7 @@ export default function Footer() {
           <div className={cn(
             "mt-6 pt-6 border-t text-center sm:text-left",
             "border-slate-200",
-            "dark:border-slate-800"
+            "dark:border-dark-border"
           )}>
             <p className="text-slate-500 dark:text-slate-500 text-sm">
               © 2018-present Joshua Comeau. All Rights Reserved.

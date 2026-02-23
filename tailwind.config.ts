@@ -18,6 +18,15 @@ const config: Config = {
           light: "#a8d8f0",
           DEFAULT: "#7dd3fc",
         },
+        // Dark mode colors
+        dark: {
+          bg: "#1d1d1d",
+          surface: "#262626",
+          surfaceHover: "#2d2d2d",
+          border: "#3d3d3d",
+          text: "#e0e0e0",
+          textMuted: "#a0a0a0",
+        },
       },
       fontFamily: {
         sans: ["system-ui", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "sans-serif"],

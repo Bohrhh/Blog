@@ -61,10 +61,10 @@ export default async function CategoryPage({ params }: PageProps) {
         <div className="max-w-[1200px] mx-auto">
           {/* 分类标题 */}
           <header className="mb-8">
-            <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-3">
+            <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-dark-text mb-3">
               {categoryName}
             </h1>
-            <p className="text-slate-600 dark:text-slate-400">
+            <p className="text-slate-600 dark:text-dark-textMuted">
               {articles.length} {articles.length === 1 ? "article" : "articles"}
             </p>
           </header>

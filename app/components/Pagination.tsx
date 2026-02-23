@@ -77,8 +77,8 @@ export default function Pagination({
         className={cn(
           "flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-medium transition-colors",
           currentPage > 1
-            ? "text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-magenta"
-            : "text-slate-300 dark:text-slate-600 cursor-not-allowed"
+            ? "text-slate-700 dark:text-dark-text hover:bg-slate-100 dark:hover:bg-dark-surfaceHover hover:text-magenta"
+            : "text-slate-300 dark:text-dark-textMuted cursor-not-allowed"
         )}
         aria-disabled={currentPage <= 1}
       >
@@ -91,7 +91,7 @@ export default function Pagination({
         {getPageNumbers().map((page, index) => (
           <span key={index}>
             {typeof page === "string" ? (
-              <span className="px-3 py-2 text-slate-400 dark:text-slate-500">
+              <span className="px-3 py-2 text-slate-400 dark:text-dark-textMuted">
                 {page}
               </span>
             ) : (
@@ -101,7 +101,7 @@ export default function Pagination({
                   "w-10 h-10 flex items-center justify-center rounded-lg text-sm font-medium transition-colors",
                   page === currentPage
                     ? "bg-magenta text-white"
-                    : "text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-magenta"
+                    : "text-slate-700 dark:text-dark-text hover:bg-slate-100 dark:hover:bg-dark-surfaceHover hover:text-magenta"
                 )}
                 aria-current={page === currentPage ? "page" : undefined}
               >
@@ -119,8 +119,8 @@ export default function Pagination({
         className={cn(
           "flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-medium transition-colors",
           currentPage < totalPages
-            ? "text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-magenta"
-            : "text-slate-300 dark:text-slate-600 cursor-not-allowed"
+            ? "text-slate-700 dark:text-dark-text hover:bg-slate-100 dark:hover:bg-dark-surfaceHover hover:text-magenta"
+            : "text-slate-300 dark:text-dark-textMuted cursor-not-allowed"
         )}
         aria-disabled={currentPage >= totalPages}
       >

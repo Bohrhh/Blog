@@ -27,7 +27,7 @@ function ArticleCardComponent({ article, index }: ArticleCardProps) {
       }}
       className={cn(
         "group py-6 border-b last:border-b-0",
-        "border-slate-200 dark:border-slate-700"
+        "border-slate-200 dark:border-dark-border"
       )}
     >
       <a
@@ -38,7 +38,7 @@ function ArticleCardComponent({ article, index }: ArticleCardProps) {
         <h3 className={cn(
           "text-xl sm:text-2xl font-bold mb-2 transition-colors duration-200",
           "text-slate-900 group-hover:text-magenta",
-          "dark:text-white dark:group-hover:text-magenta"
+          "dark:text-dark-text dark:group-hover:text-magenta"
         )}>
           {article.title}
         </h3>
@@ -47,7 +47,7 @@ function ArticleCardComponent({ article, index }: ArticleCardProps) {
           <p className={cn(
             "text-base sm:text-lg font-medium mb-3",
             "text-slate-600",
-            "dark:text-slate-300"
+            "dark:text-dark-text"
           )}>
             {article.subtitle}
           </p>
@@ -56,7 +56,7 @@ function ArticleCardComponent({ article, index }: ArticleCardProps) {
         <p className={cn(
           "leading-relaxed mb-4",
           "text-slate-600",
-          "dark:text-slate-300"
+          "dark:text-dark-text"
         )}>
           {article.description}
         </p>
@@ -64,7 +64,7 @@ function ArticleCardComponent({ article, index }: ArticleCardProps) {
         <span className={cn(
           "inline-flex items-center gap-2 text-sm font-semibold transition-colors duration-200",
           "text-slate-900 group-hover:text-magenta",
-          "dark:text-white dark:group-hover:text-magenta"
+          "dark:text-dark-text dark:group-hover:text-magenta"
         )}>
           Read more
           <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />

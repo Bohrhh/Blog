@@ -30,7 +30,7 @@ export default function PopularContent() {
               className={cn(
                 "group flex items-start gap-2 transition-colors duration-200",
                 "text-slate-800 hover:text-magenta",
-                "dark:text-white dark:hover:text-magenta"
+                "dark:text-dark-text dark:hover:text-magenta"
               )}
             >
               <ArrowRight className="w-4 h-4 mt-1 flex-shrink-0 group-hover:translate-x-1 transition-transform duration-200" />

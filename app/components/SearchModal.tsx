@@ -101,9 +101,9 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
             transition={{ duration: 0.2 }}
             className="fixed top-[20%] left-1/2 -translate-x-1/2 w-full max-w-xl px-4 z-[70]"
           >
-            <div className="bg-white dark:bg-slate-900 rounded-xl shadow-2xl border border-slate-200 dark:border-slate-700 overflow-hidden">
+            <div className="bg-white dark:bg-dark-surface rounded-xl shadow-2xl border border-slate-200 dark:border-dark-border overflow-hidden">
               {/* Search Input */}
-              <div className="flex items-center px-4 border-b border-slate-200 dark:border-slate-700">
+              <div className="flex items-center px-4 border-b border-slate-200 dark:border-dark-border">
                 <Search className="w-5 h-5 text-slate-400" />
                 <input
                   ref={inputRef}
@@ -111,7 +111,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder="Search articles..."
-                  className="flex-1 px-3 py-4 bg-transparent text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none"
+                  className="flex-1 px-3 py-4 bg-transparent text-slate-900 dark:text-dark-text placeholder-slate-400 focus:outline-none"
                 />
                 <button
                   onClick={handleClose}
@@ -129,15 +129,15 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                       key={article.id}
                       href={`/${article.slug}`}
                       onClick={handleClose}
-                      className="flex items-start gap-3 px-4 py-3 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors border-b border-slate-100 dark:border-slate-800 last:border-0"
+                      className="flex items-start gap-3 px-4 py-3 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors border-b border-slate-100 dark:border-dark-border last:border-0"
                     >
                       <FileText className="w-5 h-5 text-magenta mt-0.5 flex-shrink-0" />
                       <div>
-                        <h4 className="text-sm font-medium text-slate-900 dark:text-white line-clamp-1">
+                        <h4 className="text-sm font-medium text-slate-900 dark:text-dark-text line-clamp-1">
                           {article.title}
                         </h4>
                         {article.subtitle && (
-                          <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-1">
+                          <p className="text-xs text-slate-500 dark:text-dark-textMuted line-clamp-1">
                             {article.subtitle}
                           </p>
                         )}
@@ -152,14 +152,14 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
 
               {/* No results */}
               {query.trim() && results.length === 0 && (
-                <div className="px-4 py-8 text-center text-slate-500 dark:text-slate-400">
+                <div className="px-4 py-8 text-center text-slate-500 dark:text-dark-textMuted">
                   No articles found for "{query}"
                 </div>
               )}
 
               {/* Empty state */}
               {!query.trim() && (
-                <div className="px-4 py-8 text-center text-slate-500 dark:text-slate-400 text-sm">
+                <div className="px-4 py-8 text-center text-slate-500 dark:text-dark-textMuted text-sm">
                   Start typing to search articles...
                 </div>
               )}

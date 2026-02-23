@@ -10,8 +10,8 @@
 
 .dark {
   --foreground-rgb: 255, 255, 255;
-  --background-start-rgb: 15, 23, 42;
-  --background-end-rgb: 30, 41, 59;
+  --background-start-rgb: 29, 29, 29;
+  --background-end-rgb: 29, 29, 29;
 }
 
 html {
@@ -39,9 +39,9 @@ body {
 .dark body {
   background: linear-gradient(
     180deg,
-    #0f172a 0%,
-    #1e293b 50%,
-    #0f172a 100%
+    #1d1d1d 0%,
+    #1d1d1d 50%,
+    #1d1d1d 100%
   ) !important;
   background-attachment: fixed !important;
 }

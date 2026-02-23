@@ -54,7 +54,7 @@ export default async function ArticlePage({ params }: PageProps) {
         <div className="max-w-3xl mx-auto">
           {/* 文章头部信息 */}
           <header className="mb-8">
-            <div className="flex items-center gap-4 text-sm text-slate-600 dark:text-slate-400 mb-4">
+            <div className="flex items-center gap-4 text-sm text-slate-600 dark:text-dark-textMuted mb-4">
               <span className="flex items-center gap-1">
                 <Calendar className="w-4 h-4" />
                 {article.date}
@@ -69,19 +69,19 @@ export default async function ArticlePage({ params }: PageProps) {
               </span>
             </div>
 
-            <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-3">
+            <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-dark-text mb-3">
               {article.title}
             </h1>
 
             {article.subtitle && (
-              <p className="text-xl text-slate-600 dark:text-slate-300">
+              <p className="text-xl text-slate-600 dark:text-dark-text">
                 {article.subtitle}
               </p>
             )}
           </header>
 
           {/* 分割线 */}
-          <div className="border-t border-slate-200 dark:border-slate-700 mb-8" />
+          <div className="border-t border-slate-200 dark:border-dark-border mb-8" />
 
           {/* 文章正文 */}
           <ArticleContent content={content} />
