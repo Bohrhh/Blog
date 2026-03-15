@@ -34,6 +34,10 @@ export default function Navbar() {
   }, [])
 
   const handleDropdownClick = (label: string) => {
+    // 在移动端，同时打开移动菜单
+    if (window.innerWidth < 768) {
+      setMobileMenuOpen(true)
+    }
     setOpenDropdown(openDropdown === label ? null : label)
   }
 
@@ -256,6 +260,7 @@ export default function Navbar() {
                 <a
                   key={item.label}
                   href={item.href}
+                  onClick={() => setMobileMenuOpen(false)}
                   className={cn(
                     "block px-4 py-3 rounded-lg transition-colors duration-200",
                     "text-slate-800 hover:text-magenta hover:bg-slate-50",
@@ -265,17 +270,117 @@ export default function Navbar() {
                   {item.label}
                 </a>
               ) : (
-                <button
-                  key={item.label}
-                  className={cn(
-                    "w-full px-4 py-3 text-left rounded-lg transition-colors duration-200 flex items-center justify-between",
-                    "text-slate-800 hover:text-magenta hover:bg-slate-50",
-                    "dark:text-dark-text dark:hover:bg-dark-surfaceHover"
+                <div key={item.label}>
+                  <button
+                    onClick={() => handleDropdownClick(item.label)}
+                    className={cn(
+                      "w-full px-4 py-3 text-left rounded-lg transition-colors duration-200 flex items-center justify-between",
+                      "text-slate-800 hover:text-magenta hover:bg-slate-50",
+                      "dark:text-dark-text dark:hover:bg-dark-surfaceHover"
+                    )}
+                  >
+                    {item.label}
+                    {item.hasDropdown && (
+                      <ChevronDown
+                        className={cn(
+                          "w-4 h-4 transition-transform duration-200",
+                          openDropdown === item.label && "rotate-180"
+                        )}
+                      />
+                    )}
+                  </button>
+
+                  {/* Mobile dropdown items */}
+                  {item.hasDropdown && openDropdown === item.label && (
+                    <div className="pl-4 space-y-1 mt-1">
+                      {item.label === "Categories" && categories.map((category) => (
+                        <a
+                          key={category}
+                          href={`/category/${category.toLowerCase()}`}
+                          onClick={() => {
+                            setOpenDropdown(null)
+                            setMobileMenuOpen(false)
+                          }}
+                          className={cn(
+                            "block px-4 py-2 rounded-lg transition-colors duration-200",
+                            "text-slate-600 hover:text-magenta hover:bg-slate-50",
+                            "dark:text-dark-textMuted dark:hover:bg-dark-surfaceHover"
+                          )}
+                        >
+                          {category}
+                        </a>
+                      ))}
+                      {item.label === "Courses" && (
+                        <>
+                          <a
+                            href="https://css-for-js.dev"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={() => {
+                              setOpenDropdown(null)
+                              setMobileMenuOpen(false)
+                            }}
+                            className={cn(
+                              "block px-4 py-2 rounded-lg transition-colors duration-200",
+                              "text-slate-600 hover:text-magenta hover:bg-slate-50",
+                              "dark:text-dark-textMuted dark:hover:bg-dark-surfaceHover"
+                            )}
+                          >
+                            CSS for JS Developers
+                          </a>
+                          <a
+                            href="https://joyofreact.com"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={() => {
+                              setOpenDropdown(null)
+                              setMobileMenuOpen(false)
+                            }}
+                            className={cn(
+                              "block px-4 py-2 rounded-lg transition-colors duration-200",
+                              "text-slate-600 hover:text-magenta hover:bg-slate-50",
+                              "dark:text-dark-textMuted dark:hover:bg-dark-surfaceHover"
+                            )}
+                          >
+                            The Joy of React
+                          </a>
+                          <a
+                            href="https://whimsy.joshwcomeau.com"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={() => {
+                              setOpenDropdown(null)
+                              setMobileMenuOpen(false)
+                            }}
+                            className={cn(
+                              "block px-4 py-2 rounded-lg transition-colors duration-200",
+                              "text-slate-600 hover:text-magenta hover:bg-slate-50",
+                              "dark:text-dark-textMuted dark:hover:bg-dark-surfaceHover"
+                            )}
+                          >
+                            Whimsical Animations
+                          </a>
+                        </>
+                      )}
+                      {item.label === "Goodies" && (
+                        <a
+                          href="/goodies"
+                          onClick={() => {
+                            setOpenDropdown(null)
+                            setMobileMenuOpen(false)
+                          }}
+                          className={cn(
+                            "block px-4 py-2 rounded-lg transition-colors duration-200",
+                            "text-slate-600 hover:text-magenta hover:bg-slate-50",
+                            "dark:text-dark-textMuted dark:hover:bg-dark-surfaceHover"
+                          )}
+                        >
+                          All Goodies
+                        </a>
+                      )}
+                    </div>
                   )}
-                >
-                  {item.label}
-                  {item.hasDropdown && <ChevronDown className="w-4 h-4" />}
-                </button>
+                </div>
               )
             ))}
           </div>
