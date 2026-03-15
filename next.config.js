@@ -5,7 +5,7 @@ const nextConfig = {
   // 移除静态导出，使用 Node.js 服务器模式
   // output: 'export',
   images: {
-    unoptimized: true
+    // 启用 Next.js 图片优化
   },
   // 支持 Markdown 文件作为 raw 字符串导入
   webpack: (config) => {

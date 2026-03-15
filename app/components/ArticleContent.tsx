@@ -2,8 +2,13 @@
 
 import ReactMarkdown from "react-markdown"
 import { motion } from "framer-motion"
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter"
-import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism"
+import dynamic from "next/dynamic"
+
+// 懒加载语法高亮组件和主题
+const SyntaxHighlighterComponent = dynamic(
+  () => import("@/app/components/CodeHighlighter"),
+  { ssr: false }
+)
 
 interface ArticleContentProps {
   content: string
@@ -85,24 +90,12 @@ export default function ArticleContent({ content }: ArticleContentProps) {
               )
             }
 
-            // 代码块 - 使用语法高亮
+            // 代码块 - 使用懒加载的语法高亮组件
             return (
-              <SyntaxHighlighter
-                // @ts-expect-error - types mismatch
-                style={oneDark}
+              <SyntaxHighlighterComponent
                 language={match[1]}
-                PreTag="div"
-                customStyle={{
-                  margin: "0 0 1rem 0",
-                  borderRadius: "0.5rem",
-                  padding: "1rem",
-                  fontSize: "0.875rem",
-                  lineHeight: "1.5",
-                }}
-                {...props}
-              >
-                {String(children).replace(/\n$/, "")}
-              </SyntaxHighlighter>
+                code={String(children).replace(/\n$/, "")}
+              />
             )
           },
           pre: ({ children }) => <>{children}</>,

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef, useMemo } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Search, X, FileText } from "lucide-react"
 import { articles, Article } from "@/app/data/articles"
@@ -12,10 +12,30 @@ interface SearchModalProps {
   onClose: () => void
 }
 
+// 自定义 debounce hook
+function useDebounce<T>(value: T, delay: number): T {
+  const [debouncedValue, setDebouncedValue] = useState<T>(value)
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(value)
+    }, delay)
+
+    return () => {
+      clearTimeout(handler)
+    }
+  }, [value, delay])
+
+  return debouncedValue
+}
+
 export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
   const [query, setQuery] = useState("")
   const [results, setResults] = useState<Article[]>([])
   const inputRef = useRef<HTMLInputElement>(null)
+
+  // 使用 debounce 减少搜索频率
+  const debouncedQuery = useDebounce(query, 300)
 
   // Focus input when modal opens
   useEffect(() => {
@@ -26,12 +46,12 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
 
   // Search through articles (title, subtitle, description, category, and body content)
   useEffect(() => {
-    if (!query.trim()) {
+    if (!debouncedQuery.trim()) {
       setResults([])
       return
     }
 
-    const searchTerm = query.toLowerCase()
+    const searchTerm = debouncedQuery.toLowerCase()
     const filtered = articles.filter((article) => {
       // Check title, subtitle, description, and category
       const basicMatch =
@@ -51,7 +71,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
       return false
     })
     setResults(filtered)
-  }, [query])
+  }, [debouncedQuery])
 
   // Close on ESC key
   useEffect(() => {
