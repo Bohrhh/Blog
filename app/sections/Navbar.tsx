@@ -297,13 +297,9 @@ export default function Navbar() {
                   {item.hasDropdown && openDropdown === item.label && (
                     <div className="pl-4 space-y-1 mt-1">
                       {item.label === "Categories" && categories.map((category) => (
-                        <button
+                        <a
                           key={category}
-                          onClick={() => {
-                            setOpenDropdown(null)
-                            setMobileMenuOpen(false)
-                            router.push(`/category/${category.toLowerCase()}`)
-                          }}
+                          href={`/category/${category.toLowerCase()}`}
                           className={cn(
                             "block w-full text-left px-4 py-2 rounded-lg transition-colors duration-200",
                             "text-slate-600 hover:text-magenta hover:bg-slate-50",
@@ -311,7 +307,7 @@ export default function Navbar() {
                           )}
                         >
                           {category}
-                        </button>
+                        </a>
                       ))}
                       {item.label === "Courses" && (
                         <>
@@ -366,12 +362,8 @@ export default function Navbar() {
                         </>
                       )}
                       {item.label === "Goodies" && (
-                        <button
-                          onClick={() => {
-                            setOpenDropdown(null)
-                            setMobileMenuOpen(false)
-                            router.push("/goodies")
-                          }}
+                        <a
+                          href="/goodies"
                           className={cn(
                             "block w-full text-left px-4 py-2 rounded-lg transition-colors duration-200",
                             "text-slate-600 hover:text-magenta hover:bg-slate-50",
@@ -379,7 +371,7 @@ export default function Navbar() {
                           )}
                         >
                           All Goodies
-                        </button>
+                        </a>
                       )}
                     </div>
                   )}
