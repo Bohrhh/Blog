@@ -1,6 +1,8 @@
 "use client"
 
 import { useState, useRef, useEffect } from "react"
+import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { motion } from "framer-motion"
 import { Search, Rss, Menu, X, ChevronDown } from "lucide-react"
 import { cn } from "@/app/lib/utils"
@@ -17,6 +19,7 @@ const navItems = [
 ]
 
 export default function Navbar() {
+  const router = useRouter()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [openDropdown, setOpenDropdown] = useState<string | null>(null)
   const [searchOpen, setSearchOpen] = useState(false)
@@ -180,7 +183,7 @@ export default function Navbar() {
                     "border border-slate-200 dark:border-dark-border"
                   )}
                 >
-                  <a
+                  <Link
                     href="/goodies"
                     onClick={() => setOpenDropdown(null)}
                     className={cn(
@@ -190,7 +193,7 @@ export default function Navbar() {
                     )}
                   >
                     All Goodies
-                  </a>
+                  </Link>
                 </motion.div>
               )}
             </div>
@@ -294,7 +297,7 @@ export default function Navbar() {
                   {item.hasDropdown && openDropdown === item.label && (
                     <div className="pl-4 space-y-1 mt-1">
                       {item.label === "Categories" && categories.map((category) => (
-                        <a
+                        <Link
                           key={category}
                           href={`/category/${category.toLowerCase()}`}
                           onClick={() => {
@@ -308,7 +311,7 @@ export default function Navbar() {
                           )}
                         >
                           {category}
-                        </a>
+                        </Link>
                       ))}
                       {item.label === "Courses" && (
                         <>
@@ -363,7 +366,7 @@ export default function Navbar() {
                         </>
                       )}
                       {item.label === "Goodies" && (
-                        <a
+                        <Link
                           href="/goodies"
                           onClick={() => {
                             setOpenDropdown(null)
@@ -376,7 +379,7 @@ export default function Navbar() {
                           )}
                         >
                           All Goodies
-                        </a>
+                        </Link>
                       )}
                     </div>
                   )}
