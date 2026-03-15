@@ -2,10 +2,8 @@
 const isProduction = process.env.NODE_ENV === 'production'
 
 const nextConfig = {
-  // 生产构建时启用静态导出
-  output: isProduction ? 'export' : undefined,
-  // 生产构建使用 dist，开发使用默认 .next
-  distDir: isProduction ? 'dist' : undefined,
+  // 移除静态导出，使用 Node.js 服务器模式
+  // output: 'export',
   images: {
     unoptimized: true
   },
