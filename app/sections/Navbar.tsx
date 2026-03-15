@@ -297,21 +297,21 @@ export default function Navbar() {
                   {item.hasDropdown && openDropdown === item.label && (
                     <div className="pl-4 space-y-1 mt-1">
                       {item.label === "Categories" && categories.map((category) => (
-                        <Link
+                        <button
                           key={category}
-                          href={`/category/${category.toLowerCase()}`}
                           onClick={() => {
                             setOpenDropdown(null)
                             setMobileMenuOpen(false)
+                            router.push(`/category/${category.toLowerCase()}`)
                           }}
                           className={cn(
-                            "block px-4 py-2 rounded-lg transition-colors duration-200",
+                            "block w-full text-left px-4 py-2 rounded-lg transition-colors duration-200",
                             "text-slate-600 hover:text-magenta hover:bg-slate-50",
                             "dark:text-dark-textMuted dark:hover:bg-dark-surfaceHover"
                           )}
                         >
                           {category}
-                        </Link>
+                        </button>
                       ))}
                       {item.label === "Courses" && (
                         <>
@@ -366,20 +366,20 @@ export default function Navbar() {
                         </>
                       )}
                       {item.label === "Goodies" && (
-                        <Link
-                          href="/goodies"
+                        <button
                           onClick={() => {
                             setOpenDropdown(null)
                             setMobileMenuOpen(false)
+                            router.push("/goodies")
                           }}
                           className={cn(
-                            "block px-4 py-2 rounded-lg transition-colors duration-200",
+                            "block w-full text-left px-4 py-2 rounded-lg transition-colors duration-200",
                             "text-slate-600 hover:text-magenta hover:bg-slate-50",
                             "dark:text-dark-textMuted dark:hover:bg-dark-surfaceHover"
                           )}
                         >
                           All Goodies
-                        </Link>
+                        </button>
                       )}
                     </div>
                   )}
