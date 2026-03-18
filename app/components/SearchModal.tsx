@@ -119,7 +119,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: -20 }}
             transition={{ duration: 0.2 }}
-            className="fixed top-[20%] left-1/2 -translate-x-1/2 w-full max-w-xl px-4 z-[70]"
+            className="fixed top-[20%] left-4 right-4 mx-auto max-w-xl z-[70]"
           >
             <div className="bg-white dark:bg-dark-surface rounded-xl shadow-2xl border border-slate-200 dark:border-dark-border overflow-hidden">
               {/* Search Input */}
