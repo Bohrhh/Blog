@@ -1,7 +1,7 @@
 "use client"
 
 import { useSearchParams } from "next/navigation"
-import { useMemo } from "react"
+import { useMemo, useEffect, useState } from "react"
 import { motion } from "framer-motion"
 import ArticleCard from "@/app/components/ArticleCard"
 import Pagination from "@/app/components/Pagination"
@@ -19,8 +19,23 @@ interface ArticleListProps {
 function ArticleListContent({ articles, title, basePath = "/", showPagination = true }: ArticleListProps) {
   const searchParams = useSearchParams()
   const page = parseInt(searchParams.get("page") || "1", 10)
+  const [views, setViews] = useState<Record<string, number>>({})
 
   const articleList = articles || defaultArticles
+
+  // Fetch all view counts
+  useEffect(() => {
+    const fetchViews = async () => {
+      try {
+        const response = await fetch("/api/views")
+        const data = await response.json()
+        setViews(data)
+      } catch (error) {
+        console.error("Failed to fetch views:", error)
+      }
+    }
+    fetchViews()
+  }, [])
 
   // Calculate pagination
   const { paginatedArticles, totalPages } = useMemo(() => {
@@ -53,7 +68,12 @@ function ArticleListContent({ articles, title, basePath = "/", showPagination = 
 
       <div className="space-y-0">
         {paginatedArticles.map((article, index) => (
-          <ArticleCard key={article.id} article={article} index={index} />
+          <ArticleCard
+            key={article.id}
+            article={article}
+            index={index}
+            viewCount={views[article.slug]}
+          />
         ))}
       </div>
 

@@ -5,6 +5,7 @@ import { Calendar, Clock, Tag } from "lucide-react"
 import ArticleNavbar from "@/app/components/ArticleNavbar"
 import ArticleContent from "@/app/components/ArticleContent"
 import TableOfContents from "@/app/components/TableOfContents"
+import ViewCount from "@/app/components/ViewCount"
 
 interface PageProps {
   params: Promise<{ slug: string }>
@@ -67,6 +68,7 @@ export default async function ArticlePage({ params }: PageProps) {
                 <Tag className="w-4 h-4" />
                 {article.category}
               </span>
+              <ViewCount slug={slug} />
             </div>
 
             <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-dark-text mb-3">

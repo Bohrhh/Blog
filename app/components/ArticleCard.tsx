@@ -2,7 +2,7 @@
 
 import { memo } from "react"
 import { motion } from "framer-motion"
-import { ArrowRight } from "lucide-react"
+import { ArrowRight, Eye } from "lucide-react"
 import { Article } from "@/app/data/articles"
 import { useSound } from "@/app/context/AppContext"
 import { cn } from "@/app/lib/utils"
@@ -10,9 +10,10 @@ import { cn } from "@/app/lib/utils"
 interface ArticleCardProps {
   article: Article
   index: number
+  viewCount?: number
 }
 
-function ArticleCardComponent({ article, index }: ArticleCardProps) {
+function ArticleCardComponent({ article, index, viewCount }: ArticleCardProps) {
   const { playSound } = useSound()
 
   return (
@@ -61,14 +62,22 @@ function ArticleCardComponent({ article, index }: ArticleCardProps) {
           {article.description}
         </p>
 
-        <span className={cn(
-          "inline-flex items-center gap-2 text-sm font-semibold transition-colors duration-200",
-          "text-slate-900 group-hover:text-magenta",
-          "dark:text-dark-text dark:group-hover:text-magenta"
-        )}>
-          Read more
-          <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
-        </span>
+        <div className="flex items-center justify-between">
+          <span className={cn(
+            "inline-flex items-center gap-2 text-sm font-semibold transition-colors duration-200",
+            "text-slate-900 group-hover:text-magenta",
+            "dark:text-dark-text dark:group-hover:text-magenta"
+          )}>
+            Read more
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
+          </span>
+          {viewCount !== undefined && viewCount > 0 && (
+            <span className="flex items-center gap-1 text-sm text-slate-500 dark:text-dark-textMuted">
+              <Eye className="w-4 h-4" />
+              {viewCount.toLocaleString()}
+            </span>
+          )}
+        </div>
       </a>
     </motion.article>
   )
