@@ -2,14 +2,16 @@
 
 import { useState, useRef, useEffect } from "react"
 import Link from "next/link"
+import dynamic from "next/dynamic"
 import { useRouter } from "next/navigation"
 import { motion } from "framer-motion"
 import { Search, Rss, Menu, X, ChevronDown } from "lucide-react"
 import { cn } from "@/app/lib/utils"
 import Logo from "@/app/components/Logo"
 import ToolButtons from "@/app/components/ToolButtons"
-import SearchModal from "@/app/components/SearchModal"
 import { categories } from "@/app/data/articles"
+
+const SearchModal = dynamic(() => import("@/app/components/SearchModal"), { ssr: false })
 
 const navItems = [
   { label: "Categories", hasDropdown: true },

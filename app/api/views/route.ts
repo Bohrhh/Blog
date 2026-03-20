@@ -1,33 +1,25 @@
 import { NextRequest, NextResponse } from "next/server"
-import fs from "fs"
+import fs from "fs/promises"
 import path from "path"
 
 const VIEWS_FILE = path.join(process.cwd(), "data", "views.json")
 
-// 读取浏览量数据
-function getViews(): Record<string, number> {
+// 异步读取浏览量数据
+async function getViews(): Promise<Record<string, number>> {
   try {
-    if (fs.existsSync(VIEWS_FILE)) {
-      const data = fs.readFileSync(VIEWS_FILE, "utf-8")
-      return JSON.parse(data)
-    }
+    const data = await fs.readFile(VIEWS_FILE, "utf-8")
+    return JSON.parse(data)
   } catch (error) {
-    console.error("Error reading views:", error)
+    // File doesn't exist or can't be read, return empty object
+    return {}
   }
-  return {}
 }
 
-// 写入浏览量数据
-function setViews(views: Record<string, number>) {
-  try {
-    const dir = path.dirname(VIEWS_FILE)
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir, { recursive: true })
-    }
-    fs.writeFileSync(VIEWS_FILE, JSON.stringify(views, null, 2))
-  } catch (error) {
-    console.error("Error writing views:", error)
-  }
+// 异步写入浏览量数据
+async function setViews(views: Record<string, number>): Promise<void> {
+  const dir = path.dirname(VIEWS_FILE)
+  await fs.mkdir(dir, { recursive: true })
+  await fs.writeFile(VIEWS_FILE, JSON.stringify(views, null, 2))
 }
 
 export async function POST(request: NextRequest) {
@@ -38,9 +30,9 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Slug is required" }, { status: 400 })
     }
 
-    const views = getViews()
+    const views = await getViews()
     views[slug] = (views[slug] || 0) + 1
-    setViews(views)
+    await setViews(views)
 
     return NextResponse.json({ views: views[slug] })
   } catch (error) {
@@ -53,13 +45,15 @@ export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url)
     const slug = searchParams.get("slug")
-    const views = getViews()
+    const views = await getViews()
 
-    if (!slug) {
-      return NextResponse.json(views)
-    }
+    const response = !slug
+      ? NextResponse.json(views)
+      : NextResponse.json({ views: views[slug] || 0 })
 
-    return NextResponse.json({ views: views[slug] || 0 })
+    // Add cache headers to reduce unnecessary API calls
+    response.headers.set("Cache-Control", "public, max-age=60, stale-while-revalidate=30")
+    return response
   } catch (error) {
     console.error("Error getting view count:", error)
     return NextResponse.json({ views: 0 })

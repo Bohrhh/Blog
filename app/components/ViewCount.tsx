@@ -11,18 +11,14 @@ export default function ViewCount({ slug }: ViewCountProps) {
   const [views, setViews] = useState<number | null>(null)
 
   useEffect(() => {
-    // Fetch initial view count and increment on each page view
+    // Increment view count and get updated count in a single request
     const fetchViews = async () => {
       try {
-        // Increment view count
-        await fetch("/api/views", {
+        const response = await fetch("/api/views", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ slug }),
         })
-
-        // Get updated view count
-        const response = await fetch(`/api/views?slug=${slug}`)
         const data = await response.json()
         setViews(data.views)
       } catch (error) {

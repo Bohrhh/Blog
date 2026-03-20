@@ -1,21 +1,14 @@
-"use client"
-
 import { Suspense } from "react"
-import { motion } from "framer-motion"
 import Navbar from "@/app/sections/Navbar"
 import Hero from "@/app/sections/Hero"
 import ArticleList from "@/app/sections/ArticleList"
 import Sidebar from "@/app/sections/Sidebar"
 import Footer from "@/app/sections/Footer"
+import PageMotion from "@/app/components/PageMotion"
 
 export default function Home() {
   return (
-    <motion.main
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-      className="min-h-screen"
-    >
+    <PageMotion>
       <Navbar />
       <Hero />
 
@@ -37,6 +30,6 @@ export default function Home() {
       </div>
 
       <Footer />
-    </motion.main>
+    </PageMotion>
   )
 }
