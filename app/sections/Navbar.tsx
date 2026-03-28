@@ -16,7 +16,6 @@ const SearchModal = dynamic(() => import("@/app/components/SearchModal"), { ssr:
 const navItems = [
   { label: "Categories", hasDropdown: true },
   { label: "Courses", hasDropdown: true },
-  { label: "Goodies", hasDropdown: true },
   { label: "About", href: "/about" },
 ]
 
@@ -174,30 +173,6 @@ export default function Navbar() {
                 </motion.div>
               )}
 
-              {/* Goodies Dropdown */}
-              {item.label === "Goodies" && openDropdown === "Goodies" && (
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className={cn(
-                    "absolute top-full left-0 mt-2 py-2 min-w-[180px] rounded-lg shadow-lg",
-                    "bg-white dark:bg-dark-surfaceHover",
-                    "border border-slate-200 dark:border-dark-border"
-                  )}
-                >
-                  <Link
-                    href="/goodies"
-                    onClick={() => setOpenDropdown(null)}
-                    className={cn(
-                      "block px-4 py-2 text-sm text-slate-700 dark:text-dark-text",
-                      "hover:bg-slate-100 dark:hover:bg-dark-surfaceHover",
-                      "hover:text-magenta transition-colors duration-150"
-                    )}
-                  >
-                    All Goodies
-                  </Link>
-                </motion.div>
-              )}
             </div>
           ))}
         </div>
@@ -362,18 +337,6 @@ export default function Navbar() {
                             Whimsical Animations
                           </a>
                         </>
-                      )}
-                      {item.label === "Goodies" && (
-                        <a
-                          href="/goodies"
-                          className={cn(
-                            "block w-full text-left px-4 py-2 rounded-lg transition-colors duration-200",
-                            "text-slate-600 hover:text-magenta hover:bg-slate-50",
-                            "dark:text-dark-textMuted dark:hover:bg-dark-surfaceHover"
-                          )}
-                        >
-                          All Goodies
-                        </a>
                       )}
                     </div>
                   )}
