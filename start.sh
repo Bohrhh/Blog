@@ -8,6 +8,13 @@ PORT=3000
 
 while [[ $# -gt 0 ]]; do
     case $1 in
+        -k|--kill)
+            echo "🔪 关闭后台服务..."
+            fuser -k $PORT/tcp 2>/dev/null
+            lsof -ti:$PORT | xargs kill -9 2>/dev/null
+            echo "✅ 端口 $PORT 已释放"
+            exit 0
+            ;;
         -b|--background)
             BACKGROUND=true
             shift
@@ -20,6 +27,7 @@ while [[ $# -gt 0 ]]; do
             echo "用法: ./start.sh [选项]"
             echo ""
             echo "选项:"
+            echo "  -k, --kill         关闭后台服务"
             echo "  -b, --background    后台运行"
             echo "  -p, --port <端口>  指定端口 (默认: 3000)"
             echo "  -h, --help         显示帮助"
