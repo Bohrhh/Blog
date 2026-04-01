@@ -3,28 +3,29 @@
 import { useState, useRef, useEffect } from "react"
 import Link from "next/link"
 import dynamic from "next/dynamic"
-import { useRouter } from "next/navigation"
 import { motion } from "framer-motion"
 import { Search, Rss, Menu, X, ChevronDown } from "lucide-react"
 import { cn } from "@/app/lib/utils"
 import Logo from "@/app/components/Logo"
 import ToolButtons from "@/app/components/ToolButtons"
 import { categories } from "@/app/data/articles"
+import { useTranslation } from "@/app/lib/i18n"
 
 const SearchModal = dynamic(() => import("@/app/components/SearchModal"), { ssr: false })
 
-const navItems = [
-  { label: "Categories", hasDropdown: true },
-  { label: "Courses", hasDropdown: true },
-  { label: "About", href: "/about" },
-]
-
 export default function Navbar() {
-  const router = useRouter()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [openDropdown, setOpenDropdown] = useState<string | null>(null)
   const [searchOpen, setSearchOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
+  const { t, language, setLanguage } = useTranslation()
+
+  const handleDropdownClick = (key: string) => {
+    if (typeof window !== "undefined" && window.innerWidth < 768) {
+      setMobileMenuOpen(true)
+    }
+    setOpenDropdown(openDropdown === key ? null : key)
+  }
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -37,12 +38,8 @@ export default function Navbar() {
     return () => document.removeEventListener("mousedown", handleClickOutside)
   }, [])
 
-  const handleDropdownClick = (label: string) => {
-    // 在移动端，同时打开移动菜单
-    if (window.innerWidth < 768) {
-      setMobileMenuOpen(true)
-    }
-    setOpenDropdown(openDropdown === label ? null : label)
+  const toggleLanguage = () => {
+    setLanguage(language === "en" ? "zh" : "en")
   }
 
   return (
@@ -58,123 +55,135 @@ export default function Navbar() {
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center gap-1" ref={dropdownRef}>
-          {navItems.map((item) => (
-            <div key={item.label} className="relative">
-              {item.href ? (
+          {/* Categories */}
+          <div className="relative">
+            <button
+              onClick={() => handleDropdownClick("Categories")}
+              className={cn(
+                "px-3 py-2 text-sm font-medium text-slate-800 dark:text-dark-text rounded-lg",
+                "hover:text-magenta transition-colors duration-200",
+                "flex items-center gap-1 cursor-pointer"
+              )}
+            >
+              {t('nav').categories}
+              <ChevronDown
+                className={cn(
+                  "w-4 h-4 transition-transform duration-200",
+                  openDropdown === "Categories" && "rotate-180"
+                )}
+              />
+            </button>
+
+            {openDropdown === "Categories" && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className={cn(
+                  "absolute top-full left-0 mt-2 py-2 min-w-[180px] rounded-lg shadow-lg",
+                  "bg-white dark:bg-dark-surfaceHover",
+                  "border border-slate-200 dark:border-dark-border"
+                )}
+              >
+                {categories.map((category) => (
+                  <a
+                    key={category}
+                    href={`/category/${category.toLowerCase()}`}
+                    onClick={() => setOpenDropdown(null)}
+                    className={cn(
+                      "block px-4 py-2 text-sm text-slate-700 dark:text-dark-text",
+                      "hover:bg-slate-100 dark:hover:bg-dark-surfaceHover",
+                      "hover:text-magenta transition-colors duration-150"
+                    )}
+                  >
+                    {category}
+                  </a>
+                ))}
+              </motion.div>
+            )}
+          </div>
+
+          {/* Courses */}
+          <div className="relative">
+            <button
+              onClick={() => handleDropdownClick("Courses")}
+              className={cn(
+                "px-3 py-2 text-sm font-medium text-slate-800 dark:text-dark-text rounded-lg",
+                "hover:text-magenta transition-colors duration-200",
+                "flex items-center gap-1 cursor-pointer"
+              )}
+            >
+              {t('nav').courses}
+              <ChevronDown
+                className={cn(
+                  "w-4 h-4 transition-transform duration-200",
+                  openDropdown === "Courses" && "rotate-180"
+                )}
+              />
+            </button>
+
+            {openDropdown === "Courses" && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className={cn(
+                  "absolute top-full left-0 mt-2 py-2 min-w-[200px] rounded-lg shadow-lg",
+                  "bg-white dark:bg-dark-surfaceHover",
+                  "border border-slate-200 dark:border-dark-border"
+                )}
+              >
                 <a
-                  href={item.href}
+                  href="https://css-for-js.dev"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setOpenDropdown(null)}
                   className={cn(
-                    "px-3 py-2 text-sm font-medium text-slate-800 dark:text-dark-text rounded-lg",
-                    "hover:text-magenta transition-colors duration-200"
+                    "block px-4 py-2 text-sm text-slate-700 dark:text-dark-text",
+                    "hover:bg-slate-100 dark:hover:bg-dark-surfaceHover",
+                    "hover:text-magenta transition-colors duration-150"
                   )}
                 >
-                  {item.label}
+                  {t('nav').cssForJs}
                 </a>
-              ) : (
-                <button
-                  onClick={() => item.hasDropdown && handleDropdownClick(item.label)}
+                <a
+                  href="https://joyofreact.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setOpenDropdown(null)}
                   className={cn(
-                    "px-3 py-2 text-sm font-medium text-slate-800 dark:text-dark-text rounded-lg",
-                    "hover:text-magenta transition-colors duration-200",
-                    "flex items-center gap-1",
-                    item.hasDropdown && "cursor-pointer"
+                    "block px-4 py-2 text-sm text-slate-700 dark:text-dark-text",
+                    "hover:bg-slate-100 dark:hover:bg-dark-surfaceHover",
+                    "hover:text-magenta transition-colors duration-150"
                   )}
                 >
-                  {item.label}
-                  {item.hasDropdown && (
-                    <ChevronDown
-                      className={cn(
-                        "w-4 h-4 transition-transform duration-200",
-                        openDropdown === item.label && "rotate-180"
-                      )}
-                    />
-                  )}
-                </button>
-              )}
-
-              {/* Categories Dropdown */}
-              {item.label === "Categories" && openDropdown === "Categories" && (
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
+                  {t('nav').joyOfReact}
+                </a>
+                <a
+                  href="https://whimsy.joshwcomeau.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setOpenDropdown(null)}
                   className={cn(
-                    "absolute top-full left-0 mt-2 py-2 min-w-[180px] rounded-lg shadow-lg",
-                    "bg-white dark:bg-dark-surfaceHover",
-                    "border border-slate-200 dark:border-dark-border"
+                    "block px-4 py-2 text-sm text-slate-700 dark:text-dark-text",
+                    "hover:bg-slate-100 dark:hover:bg-dark-surfaceHover",
+                    "hover:text-magenta transition-colors duration-150"
                   )}
                 >
-                  {categories.map((category) => (
-                    <a
-                      key={category}
-                      href={`/category/${category.toLowerCase()}`}
-                      onClick={() => setOpenDropdown(null)}
-                      className={cn(
-                        "block px-4 py-2 text-sm text-slate-700 dark:text-dark-text",
-                        "hover:bg-slate-100 dark:hover:bg-dark-surfaceHover",
-                        "hover:text-magenta transition-colors duration-150"
-                      )}
-                    >
-                      {category}
-                    </a>
-                  ))}
-                </motion.div>
-              )}
+                  {t('nav').whimsicalAnimations}
+                </a>
+              </motion.div>
+            )}
+          </div>
 
-              {/* Courses Dropdown */}
-              {item.label === "Courses" && openDropdown === "Courses" && (
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className={cn(
-                    "absolute top-full left-0 mt-2 py-2 min-w-[200px] rounded-lg shadow-lg",
-                    "bg-white dark:bg-dark-surfaceHover",
-                    "border border-slate-200 dark:border-dark-border"
-                  )}
-                >
-                  <a
-                    href="https://css-for-js.dev"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => setOpenDropdown(null)}
-                    className={cn(
-                      "block px-4 py-2 text-sm text-slate-700 dark:text-dark-text",
-                      "hover:bg-slate-100 dark:hover:bg-dark-surfaceHover",
-                      "hover:text-magenta transition-colors duration-150"
-                    )}
-                  >
-                    CSS for JS Developers
-                  </a>
-                  <a
-                    href="https://joyofreact.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => setOpenDropdown(null)}
-                    className={cn(
-                      "block px-4 py-2 text-sm text-slate-700 dark:text-dark-text",
-                      "hover:bg-slate-100 dark:hover:bg-dark-surfaceHover",
-                      "hover:text-magenta transition-colors duration-150"
-                    )}
-                  >
-                    The Joy of React
-                  </a>
-                  <a
-                    href="https://whimsy.joshwcomeau.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => setOpenDropdown(null)}
-                    className={cn(
-                      "block px-4 py-2 text-sm text-slate-700 dark:text-dark-text",
-                      "hover:bg-slate-100 dark:hover:bg-dark-surfaceHover",
-                      "hover:text-magenta transition-colors duration-150"
-                    )}
-                  >
-                    Whimsical Animations
-                  </a>
-                </motion.div>
-              )}
-
-            </div>
-          ))}
+          {/* About */}
+          <a
+            href="/about"
+            className={cn(
+              "px-3 py-2 text-sm font-medium text-slate-800 dark:text-dark-text rounded-lg",
+              "hover:text-magenta transition-colors duration-200"
+            )}
+          >
+            {t('nav').about}
+          </a>
         </div>
 
         {/* Right side tools */}
@@ -185,7 +194,7 @@ export default function Navbar() {
               "dark:hover:bg-dark-surfaceHover/50",
               "text-slate-700 dark:text-dark-text"
             )}
-            aria-label="Search"
+            aria-label={t('nav').search}
             onClick={() => setSearchOpen(true)}
           >
             <Search className="w-5 h-5" />
@@ -195,6 +204,19 @@ export default function Navbar() {
 
           <ToolButtons />
 
+          {/* Language Switcher */}
+          <button
+            onClick={toggleLanguage}
+            className={cn(
+              "px-2 py-1 text-xs font-semibold hover:text-magenta transition-colors duration-200 rounded-lg hover:bg-slate-100/50",
+              "dark:hover:bg-dark-surfaceHover/50",
+              "text-slate-700 dark:text-dark-text"
+            )}
+            aria-label="Toggle language"
+          >
+            {language === "en" ? "CN" : "EN"}
+          </button>
+
           <a
             href="/rss"
             className={cn(
@@ -202,7 +224,7 @@ export default function Navbar() {
               "dark:hover:bg-dark-surfaceHover/50",
               "text-slate-700 dark:text-dark-text"
             )}
-            aria-label="RSS Feed"
+            aria-label={t('nav').rssFeed}
           >
             <Rss className="w-5 h-5" />
           </a>
@@ -215,7 +237,7 @@ export default function Navbar() {
               "text-slate-700 dark:text-dark-text"
             )}
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label="Toggle menu"
+            aria-label={t('nav').toggleMenu}
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
@@ -235,114 +257,133 @@ export default function Navbar() {
           )}
         >
           <div className="px-4 py-4 space-y-2">
-            {navItems.map((item) => (
-              item.href ? (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  onClick={() => setMobileMenuOpen(false)}
+            {/* Categories */}
+            <div>
+              <button
+                onClick={() => handleDropdownClick("Categories")}
+                className={cn(
+                  "w-full px-4 py-3 text-left rounded-lg transition-colors duration-200 flex items-center justify-between",
+                  "text-slate-800 hover:text-magenta hover:bg-slate-50",
+                  "dark:text-dark-text dark:hover:bg-dark-surfaceHover"
+                )}
+              >
+                {t('nav').categories}
+                <ChevronDown
                   className={cn(
-                    "block px-4 py-3 rounded-lg transition-colors duration-200",
-                    "text-slate-800 hover:text-magenta hover:bg-slate-50",
-                    "dark:text-dark-text dark:hover:bg-dark-surfaceHover"
+                    "w-4 h-4 transition-transform duration-200",
+                    openDropdown === "Categories" && "rotate-180"
                   )}
-                >
-                  {item.label}
-                </a>
-              ) : (
-                <div key={item.label}>
-                  <button
-                    onClick={() => handleDropdownClick(item.label)}
+                />
+              </button>
+
+              {openDropdown === "Categories" && (
+                <div className="pl-4 space-y-1 mt-1">
+                  {categories.map((category) => (
+                    <a
+                      key={category}
+                      href={`/category/${category.toLowerCase()}`}
+                      onClick={() => {
+                        setOpenDropdown(null)
+                        setMobileMenuOpen(false)
+                      }}
+                      className={cn(
+                        "block w-full text-left px-4 py-2 rounded-lg transition-colors duration-200",
+                        "text-slate-600 hover:text-magenta hover:bg-slate-50",
+                        "dark:text-dark-textMuted dark:hover:bg-dark-surfaceHover"
+                      )}
+                    >
+                      {category}
+                    </a>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Courses */}
+            <div>
+              <button
+                onClick={() => handleDropdownClick("Courses")}
+                className={cn(
+                  "w-full px-4 py-3 text-left rounded-lg transition-colors duration-200 flex items-center justify-between",
+                  "text-slate-800 hover:text-magenta hover:bg-slate-50",
+                  "dark:text-dark-text dark:hover:bg-dark-surfaceHover"
+                )}
+              >
+                {t('nav').courses}
+                <ChevronDown
+                  className={cn(
+                    "w-4 h-4 transition-transform duration-200",
+                    openDropdown === "Courses" && "rotate-180"
+                  )}
+                />
+              </button>
+
+              {openDropdown === "Courses" && (
+                <div className="pl-4 space-y-1 mt-1">
+                  <a
+                    href="https://css-for-js.dev"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => {
+                      setOpenDropdown(null)
+                      setMobileMenuOpen(false)
+                    }}
                     className={cn(
-                      "w-full px-4 py-3 text-left rounded-lg transition-colors duration-200 flex items-center justify-between",
-                      "text-slate-800 hover:text-magenta hover:bg-slate-50",
-                      "dark:text-dark-text dark:hover:bg-dark-surfaceHover"
+                      "block px-4 py-2 rounded-lg transition-colors duration-200",
+                      "text-slate-600 hover:text-magenta hover:bg-slate-50",
+                      "dark:text-dark-textMuted dark:hover:bg-dark-surfaceHover"
                     )}
                   >
-                    {item.label}
-                    {item.hasDropdown && (
-                      <ChevronDown
-                        className={cn(
-                          "w-4 h-4 transition-transform duration-200",
-                          openDropdown === item.label && "rotate-180"
-                        )}
-                      />
+                    {t('nav').cssForJs}
+                  </a>
+                  <a
+                    href="https://joyofreact.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => {
+                      setOpenDropdown(null)
+                      setMobileMenuOpen(false)
+                    }}
+                    className={cn(
+                      "block px-4 py-2 rounded-lg transition-colors duration-200",
+                      "text-slate-600 hover:text-magenta hover:bg-slate-50",
+                      "dark:text-dark-textMuted dark:hover:bg-dark-surfaceHover"
                     )}
-                  </button>
-
-                  {/* Mobile dropdown items */}
-                  {item.hasDropdown && openDropdown === item.label && (
-                    <div className="pl-4 space-y-1 mt-1">
-                      {item.label === "Categories" && categories.map((category) => (
-                        <a
-                          key={category}
-                          href={`/category/${category.toLowerCase()}`}
-                          className={cn(
-                            "block w-full text-left px-4 py-2 rounded-lg transition-colors duration-200",
-                            "text-slate-600 hover:text-magenta hover:bg-slate-50",
-                            "dark:text-dark-textMuted dark:hover:bg-dark-surfaceHover"
-                          )}
-                        >
-                          {category}
-                        </a>
-                      ))}
-                      {item.label === "Courses" && (
-                        <>
-                          <a
-                            href="https://css-for-js.dev"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            onClick={() => {
-                              setOpenDropdown(null)
-                              setMobileMenuOpen(false)
-                            }}
-                            className={cn(
-                              "block px-4 py-2 rounded-lg transition-colors duration-200",
-                              "text-slate-600 hover:text-magenta hover:bg-slate-50",
-                              "dark:text-dark-textMuted dark:hover:bg-dark-surfaceHover"
-                            )}
-                          >
-                            CSS for JS Developers
-                          </a>
-                          <a
-                            href="https://joyofreact.com"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            onClick={() => {
-                              setOpenDropdown(null)
-                              setMobileMenuOpen(false)
-                            }}
-                            className={cn(
-                              "block px-4 py-2 rounded-lg transition-colors duration-200",
-                              "text-slate-600 hover:text-magenta hover:bg-slate-50",
-                              "dark:text-dark-textMuted dark:hover:bg-dark-surfaceHover"
-                            )}
-                          >
-                            The Joy of React
-                          </a>
-                          <a
-                            href="https://whimsy.joshwcomeau.com"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            onClick={() => {
-                              setOpenDropdown(null)
-                              setMobileMenuOpen(false)
-                            }}
-                            className={cn(
-                              "block px-4 py-2 rounded-lg transition-colors duration-200",
-                              "text-slate-600 hover:text-magenta hover:bg-slate-50",
-                              "dark:text-dark-textMuted dark:hover:bg-dark-surfaceHover"
-                            )}
-                          >
-                            Whimsical Animations
-                          </a>
-                        </>
-                      )}
-                    </div>
-                  )}
+                  >
+                    {t('nav').joyOfReact}
+                  </a>
+                  <a
+                    href="https://whimsy.joshwcomeau.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => {
+                      setOpenDropdown(null)
+                      setMobileMenuOpen(false)
+                    }}
+                    className={cn(
+                      "block px-4 py-2 rounded-lg transition-colors duration-200",
+                      "text-slate-600 hover:text-magenta hover:bg-slate-50",
+                      "dark:text-dark-textMuted dark:hover:bg-dark-surfaceHover"
+                    )}
+                  >
+                    {t('nav').whimsicalAnimations}
+                  </a>
                 </div>
-              )
-            ))}
+              )}
+            </div>
+
+            {/* About */}
+            <a
+              href="/about"
+              onClick={() => setMobileMenuOpen(false)}
+              className={cn(
+                "block px-4 py-3 rounded-lg transition-colors duration-200",
+                "text-slate-800 hover:text-magenta hover:bg-slate-50",
+                "dark:text-dark-text dark:hover:bg-dark-surfaceHover"
+              )}
+            >
+              {t('nav').about}
+            </a>
           </div>
         </motion.div>
       )}

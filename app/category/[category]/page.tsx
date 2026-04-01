@@ -3,6 +3,7 @@ import { notFound } from "next/navigation"
 import { getArticlesByCategory, getAllCategories } from "@/app/data/articles"
 import ArticleNavbar from "@/app/components/ArticleNavbar"
 import ArticleList from "@/app/sections/ArticleList"
+import CategoryContent from "@/app/components/CategoryContent"
 
 interface PageProps {
   params: Promise<{ category: string }>
@@ -60,14 +61,7 @@ export default async function CategoryPage({ params }: PageProps) {
       <div className="pt-24 pb-16 px-4 sm:px-6">
         <div className="max-w-[1200px] mx-auto">
           {/* 分类标题 */}
-          <header className="mb-8">
-            <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-dark-text mb-3">
-              {categoryName}
-            </h1>
-            <p className="text-slate-600 dark:text-dark-textMuted">
-              {articles.length} {articles.length === 1 ? "article" : "articles"}
-            </p>
-          </header>
+          <CategoryContent categoryName={categoryName} articles={articles} />
 
           {/* 文章列表 */}
           <Suspense fallback={null}>

@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import { Volume2, VolumeX, Sun, Moon } from "lucide-react"
 import { useSound, useTheme } from "@/app/context/AppContext"
 import { cn } from "@/app/lib/utils"
+import { useTranslation } from "@/app/lib/i18n"
 
 interface ToolButtonsProps {
   className?: string
@@ -18,6 +19,7 @@ export default function ToolButtons({
 }: ToolButtonsProps) {
   const { isSoundEnabled, toggleSound } = useSound()
   const { theme, toggleTheme } = useTheme()
+  const { t } = useTranslation()
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
@@ -50,7 +52,7 @@ export default function ToolButtons({
           "dark:hover:bg-dark-surfaceHover/50",
           isSoundEnabled ? "text-magenta" : "text-slate-700 dark:text-dark-text"
         )}
-        aria-label="Toggle sound"
+        aria-label={t('toolButtons').toggleSound}
         aria-pressed={isSoundEnabled}
       >
         {isSoundEnabled ? <Volume2 className={iconClass} /> : <VolumeX className={iconClass} />}
@@ -64,7 +66,7 @@ export default function ToolButtons({
           "dark:hover:bg-dark-surfaceHover/50",
           theme === "dark" ? "text-magenta" : "text-slate-700 dark:text-dark-text"
         )}
-        aria-label="Toggle theme"
+        aria-label={t('toolButtons').toggleTheme}
         aria-pressed={theme === "dark"}
       >
         {theme === "dark" ? <Moon className={iconClass} /> : <Sun className={iconClass} />}

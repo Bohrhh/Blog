@@ -4,6 +4,7 @@
 export const STORAGE_KEYS = {
   THEME: "blog-theme",
   SOUND: "blog-sound-enabled",
+  LANGUAGE: "blog-language",
 } as const
 
 // 路由

@@ -5,14 +5,16 @@ import { ArrowRight } from "lucide-react"
 import { popularContent } from "@/app/data/articles"
 import { cn } from "@/app/lib/utils"
 import { useSound } from "@/app/context/AppContext"
+import { useTranslation } from "@/app/lib/i18n"
 
 export default function PopularContent() {
   const { playSound } = useSound()
+  const { t } = useTranslation()
 
   return (
     <div className="space-y-4">
       <h3 className="text-sm font-semibold tracking-widest text-magenta uppercase">
-        Popular Content
+        {t('common').popularContent}
       </h3>
 
       <ul className="space-y-3">

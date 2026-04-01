@@ -6,18 +6,11 @@ import { categories } from "@/app/data/articles"
 import { cn } from "@/app/lib/utils"
 import Logo from "@/app/components/Logo"
 import ToolButtons from "@/app/components/ToolButtons"
-
-const courses = [
-  { name: "CSS for JS Developers", href: "https://css-for-js.dev" },
-  { name: "The Joy of React", href: "https://joyofreact.com" },
-  { name: "Whimsical Animations", href: "https://whimsy.joshwcomeau.com" },
-]
-
-const generalLinks = [
-  { name: "About", href: "/about" },
-]
+import { useTranslation } from "@/app/lib/i18n"
 
 export default function Footer() {
+  const { t } = useTranslation()
+
   return (
     <footer className={cn(
       "border-t mt-16",
@@ -34,7 +27,7 @@ export default function Footer() {
               "text-sm leading-relaxed",
               "text-slate-600 dark:text-dark-textMuted"
             )}>
-              Keep your ideals high. The sky belongs to no one. ✨
+              {t('footer').tagline} ✨
             </p>
           </div>
 
@@ -44,18 +37,18 @@ export default function Footer() {
               "text-sm font-semibold mb-3",
               "text-slate-900 dark:text-dark-text"
             )}>
-              Want to know when I publish new content?
+              {t('footer').newsletterTitle}
             </h4>
             <p className={cn(
               "text-sm mb-4",
               "text-slate-600 dark:text-dark-textMuted"
             )}>
-              Enter your email to join my free newsletter:
+              {t('footer').newsletterText}
             </p>
             <form className="flex gap-2">
               <input
                 type="email"
-                placeholder="Email"
+                placeholder={t('footer').emailPlaceholder}
                 className={cn(
                   "flex-1 px-3 py-2 text-sm border rounded-lg",
                   "border-slate-300 bg-white focus:ring-blue-500",
@@ -69,7 +62,7 @@ export default function Footer() {
                          rounded-lg hover:bg-slate-800 transition-colors duration-200
                          dark:bg-dark-surfaceHover dark:hover:bg-slate-600"
               >
-                Submit
+                {t('footer').submit}
               </button>
             </form>
           </div>
@@ -77,7 +70,7 @@ export default function Footer() {
           {/* Browse By Category */}
           <div>
             <h4 className="text-sm font-semibold tracking-widest text-magenta uppercase mb-4">
-              Browse By Category
+              {t('footer').browseByCategory}
             </h4>
             <ul className="space-y-2">
               {categories.map((category) => (
@@ -101,47 +94,71 @@ export default function Footer() {
           <div className="space-y-6">
             <div>
               <h4 className="text-sm font-semibold tracking-widest text-magenta uppercase mb-4">
-                Interactive Courses
+                {t('footer').interactiveCourses}
               </h4>
               <ul className="space-y-2">
-                {courses.map((course) => (
-                  <li key={course.name}>
-                    <a
-                      href={course.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={cn(
-                        "text-sm transition-colors duration-200",
-                        "text-slate-600 hover:text-magenta",
-                        "dark:text-dark-textMuted dark:hover:text-magenta"
-                      )}
-                    >
-                      {course.name}
-                    </a>
-                  </li>
-                ))}
+                <li>
+                  <a
+                    href="https://css-for-js.dev"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={cn(
+                      "text-sm transition-colors duration-200",
+                      "text-slate-600 hover:text-magenta",
+                      "dark:text-dark-textMuted dark:hover:text-magenta"
+                    )}
+                  >
+                    {t('nav').cssForJs}
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://joyofreact.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={cn(
+                      "text-sm transition-colors duration-200",
+                      "text-slate-600 hover:text-magenta",
+                      "dark:text-dark-textMuted dark:hover:text-magenta"
+                    )}
+                  >
+                    {t('nav').joyOfReact}
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://whimsy.joshwcomeau.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={cn(
+                      "text-sm transition-colors duration-200",
+                      "text-slate-600 hover:text-magenta",
+                      "dark:text-dark-textMuted dark:hover:text-magenta"
+                    )}
+                  >
+                    {t('nav').whimsicalAnimations}
+                  </a>
+                </li>
               </ul>
             </div>
 
             <div>
               <h4 className="text-sm font-semibold tracking-widest text-magenta uppercase mb-4">
-                General
+                {t('footer').general}
               </h4>
               <ul className="space-y-2">
-                {generalLinks.map((link) => (
-                  <li key={link.name}>
-                    <a
-                      href={link.href}
-                      className={cn(
-                        "text-sm transition-colors duration-200",
-                        "text-slate-600 hover:text-magenta",
-                        "dark:text-dark-textMuted dark:hover:text-magenta"
-                      )}
-                    >
-                      {link.name}
-                    </a>
-                  </li>
-                ))}
+                <li>
+                  <a
+                    href="/about"
+                    className={cn(
+                      "text-sm transition-colors duration-200",
+                      "text-slate-600 hover:text-magenta",
+                      "dark:text-dark-textMuted dark:hover:text-magenta"
+                    )}
+                  >
+                    {t('nav').about}
+                  </a>
+                </li>
               </ul>
             </div>
           </div>
@@ -156,18 +173,6 @@ export default function Footer() {
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             {/* Tools */}
             <div className="flex items-center gap-2">
-              <button
-                className={cn(
-                  "p-2 transition-colors duration-200 rounded-lg hover:bg-slate-100",
-                  "dark:hover:bg-dark-surfaceHover",
-                  "text-slate-600 hover:text-magenta",
-                  "dark:text-dark-textMuted"
-                )}
-                aria-label="Search"
-              >
-                <Search className="w-4 h-4" />
-              </button>
-
               <ToolButtons iconSize="sm" className="gap-2" />
 
               <a
@@ -178,7 +183,7 @@ export default function Footer() {
                   "text-slate-600 hover:text-magenta",
                   "dark:text-dark-textMuted"
                 )}
-                aria-label="RSS Feed"
+                aria-label={t('social').rssFeed}
               >
                 <Rss className="w-4 h-4" />
               </a>
@@ -196,7 +201,7 @@ export default function Footer() {
                   "text-slate-600 hover:text-magenta",
                   "dark:text-dark-textMuted"
                 )}
-                aria-label="BlueSky"
+                aria-label={t('social').bluesky}
               >
                 <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
@@ -212,7 +217,7 @@ export default function Footer() {
                   "text-slate-600 hover:text-magenta",
                   "dark:text-dark-textMuted"
                 )}
-                aria-label="GitHub"
+                aria-label={t('social').github}
               >
                 <Github className="w-4 h-4" />
               </a>
@@ -226,7 +231,7 @@ export default function Footer() {
                   "text-slate-600 hover:text-magenta",
                   "dark:text-dark-textMuted"
                 )}
-                aria-label="LinkedIn"
+                aria-label={t('social').linkedin}
               >
                 <Linkedin className="w-4 h-4" />
               </a>
@@ -240,26 +245,26 @@ export default function Footer() {
             "dark:border-dark-border"
           )}>
             <p className="text-slate-500 dark:text-slate-500 text-sm">
-              © 2018-present Joshua Comeau. All Rights Reserved.
+              {t('footer').copyright}
             </p>
             <div className="mt-2 flex flex-wrap items-center justify-center sm:justify-start gap-x-4 gap-y-1 text-sm">
               <a href="/terms" className={cn(
                 "transition-colors duration-200",
                 "text-slate-500 hover:text-magenta"
               )}>
-                Terms of Use
+                {t('footer').termsOfUse}
               </a>
               <a href="/privacy" className={cn(
                 "transition-colors duration-200",
                 "text-slate-500 hover:text-magenta"
               )}>
-                Privacy Policy
+                {t('footer').privacyPolicy}
               </a>
               <a href="/code-of-conduct" className={cn(
                 "transition-colors duration-200",
                 "text-slate-500 hover:text-magenta"
               )}>
-                Code of Conduct
+                {t('footer').codeOfConduct}
               </a>
             </div>
           </div>

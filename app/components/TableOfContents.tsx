@@ -3,6 +3,7 @@
 import { useState, useEffect, useMemo } from "react"
 import { motion } from "framer-motion"
 import { cn } from "@/app/lib/utils"
+import { useTranslation } from "@/app/lib/i18n"
 
 interface TocItem {
   id: string
@@ -16,6 +17,7 @@ interface TableOfContentsProps {
 
 export default function TableOfContents({ content }: TableOfContentsProps) {
   const [activeId, setActiveId] = useState<string>("")
+  const { t } = useTranslation()
 
   // Extract headings from markdown content
   const headings = useMemo(() => {
@@ -93,7 +95,7 @@ export default function TableOfContents({ content }: TableOfContentsProps) {
       className="hidden xl:block sticky top-24 max-h-[calc(100vh-8rem)] overflow-y-auto"
     >
       <h4 className="text-xs font-semibold uppercase tracking-widest text-slate-500 dark:text-dark-textMuted mb-4">
-        On This Page
+        {t('common').onThisPage}
       </h4>
       <ul className="space-y-2">
         {headings.map((heading) => (

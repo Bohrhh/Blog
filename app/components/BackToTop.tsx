@@ -3,11 +3,13 @@
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { ChevronUp } from "lucide-react"
+import { useTranslation } from "@/app/lib/i18n"
 
 const SCROLL_THRESHOLD = 300
 
 export default function BackToTop() {
   const [isVisible, setIsVisible] = useState(false)
+  const { t } = useTranslation()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -37,7 +39,7 @@ export default function BackToTop() {
           transition={{ duration: 0.2 }}
           onClick={scrollToTop}
           className="fixed bottom-6 right-6 z-40 p-3 bg-magenta text-white rounded-full shadow-lg hover:bg-magenta/90 transition-colors focus:outline-none focus:ring-2 focus:ring-magenta/50"
-          aria-label="Back to top"
+          aria-label={t('common').backToTop}
         >
           <ChevronUp className="w-5 h-5" />
         </motion.button>

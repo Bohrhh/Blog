@@ -6,6 +6,7 @@ import { ArrowRight, Eye } from "lucide-react"
 import { Article } from "@/app/data/articles"
 import { useSound } from "@/app/context/AppContext"
 import { cn } from "@/app/lib/utils"
+import { useTranslation, getTranslatedContent } from "@/app/lib/i18n"
 
 interface ArticleCardProps {
   article: Article
@@ -15,6 +16,8 @@ interface ArticleCardProps {
 
 function ArticleCardComponent({ article, index, viewCount }: ArticleCardProps) {
   const { playSound } = useSound()
+  const { language, t } = useTranslation()
+  const { title, description, subtitle } = getTranslatedContent(article, language)
 
   return (
     <motion.article
@@ -41,16 +44,16 @@ function ArticleCardComponent({ article, index, viewCount }: ArticleCardProps) {
           "text-slate-900 group-hover:text-magenta",
           "dark:text-dark-text dark:group-hover:text-magenta"
         )}>
-          {article.title}
+          {title}
         </h3>
 
-        {article.subtitle && (
+        {subtitle && (
           <p className={cn(
             "text-base sm:text-lg font-medium mb-3",
             "text-slate-600",
             "dark:text-dark-text"
           )}>
-            {article.subtitle}
+            {subtitle}
           </p>
         )}
 
@@ -59,7 +62,7 @@ function ArticleCardComponent({ article, index, viewCount }: ArticleCardProps) {
           "text-slate-600",
           "dark:text-dark-text"
         )}>
-          {article.description}
+          {description}
         </p>
 
         <div className="flex items-center justify-between">
@@ -68,7 +71,7 @@ function ArticleCardComponent({ article, index, viewCount }: ArticleCardProps) {
             "text-slate-900 group-hover:text-magenta",
             "dark:text-dark-text dark:group-hover:text-magenta"
           )}>
-            Read more
+            {t('common').readMore}
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
           </span>
           {viewCount !== undefined && viewCount > 0 && (

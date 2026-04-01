@@ -3,6 +3,7 @@
 import { motion } from "framer-motion"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import { cn } from "@/app/lib/utils"
+import { useTranslation } from "@/app/lib/i18n"
 
 interface PaginationProps {
   currentPage: number
@@ -15,6 +16,8 @@ export default function Pagination({
   totalPages,
   basePath = "/"
 }: PaginationProps) {
+  const { t } = useTranslation()
+
   // Don't render if there's only 1 page or less
   if (totalPages <= 1) return null
 
@@ -68,7 +71,7 @@ export default function Pagination({
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
       className="flex items-center justify-center gap-1 mt-8"
-      aria-label="Pagination"
+      aria-label={t('common').pagination}
     >
       {/* Previous button */}
       <a
@@ -83,7 +86,7 @@ export default function Pagination({
         aria-disabled={currentPage <= 1}
       >
         <ChevronLeft className="w-4 h-4" />
-        <span className="hidden sm:inline">Prev</span>
+        <span className="hidden sm:inline">{t('common').prev}</span>
       </a>
 
       {/* Page numbers */}
@@ -124,7 +127,7 @@ export default function Pagination({
         )}
         aria-disabled={currentPage >= totalPages}
       >
-        <span className="hidden sm:inline">Next</span>
+        <span className="hidden sm:inline">{t('common').next}</span>
         <ChevronRight className="w-4 h-4" />
       </a>
     </motion.nav>

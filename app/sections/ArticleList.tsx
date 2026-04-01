@@ -14,14 +14,23 @@ interface ArticleListProps {
   title?: string
   basePath?: string
   showPagination?: boolean
+  showFeaturedFirst?: boolean
 }
 
-function ArticleListContent({ articles, title, basePath = "/", showPagination = true }: ArticleListProps) {
+function ArticleListContent({ articles, title, basePath = "/", showPagination = true, showFeaturedFirst = false }: ArticleListProps) {
   const searchParams = useSearchParams()
   const page = parseInt(searchParams.get("page") || "1", 10)
   const [views, setViews] = useState<Record<string, number>>({})
 
   const articleList = articles || defaultArticles
+
+  // Sort featured articles to the top if showFeaturedFirst is true
+  const sortedArticles = useMemo(() => {
+    if (!showFeaturedFirst) return articleList
+    const featured = articleList.filter(a => a.featured)
+    const rest = articleList.filter(a => !a.featured)
+    return [...featured, ...rest]
+  }, [articleList, showFeaturedFirst])
 
   // Fetch all view counts
   useEffect(() => {
@@ -39,18 +48,18 @@ function ArticleListContent({ articles, title, basePath = "/", showPagination = 
 
   // Calculate pagination
   const { paginatedArticles, totalPages } = useMemo(() => {
-    const total = articleList.length
+    const total = sortedArticles.length
     const totalPages = Math.ceil(total / ITEMS_PER_PAGE)
     const validPage = Math.min(Math.max(1, page), totalPages)
     const start = (validPage - 1) * ITEMS_PER_PAGE
     const end = start + ITEMS_PER_PAGE
-    const paginated = articleList.slice(start, end)
+    const paginated = sortedArticles.slice(start, end)
 
     return {
       paginatedArticles: paginated,
       totalPages
     }
-  }, [articleList, page])
+  }, [sortedArticles, page])
 
   return (
     <section className="py-8">

@@ -18,7 +18,7 @@ export default function Home() {
           {/* Articles - takes up 2 columns on large screens */}
           <div className="lg:col-span-2">
             <Suspense fallback={null}>
-              <ArticleList />
+              <ArticleList showFeaturedFirst={true} />
             </Suspense>
           </div>
 
