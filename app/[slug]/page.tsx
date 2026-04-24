@@ -3,6 +3,7 @@ import { notFound } from "next/navigation"
 import ArticleNavbar from "@/app/components/ArticleNavbar"
 import ArticleHeader from "@/app/components/ArticleHeader"
 import ArticleBody from "@/app/components/ArticleBody"
+import RelatedArticles from "@/app/components/RelatedArticles"
 
 interface PageProps {
   params: Promise<{ slug: string }>
@@ -55,6 +56,9 @@ export default async function ArticlePage({ params }: PageProps) {
 
           {/* 文章正文 - 支持语言切换 */}
           <ArticleBody slug={slug} />
+
+          {/* 相关文章 */}
+          <RelatedArticles currentSlug={slug} category={article.category} />
         </div>
       </article>
     </main>

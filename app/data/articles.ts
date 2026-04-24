@@ -220,6 +220,18 @@ export const categories = [
   "General"
 ]
 
+// 分类颜色映射（用于标签、徽章等）
+export const categoryColors: Record<string, { bg: string; text: string; border: string; dot: string }> = {
+  CSS: { bg: "bg-sky-100 dark:bg-sky-900/30", text: "text-sky-700 dark:text-sky-300", border: "border-sky-200 dark:border-sky-800", dot: "bg-sky-500" },
+  React: { bg: "bg-cyan-100 dark:bg-cyan-900/30", text: "text-cyan-700 dark:text-cyan-300", border: "border-cyan-200 dark:border-cyan-800", dot: "bg-cyan-500" },
+  Animation: { bg: "bg-purple-100 dark:bg-purple-900/30", text: "text-purple-700 dark:text-purple-300", border: "border-purple-200 dark:border-purple-800", dot: "bg-purple-500" },
+  Career: { bg: "bg-amber-100 dark:bg-amber-900/30", text: "text-amber-700 dark:text-amber-300", border: "border-amber-200 dark:border-amber-800", dot: "bg-amber-500" },
+  JavaScript: { bg: "bg-yellow-100 dark:bg-yellow-900/30", text: "text-yellow-700 dark:text-yellow-300", border: "border-yellow-200 dark:border-yellow-800", dot: "bg-yellow-500" },
+  SVG: { bg: "bg-emerald-100 dark:bg-emerald-900/30", text: "text-emerald-700 dark:text-emerald-300", border: "border-emerald-200 dark:border-emerald-800", dot: "bg-emerald-500" },
+  "Next.js": { bg: "bg-slate-100 dark:bg-slate-800/50", text: "text-slate-700 dark:text-slate-300", border: "border-slate-200 dark:border-slate-700", dot: "bg-slate-500" },
+  General: { bg: "bg-stone-100 dark:bg-stone-800/50", text: "text-stone-700 dark:text-stone-300", border: "border-stone-200 dark:border-stone-700", dot: "bg-stone-500" },
+}
+
 export const popularContent = [
   "An Interactive Guide to Flexbox",
   "A Modern CSS Reset",
