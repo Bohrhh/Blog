@@ -54,6 +54,15 @@ Articles can be marked `featured: true` to appear first on the home page.
 - **UI Translations**: `app/lib/i18n/translations/en.ts` and `zh.ts` — section-based objects (`nav`, `common`, `footer`, `categories`, `toolButtons`, `social`, `article`, `category`, `about`). Some values are functions (e.g., `noResults: (query) => ...`).
 - **Language Switcher**: Globe icon in Navbar toggles between EN/ZH
 
+### i18n Rule (Mandatory)
+
+**Every content change must support both EN and ZH.** This includes:
+
+- **New UI text**: Always add keys to both `app/lib/i18n/translations/en.ts` and `zh.ts`. Never hardcode `language === "zh" ? "..." : "..."` in components — use `t("section").key` instead.
+- **New articles**: Must create both `.md` and `.zh.md` files, import both in `content.ts`, and add `titleZh` / `descriptionZh` / `categoryZh` / `subtitleZh` metadata.
+- **Components that display dynamic content** (e.g. TOC, search results): Must receive or fetch both language variants and switch based on `useLanguage()`.
+- **No exceptions** — if you add text a user can see, it must go through the translation system.
+
 ### Theme System
 
 - **Default**: dark mode
