@@ -1,9 +1,5 @@
 # How to Change Your Entire Life in One Day
 
-### Do this before 2026
-
-*By DAN KOE | December 23, 2025*
-
 ---
 
 You're probably going to abandon your New Year's resolution.
