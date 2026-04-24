@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link"
 import { motion } from "framer-motion"
 import { Search, Rss, Github, Linkedin } from "lucide-react"
 import { categories } from "@/app/data/articles"
@@ -148,7 +149,7 @@ export default function Footer() {
               </h4>
               <ul className="space-y-2">
                 <li>
-                  <a
+                  <Link
                     href="/about"
                     className={cn(
                       "text-sm transition-colors duration-200",
@@ -157,7 +158,7 @@ export default function Footer() {
                     )}
                   >
                     {t('nav').about}
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>

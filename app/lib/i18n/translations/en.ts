@@ -61,6 +61,8 @@ export const en = {
   article: {
     articleNotFound: "Article Not Found",
     minRead: (readTime: string) => readTime,
+    featured: "Featured",
+    relatedArticles: "Related Articles",
   },
   category: {
     categoryNotFound: "Category Not Found",
@@ -88,6 +90,34 @@ export const en = {
     getInTouchDesc: "Feel free to reach out to me on social media or check out my projects on GitHub. I'm always happy to connect with fellow developers!",
     github: "GitHub",
     twitter: "Twitter",
+    role: "Front-end Developer",
+    shortBio: "A passionate web developer who loves creating beautiful, interactive user experiences.",
+    fullBio: "I'm a passionate web developer who loves creating beautiful, interactive user experiences. Here, I share tutorials, insights, and deep dives into front-end technologies.",
+    focusAreas: "Focus Areas",
+    aboutBlog: "About This Blog",
+    aboutBlogDesc: "I created this blog to share my learnings and experiences with the web development community. Here you'll find tutorials, tips, and deep dives into various web technologies. Hope you find them helpful!",
+    connect: "Get in Touch",
+    connectDesc: "Feel free to reach out to me on social media or check out my projects on GitHub. I'm always happy to connect with fellow developers!",
+    skillReact: "React",
+    skillReactDesc: "Building modern, component-based UIs",
+    skillCss: "CSS",
+    skillCssDesc: "Crafting beautiful layouts and animations",
+    skillNextjs: "Next.js",
+    skillNextjsDesc: "Creating performant web applications",
+    skillPerf: "Web Performance",
+    skillPerfDesc: "Optimizing for speed and user experience",
+  },
+  hero: {
+    title: "Exploring the Art of Web Development",
+    titleAccent: "Art",
+    description: "Tutorials and deep dives into CSS, React, Animation, SVG, and modern web technologies.",
+    browseArticles: "Browse Articles",
+    aboutMe: "About Me",
+  },
+  author: {
+    name: "KMLee",
+    role: "Front-end Developer",
+    bio: "A passionate web developer who loves creating beautiful, interactive user experiences. Focused on CSS, React, and modern web technologies.",
   },
 } as const
 
@@ -103,6 +133,8 @@ type TranslationsType = {
   article: Record<string, string | ((...args: any[]) => string)>
   category: Record<string, string | ((...args: any[]) => string)>
   about: Record<string, string>
+  hero: Record<string, string>
+  author: Record<string, string>
 }
 
 export type Language = "en" | "zh"

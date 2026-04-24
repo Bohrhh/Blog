@@ -85,7 +85,7 @@ export default function Navbar() {
                 )}
               >
                 {categories.map((category) => (
-                  <a
+                  <Link
                     key={category}
                     href={`/category/${category.toLowerCase()}`}
                     onClick={() => setOpenDropdown(null)}
@@ -96,7 +96,7 @@ export default function Navbar() {
                     )}
                   >
                     {category}
-                  </a>
+                  </Link>
                 ))}
               </motion.div>
             )}
@@ -175,7 +175,7 @@ export default function Navbar() {
           </div>
 
           {/* About */}
-          <a
+          <Link
             href="/about"
             className={cn(
               "px-3 py-2 text-sm font-medium text-slate-800 dark:text-dark-text rounded-lg",
@@ -183,7 +183,7 @@ export default function Navbar() {
             )}
           >
             {t('nav').about}
-          </a>
+          </Link>
         </div>
 
         {/* Right side tools */}
@@ -279,7 +279,7 @@ export default function Navbar() {
               {openDropdown === "Categories" && (
                 <div className="pl-4 space-y-1 mt-1">
                   {categories.map((category) => (
-                    <a
+                    <Link
                       key={category}
                       href={`/category/${category.toLowerCase()}`}
                       onClick={() => {
@@ -293,7 +293,7 @@ export default function Navbar() {
                       )}
                     >
                       {category}
-                    </a>
+                    </Link>
                   ))}
                 </div>
               )}
@@ -373,7 +373,7 @@ export default function Navbar() {
             </div>
 
             {/* About */}
-            <a
+            <Link
               href="/about"
               onClick={() => setMobileMenuOpen(false)}
               className={cn(
@@ -383,7 +383,7 @@ export default function Navbar() {
               )}
             >
               {t('nav').about}
-            </a>
+            </Link>
           </div>
         </motion.div>
       )}

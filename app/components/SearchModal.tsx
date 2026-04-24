@@ -4,7 +4,7 @@ import { useState, useEffect, useRef, useMemo } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Search, X, FileText } from "lucide-react"
 import { articles, Article } from "@/app/data/articles"
-import { articleContent } from "@/app/data/articles/content"
+import { articleContent, zhArticleContent } from "@/app/data/articles/content"
 import Link from "next/link"
 import { useTranslation, getTranslatedContent } from "@/app/lib/i18n"
 
@@ -66,8 +66,10 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
 
       if (basicMatch) return true
 
-      // Check article body content
-      const content = articleContent[article.slug]
+      // Check article body content (respect current language)
+      const content = language === "zh"
+        ? (zhArticleContent[article.slug] || articleContent[article.slug])
+        : articleContent[article.slug]
       if (content) {
         return content.toLowerCase().includes(searchTerm)
       }
