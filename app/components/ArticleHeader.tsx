@@ -11,12 +11,12 @@ interface ArticleHeaderProps {
 }
 
 export default function ArticleHeader({ article, slug }: ArticleHeaderProps) {
-  const { language, t } = useLanguage()
-  const { title, subtitle, category } = getTranslatedContent(article, language)
+  const { language } = useLanguage()
+  const { category } = getTranslatedContent(article, language)
 
   return (
     <header className="mb-8">
-      <div className="flex items-center gap-4 text-sm text-slate-600 dark:text-dark-textMuted mb-4">
+      <div className="flex items-center gap-4 text-sm text-slate-600 dark:text-dark-textMuted mb-6 flex-wrap">
         <span className="flex items-center gap-1">
           <Calendar className="w-4 h-4" />
           {article.date}
@@ -31,16 +31,6 @@ export default function ArticleHeader({ article, slug }: ArticleHeaderProps) {
         </span>
         <ViewCount slug={slug} />
       </div>
-
-      <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-dark-text mb-3">
-        {title}
-      </h1>
-
-      {subtitle && (
-        <p className="text-xl text-slate-600 dark:text-dark-text">
-          {subtitle}
-        </p>
-      )}
     </header>
   )
 }
