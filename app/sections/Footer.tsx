@@ -91,77 +91,25 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Interactive Courses & General */}
-          <div className="space-y-6">
-            <div>
-              <h4 className="text-sm font-semibold tracking-widest text-magenta uppercase mb-4">
-                {t('footer').interactiveCourses}
-              </h4>
-              <ul className="space-y-2">
-                <li>
-                  <a
-                    href="https://css-for-js.dev"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={cn(
-                      "text-sm transition-colors duration-200",
-                      "text-slate-600 hover:text-magenta",
-                      "dark:text-dark-textMuted dark:hover:text-magenta"
-                    )}
-                  >
-                    {t('nav').cssForJs}
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://joyofreact.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={cn(
-                      "text-sm transition-colors duration-200",
-                      "text-slate-600 hover:text-magenta",
-                      "dark:text-dark-textMuted dark:hover:text-magenta"
-                    )}
-                  >
-                    {t('nav').joyOfReact}
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://whimsy.joshwcomeau.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={cn(
-                      "text-sm transition-colors duration-200",
-                      "text-slate-600 hover:text-magenta",
-                      "dark:text-dark-textMuted dark:hover:text-magenta"
-                    )}
-                  >
-                    {t('nav').whimsicalAnimations}
-                  </a>
-                </li>
-              </ul>
-            </div>
-
-            <div>
-              <h4 className="text-sm font-semibold tracking-widest text-magenta uppercase mb-4">
-                {t('footer').general}
-              </h4>
-              <ul className="space-y-2">
-                <li>
-                  <Link
-                    href="/about"
-                    className={cn(
-                      "text-sm transition-colors duration-200",
-                      "text-slate-600 hover:text-magenta",
-                      "dark:text-dark-textMuted dark:hover:text-magenta"
-                    )}
-                  >
-                    {t('nav').about}
-                  </Link>
-                </li>
-              </ul>
-            </div>
+          {/* General */}
+          <div>
+            <h4 className="text-sm font-semibold tracking-widest text-magenta uppercase mb-4">
+              {t('footer').general}
+            </h4>
+            <ul className="space-y-2">
+              <li>
+                <Link
+                  href="/about"
+                  className={cn(
+                    "text-sm transition-colors duration-200",
+                    "text-slate-600 hover:text-magenta",
+                    "dark:text-dark-textMuted dark:hover:text-magenta"
+                  )}
+                >
+                  {t('nav').about}
+                </Link>
+              </li>
+            </ul>
           </div>
         </div>
 

@@ -40,6 +40,20 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
+# 检查端口是否被占用，如果被占用则先释放
+echo "🔍 检查端口 $PORT ..."
+if lsof -ti:$PORT > /dev/null 2>&1; then
+    echo "⚠️ 端口 $PORT 已被占用，正在释放..."
+    fuser -k $PORT/tcp 2>/dev/null
+    lsof -ti:$PORT | xargs kill -9 2>/dev/null
+    sleep 1
+    if lsof -ti:$PORT > /dev/null 2>&1; then
+        echo "❌ 无法释放端口 $PORT，请手动检查"
+        exit 1
+    fi
+    echo "✅ 端口 $PORT 已释放"
+fi
+
 echo "🚀 启动 Blog 生产环境..."
 echo "📦 端口: $PORT"
 
