@@ -4,6 +4,7 @@ import { useState, useEffect, useMemo } from "react"
 import { motion } from "framer-motion"
 import { cn, slugify } from "@/app/lib/utils"
 import { useTranslation, useLanguage } from "@/app/lib/i18n"
+import GlassPanel from "@/app/components/GlassPanel"
 
 interface TocItem {
   id: string
@@ -89,13 +90,7 @@ export default function TableOfContents({ contentEn, contentZh }: TableOfContent
       transition={{ duration: 0.4, delay: 0.2 }}
       className="sticky top-24 max-h-[calc(100vh-8rem)] overflow-y-auto"
     >
-      <div
-        className={cn(
-          "rounded-xl border p-4",
-          "bg-white/70 dark:bg-dark-surface/60 backdrop-blur-sm",
-          "border-slate-200/70 dark:border-dark-border/60"
-        )}
-      >
+      <GlassPanel className="p-4">
         <h4 className="text-xs font-semibold uppercase tracking-widest text-slate-500 dark:text-dark-textMuted mb-3 px-1">
           {t("common").onThisPage}
         </h4>
@@ -117,7 +112,7 @@ export default function TableOfContents({ contentEn, contentZh }: TableOfContent
             </li>
           ))}
         </ul>
-      </div>
+      </GlassPanel>
     </motion.nav>
   )
 }

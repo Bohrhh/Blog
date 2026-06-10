@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { Eye } from "lucide-react"
+import { API } from "@/app/lib/constants"
 
 interface ViewCountProps {
   slug: string
@@ -14,7 +15,7 @@ export default function ViewCount({ slug }: ViewCountProps) {
     // Increment view count and get updated count in a single request
     const fetchViews = async () => {
       try {
-        const response = await fetch("/api/views", {
+        const response = await fetch(API.VIEWS, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ slug }),

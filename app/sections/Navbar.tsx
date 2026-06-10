@@ -10,6 +10,7 @@ import Logo from "@/app/components/Logo"
 import ToolButtons from "@/app/components/ToolButtons"
 import { categories } from "@/app/data/articles"
 import { useTranslation } from "@/app/lib/i18n"
+import IconButton from "@/app/components/IconButton"
 
 const SearchModal = dynamic(() => import("@/app/components/SearchModal"), { ssr: false })
 
@@ -116,17 +117,11 @@ export default function Navbar() {
 
         {/* Right side tools */}
         <div className="flex items-center gap-1">
-          <button
-            className={cn(
-              "p-2 hover:text-magenta transition-colors duration-200 rounded-lg hover:bg-slate-100/50",
-              "dark:hover:bg-dark-surfaceHover/50",
-              "text-slate-700 dark:text-dark-text"
-            )}
+          <IconButton
+            icon={<Search className="w-5 h-5" />}
             aria-label={t('nav').search}
             onClick={() => setSearchOpen(true)}
-          >
-            <Search className="w-5 h-5" />
-          </button>
+          />
 
           <SearchModal isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
 
@@ -145,30 +140,20 @@ export default function Navbar() {
             {language === "en" ? "CN" : "EN"}
           </button>
 
-          <a
-            href="/rss"
-            className={cn(
-              "hidden sm:flex p-2 hover:text-magenta transition-colors duration-200 rounded-lg hover:bg-slate-100/50",
-              "dark:hover:bg-dark-surfaceHover/50",
-              "text-slate-700 dark:text-dark-text"
-            )}
+          <IconButton
+            icon={<Rss className="w-5 h-5" />}
             aria-label={t('nav').rssFeed}
-          >
-            <Rss className="w-5 h-5" />
-          </a>
+            href="/rss"
+            className="hidden sm:flex"
+          />
 
           {/* Mobile menu button */}
-          <button
-            className={cn(
-              "md:hidden p-2 hover:text-magenta transition-colors duration-200 rounded-lg hover:bg-slate-100/50",
-              "dark:hover:bg-dark-surfaceHover/50",
-              "text-slate-700 dark:text-dark-text"
-            )}
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          <IconButton
+            icon={mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             aria-label={t('nav').toggleMenu}
-          >
-            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </button>
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden"
+          />
         </div>
       </div>
 

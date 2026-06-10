@@ -1,15 +1,13 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import Link from "next/link"
 import { motion } from "framer-motion"
 import { ArrowRight, Eye } from "lucide-react"
 import { articles as allArticles } from "@/app/data/articles"
-import { cn } from "@/app/lib/utils"
+import { cn, MotionLink } from "@/app/lib/utils"
 import { useSound } from "@/app/context/AppContext"
 import { useTranslation, getTranslatedContent } from "@/app/lib/i18n"
-
-const MotionLink = motion(Link)
+import { API } from "@/app/lib/constants"
 
 export default function PopularContent() {
   const { playSound } = useSound()
@@ -19,7 +17,7 @@ export default function PopularContent() {
   useEffect(() => {
     const fetchViews = async () => {
       try {
-        const response = await fetch("/api/views")
+        const response = await fetch(API.VIEWS)
         const viewsData: Record<string, number> = await response.json()
 
         // Sort articles by view count descending

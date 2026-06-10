@@ -7,6 +7,11 @@ export const STORAGE_KEYS = {
   LANGUAGE: "blog-language",
 } as const
 
+// API 端点
+export const API = {
+  VIEWS: "/api/views",
+} as const
+
 // 路由
 export const ROUTES = {
   HOME: "/",
@@ -27,4 +32,10 @@ export const UI = {
   SIDEBAR_WIDTH: "1/3",
   MAX_CONTENT_WIDTH: 1200, // max-w-[1200px]
   ARTICLE_WIDTH: 672, // max-w-3xl ≈ 48rem = 768px, using 42rem = 672px
+} as const
+
+// 分页配置
+export const PAGINATION = {
+  ELLIPSIS: "ellipsis",
+  MAX_VISIBLE_PAGES: 5,
 } as const

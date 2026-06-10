@@ -2,12 +2,13 @@
 
 import Link from "next/link"
 import { motion } from "framer-motion"
-import { Search, Rss, Github, Linkedin } from "lucide-react"
+import { Rss, Github, Linkedin } from "lucide-react"
 import { categories } from "@/app/data/articles"
 import { cn } from "@/app/lib/utils"
 import Logo from "@/app/components/Logo"
 import ToolButtons from "@/app/components/ToolButtons"
 import { useTranslation } from "@/app/lib/i18n"
+import IconButton from "@/app/components/IconButton"
 
 export default function Footer() {
   const { t } = useTranslation()
@@ -124,66 +125,41 @@ export default function Footer() {
             <div className="flex items-center gap-2">
               <ToolButtons iconSize="sm" className="gap-2" />
 
-              <a
-                href="/rss"
-                className={cn(
-                  "p-2 transition-colors duration-200 rounded-lg hover:bg-slate-100",
-                  "dark:hover:bg-dark-surfaceHover",
-                  "text-slate-600 hover:text-magenta",
-                  "dark:text-dark-textMuted"
-                )}
+              <IconButton
+                icon={<Rss className="w-4 h-4" />}
                 aria-label={t('social').rssFeed}
-              >
-                <Rss className="w-4 h-4" />
-              </a>
+                href="/rss"
+                variant="footer"
+              />
             </div>
 
             {/* Social links */}
             <div className="flex items-center gap-3">
-              <a
-                href="https://bsky.app/profile/joshwcomeau.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={cn(
-                  "p-2 transition-colors duration-200 rounded-lg hover:scale-110 transition-transform",
-                  "hover:bg-slate-100 dark:hover:bg-dark-surfaceHover",
-                  "text-slate-600 hover:text-magenta",
-                  "dark:text-dark-textMuted"
+              <IconButton
+                icon={(
+                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                  </svg>
                 )}
                 aria-label={t('social').bluesky}
-              >
-                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
-                </svg>
-              </a>
-              <a
-                href="https://github.com/joshwcomeau"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={cn(
-                  "p-2 transition-colors duration-200 rounded-lg hover:scale-110 transition-transform",
-                  "hover:bg-slate-100 dark:hover:bg-dark-surfaceHover",
-                  "text-slate-600 hover:text-magenta",
-                  "dark:text-dark-textMuted"
-                )}
+                href="https://bsky.app/profile/joshwcomeau.com"
+                external
+                variant="social"
+              />
+              <IconButton
+                icon={<Github className="w-4 h-4" />}
                 aria-label={t('social').github}
-              >
-                <Github className="w-4 h-4" />
-              </a>
-              <a
-                href="https://www.linkedin.com/in/joshwcomeau"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={cn(
-                  "p-2 transition-colors duration-200 rounded-lg hover:scale-110 transition-transform",
-                  "hover:bg-slate-100 dark:hover:bg-dark-surfaceHover",
-                  "text-slate-600 hover:text-magenta",
-                  "dark:text-dark-textMuted"
-                )}
+                href="https://github.com/joshwcomeau"
+                external
+                variant="social"
+              />
+              <IconButton
+                icon={<Linkedin className="w-4 h-4" />}
                 aria-label={t('social').linkedin}
-              >
-                <Linkedin className="w-4 h-4" />
-              </a>
+                href="https://www.linkedin.com/in/joshwcomeau"
+                external
+                variant="social"
+              />
             </div>
           </div>
 

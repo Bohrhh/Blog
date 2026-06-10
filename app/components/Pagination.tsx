@@ -3,6 +3,8 @@
 import { motion } from "framer-motion"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import { cn } from "@/app/lib/utils"
+import { PAGINATION } from "@/app/lib/constants"
+import { getPageNumbers } from "@/app/lib/pagination"
 import { useTranslation } from "@/app/lib/i18n"
 
 interface PaginationProps {
@@ -21,42 +23,7 @@ export default function Pagination({
   // Don't render if there's only 1 page or less
   if (totalPages <= 1) return null
 
-  // Generate page numbers to display
-  const getPageNumbers = () => {
-    const pages: (number | string)[] = []
-    const maxVisible = 5
-
-    if (totalPages <= maxVisible) {
-      // Show all pages
-      for (let i = 1; i <= totalPages; i++) {
-        pages.push(i)
-      }
-    } else {
-      // Always show first page
-      pages.push(1)
-
-      if (currentPage > 3) {
-        pages.push("...")
-      }
-
-      // Show pages around current page
-      const start = Math.max(2, currentPage - 1)
-      const end = Math.min(totalPages - 1, currentPage + 1)
-
-      for (let i = start; i <= end; i++) {
-        pages.push(i)
-      }
-
-      if (currentPage < totalPages - 2) {
-        pages.push("...")
-      }
-
-      // Always show last page
-      pages.push(totalPages)
-    }
-
-    return pages
-  }
+  const pages = getPageNumbers(currentPage, totalPages)
 
   const getPageUrl = (page: number) => {
     if (page === 1) {
@@ -91,11 +58,11 @@ export default function Pagination({
 
       {/* Page numbers */}
       <div className="flex items-center gap-1">
-        {getPageNumbers().map((page, index) => (
+        {pages.map((page, index) => (
           <span key={index}>
-            {typeof page === "string" ? (
+            {page === PAGINATION.ELLIPSIS ? (
               <span className="px-3 py-2 text-slate-400 dark:text-dark-textMuted">
-                {page}
+                ...
               </span>
             ) : (
               <a

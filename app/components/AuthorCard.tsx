@@ -4,6 +4,8 @@ import { motion } from "framer-motion"
 import { Github, Twitter, Mail } from "lucide-react"
 import { cn } from "@/app/lib/utils"
 import { useTranslation } from "@/app/lib/i18n"
+import IconButton from "@/app/components/IconButton"
+import { glassPanelClasses } from "@/app/components/GlassPanel"
 
 export default function AuthorCard() {
   const { t } = useTranslation()
@@ -15,11 +17,7 @@ export default function AuthorCard() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5 }}
-      className={cn(
-        "rounded-xl border p-5",
-        "bg-white/70 dark:bg-dark-surface/60 backdrop-blur-sm",
-        "border-slate-200/70 dark:border-dark-border/60"
-      )}
+      className={cn(glassPanelClasses, "p-5")}
     >
       <div className="flex items-center gap-3 mb-3">
         <div className="w-12 h-12 rounded-full bg-magenta/10 flex items-center justify-center text-magenta font-bold text-lg">
@@ -38,43 +36,29 @@ export default function AuthorCard() {
         {author.bio}
       </p>
       <div className="flex items-center gap-2">
-        <a
-          href="https://github.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          className={cn(
-            "p-2 rounded-lg transition-colors",
-            "hover:bg-slate-100 dark:hover:bg-dark-surfaceHover",
-            "text-slate-500 hover:text-magenta dark:text-dark-textMuted"
-          )}
+        <IconButton
+          icon={<Github className="w-4 h-4" />}
           aria-label="GitHub"
-        >
-          <Github className="w-4 h-4" />
-        </a>
-        <a
-          href="https://twitter.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          className={cn(
-            "p-2 rounded-lg transition-colors",
-            "hover:bg-slate-100 dark:hover:bg-dark-surfaceHover",
-            "text-slate-500 hover:text-magenta dark:text-dark-textMuted"
-          )}
+          href="https://github.com"
+          external
+          variant="footer"
+          className="text-slate-500 dark:text-dark-textMuted"
+        />
+        <IconButton
+          icon={<Twitter className="w-4 h-4" />}
           aria-label="Twitter"
-        >
-          <Twitter className="w-4 h-4" />
-        </a>
-        <a
-          href="mailto:hello@kmleex.com"
-          className={cn(
-            "p-2 rounded-lg transition-colors",
-            "hover:bg-slate-100 dark:hover:bg-dark-surfaceHover",
-            "text-slate-500 hover:text-magenta dark:text-dark-textMuted"
-          )}
+          href="https://twitter.com"
+          external
+          variant="footer"
+          className="text-slate-500 dark:text-dark-textMuted"
+        />
+        <IconButton
+          icon={<Mail className="w-4 h-4" />}
           aria-label="Email"
-        >
-          <Mail className="w-4 h-4" />
-        </a>
+          href="mailto:hello@kmleex.com"
+          variant="footer"
+          className="text-slate-500 dark:text-dark-textMuted"
+        />
       </div>
     </motion.div>
   )

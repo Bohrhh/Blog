@@ -5,6 +5,7 @@ import { useMemo, useEffect, useState } from "react"
 import { motion } from "framer-motion"
 import ArticleCard from "@/app/components/ArticleCard"
 import Pagination from "@/app/components/Pagination"
+import { API } from "@/app/lib/constants"
 import { articles as defaultArticles, Article } from "@/app/data/articles"
 
 const ITEMS_PER_PAGE = 6
@@ -36,7 +37,7 @@ function ArticleListContent({ articles, title, basePath = "/", showPagination = 
   useEffect(() => {
     const fetchViews = async () => {
       try {
-        const response = await fetch("/api/views")
+        const response = await fetch(API.VIEWS)
         const data = await response.json()
         setViews(data)
       } catch (error) {

@@ -35,3 +35,5 @@ Thumbs.db
 
 # Images (keep source, ignore optimized)
 # public/images/character.png
+
+.claude/

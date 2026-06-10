@@ -1,33 +1,17 @@
 "use client"
 
-import { useState, useEffect, useRef, useMemo } from "react"
+import { useState, useEffect, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Search, X, FileText } from "lucide-react"
 import { articles, Article } from "@/app/data/articles"
 import { articleContent, zhArticleContent } from "@/app/data/articles/content"
 import Link from "next/link"
 import { useTranslation, getTranslatedContent } from "@/app/lib/i18n"
+import { useDebounce } from "@/app/lib/hooks"
 
 interface SearchModalProps {
   isOpen: boolean
   onClose: () => void
-}
-
-// 自定义 debounce hook
-function useDebounce<T>(value: T, delay: number): T {
-  const [debouncedValue, setDebouncedValue] = useState<T>(value)
-
-  useEffect(() => {
-    const handler = setTimeout(() => {
-      setDebouncedValue(value)
-    }, delay)
-
-    return () => {
-      clearTimeout(handler)
-    }
-  }, [value, delay])
-
-  return debouncedValue
 }
 
 export default function SearchModal({ isOpen, onClose }: SearchModalProps) {

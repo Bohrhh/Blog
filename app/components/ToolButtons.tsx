@@ -5,6 +5,7 @@ import { Volume2, VolumeX, Sun, Moon } from "lucide-react"
 import { useSound, useTheme } from "@/app/context/AppContext"
 import { cn } from "@/app/lib/utils"
 import { useTranslation } from "@/app/lib/i18n"
+import IconButton from "@/app/components/IconButton"
 
 interface ToolButtonsProps {
   className?: string
@@ -44,33 +45,27 @@ export default function ToolButtons({
 
   return (
     <div className={cn("flex items-center gap-1", className)}>
-      <button
-        onClick={toggleSound}
-        className={cn(
-          showOnMobile ? "flex" : "hidden sm:flex",
-          "p-2 transition-colors duration-200 rounded-lg hover:bg-slate-100/50",
-          "dark:hover:bg-dark-surfaceHover/50",
-          isSoundEnabled ? "text-magenta" : "text-slate-700 dark:text-dark-text"
-        )}
+      <IconButton
+        icon={isSoundEnabled ? <Volume2 className={iconClass} /> : <VolumeX className={iconClass} />}
         aria-label={t('toolButtons').toggleSound}
-        aria-pressed={isSoundEnabled}
-      >
-        {isSoundEnabled ? <Volume2 className={iconClass} /> : <VolumeX className={iconClass} />}
-      </button>
-
-      <button
-        onClick={toggleTheme}
+        onClick={toggleSound}
+        pressed={isSoundEnabled}
         className={cn(
           showOnMobile ? "flex" : "hidden sm:flex",
-          "p-2 transition-colors duration-200 rounded-lg hover:bg-slate-100/50",
-          "dark:hover:bg-dark-surfaceHover/50",
-          theme === "dark" ? "text-magenta" : "text-slate-700 dark:text-dark-text"
+          isSoundEnabled && "text-magenta"
         )}
+      />
+
+      <IconButton
+        icon={theme === "dark" ? <Moon className={iconClass} /> : <Sun className={iconClass} />}
         aria-label={t('toolButtons').toggleTheme}
-        aria-pressed={theme === "dark"}
-      >
-        {theme === "dark" ? <Moon className={iconClass} /> : <Sun className={iconClass} />}
-      </button>
+        onClick={toggleTheme}
+        pressed={theme === "dark"}
+        className={cn(
+          showOnMobile ? "flex" : "hidden sm:flex",
+          theme === "dark" && "text-magenta"
+        )}
+      />
     </div>
   )
 }

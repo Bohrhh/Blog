@@ -4,6 +4,7 @@ import { motion } from "framer-motion"
 import { Code2, Palette, Zap, Globe, Github, Twitter, Coffee, Heart } from "lucide-react"
 import { cn } from "@/app/lib/utils"
 import { useTranslation } from "@/app/lib/i18n"
+import { glassPanelClasses } from "@/app/components/GlassPanel"
 
 const skillIcons = [
   { icon: Code2, key: "skillReact" },
@@ -41,11 +42,7 @@ export default function AboutContent() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.1 }}
-        className={cn(
-          "rounded-xl border p-6 mb-8",
-          "bg-white/70 dark:bg-dark-surface/60 backdrop-blur-sm",
-          "border-slate-200/70 dark:border-dark-border/60"
-        )}
+        className={cn(glassPanelClasses, "p-6 mb-8")}
       >
         <p className="text-slate-700 dark:text-dark-text leading-relaxed mb-4">
           {about.intro}
@@ -77,9 +74,8 @@ export default function AboutContent() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, delay: 0.3 + index * 0.05 }}
                 className={cn(
-                  "flex items-start gap-4 rounded-xl border p-5",
-                  "bg-white/70 dark:bg-dark-surface/60 backdrop-blur-sm",
-                  "border-slate-200/70 dark:border-dark-border/60",
+                  glassPanelClasses,
+                  "flex items-start gap-4 p-5",
                   "hover:border-magenta/30 transition-colors duration-200"
                 )}
               >
@@ -105,11 +101,7 @@ export default function AboutContent() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.4 }}
-        className={cn(
-          "rounded-xl border p-6 mb-8",
-          "bg-white/70 dark:bg-dark-surface/60 backdrop-blur-sm",
-          "border-slate-200/70 dark:border-dark-border/60"
-        )}
+        className={cn(glassPanelClasses, "p-6 mb-8")}
       >
         <div className="flex items-center gap-2 mb-3">
           <Coffee className="w-5 h-5 text-magenta" />

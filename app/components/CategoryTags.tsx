@@ -1,13 +1,9 @@
 "use client"
 
-import Link from "next/link"
-import { motion } from "framer-motion"
 import { categories, categoryColors } from "@/app/data/articles"
-import { cn } from "@/app/lib/utils"
+import { cn, MotionLink } from "@/app/lib/utils"
 import { useSound } from "@/app/context/AppContext"
 import { useTranslation } from "@/app/lib/i18n"
-
-const MotionLink = motion(Link)
 
 export default function CategoryTags() {
   const { playSound } = useSound()

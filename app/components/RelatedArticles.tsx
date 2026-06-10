@@ -6,6 +6,7 @@ import { ArrowRight } from "lucide-react"
 import { articles as allArticles, categoryColors } from "@/app/data/articles"
 import { cn } from "@/app/lib/utils"
 import { useTranslation, getTranslatedContent } from "@/app/lib/i18n"
+import { glassPanelClasses } from "@/app/components/GlassPanel"
 
 interface RelatedArticlesProps {
   currentSlug: string
@@ -43,9 +44,8 @@ export default function RelatedArticles({ currentSlug, category }: RelatedArticl
               <Link
                 href={`/${article.slug}`}
                 className={cn(
-                  "group block h-full rounded-xl border p-5 transition-all duration-300",
-                  "bg-white/70 dark:bg-dark-surface/60 backdrop-blur-sm",
-                  "border-slate-200/70 dark:border-dark-border/60",
+                  glassPanelClasses,
+                  "group block h-full p-5 transition-all duration-300",
                   "hover:border-magenta/40 dark:hover:border-magenta/40",
                   "hover:shadow-md hover:-translate-y-0.5"
                 )}
