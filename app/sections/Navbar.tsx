@@ -48,7 +48,7 @@ export default function Navbar() {
       initial={{ y: -20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.4, ease: "easeOut" }}
-      className="fixed top-0 left-0 right-0 z-50 h-16 bg-slate-50/80 dark:bg-dark-surface/80 backdrop-blur-lg backdrop-saturate-150 border-b border-slate-200/50 dark:border-dark-border/50"
+      className="fixed top-0 inset-x-0 z-50 h-16 bg-slate-50/75 dark:bg-dark-surface/70 backdrop-blur-glass-lg backdrop-saturate-150 border-b border-slate-200/60 dark:border-white/[0.06] shadow-e1"
     >
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6 h-full flex items-center justify-between">
         {/* Logo */}
@@ -61,9 +61,10 @@ export default function Navbar() {
             <button
               onClick={() => handleDropdownClick("Categories")}
               className={cn(
-                "px-3 py-2 text-sm font-medium text-slate-800 dark:text-dark-text rounded-lg",
+                "px-3 py-2 text-body-sm font-medium text-slate-700 dark:text-dark-text rounded-card",
                 "hover:text-magenta transition-colors duration-200",
-                "flex items-center gap-1 cursor-pointer"
+                "flex items-center gap-1 cursor-pointer",
+                "focus:outline-none focus-visible:ring-2 focus-visible:ring-magenta/40"
               )}
             >
               {t('nav').categories}
@@ -80,9 +81,10 @@ export default function Navbar() {
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 className={cn(
-                  "absolute top-full left-0 mt-2 py-2 min-w-[180px] rounded-lg shadow-lg",
-                  "bg-white dark:bg-dark-surfaceHover",
-                  "border border-slate-200 dark:border-dark-border"
+                  "absolute top-full left-0 mt-2 py-2 min-w-[200px] rounded-overlay",
+                  "border border-slate-200/70 dark:border-white/[0.08]",
+                  "bg-white/90 dark:bg-dark-surface/90",
+                  "backdrop-blur-glass-lg backdrop-saturate-150 shadow-e3"
                 )}
               >
                 {categories.map((category) => (
@@ -91,7 +93,8 @@ export default function Navbar() {
                     href={`/category/${category.toLowerCase()}`}
                     onClick={() => setOpenDropdown(null)}
                     className={cn(
-                      "block px-4 py-2 text-sm text-slate-700 dark:text-dark-text",
+                      "block mx-1 px-4 py-2 rounded-card text-body-sm",
+                      "text-slate-700 dark:text-dark-text",
                       "hover:bg-slate-100 dark:hover:bg-dark-surfaceHover",
                       "hover:text-magenta transition-colors duration-150"
                     )}
@@ -107,8 +110,9 @@ export default function Navbar() {
           <Link
             href="/about"
             className={cn(
-              "px-3 py-2 text-sm font-medium text-slate-800 dark:text-dark-text rounded-lg",
-              "hover:text-magenta transition-colors duration-200"
+              "px-3 py-2 text-body-sm font-medium text-slate-700 dark:text-dark-text rounded-card",
+              "hover:text-magenta transition-colors duration-200",
+              "focus:outline-none focus-visible:ring-2 focus-visible:ring-magenta/40"
             )}
           >
             {t('nav').about}
@@ -131,9 +135,10 @@ export default function Navbar() {
           <button
             onClick={toggleLanguage}
             className={cn(
-              "px-2 py-1 text-xs font-semibold hover:text-magenta transition-colors duration-200 rounded-lg hover:bg-slate-100/50",
-              "dark:hover:bg-dark-surfaceHover/50",
-              "text-slate-700 dark:text-dark-text"
+              "px-2 py-1 text-caption text-slate-700 dark:text-dark-text rounded-card",
+              "hover:text-magenta transition-colors duration-200",
+              "hover:bg-slate-100/60 dark:hover:bg-dark-surfaceHover/60",
+              "focus:outline-none focus-visible:ring-2 focus-visible:ring-magenta/40"
             )}
             aria-label="Toggle language"
           >
@@ -164,9 +169,10 @@ export default function Navbar() {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -10 }}
           className={cn(
-            "md:hidden absolute top-16 left-0 right-0 backdrop-blur-sm border-b shadow-lg",
-            "bg-white/95 dark:bg-dark-surface/95",
-            "border-slate-200 dark:border-dark-border"
+            "md:hidden absolute top-16 left-0 right-0",
+            "backdrop-blur-glass-lg backdrop-saturate-150",
+            "border-b border-slate-200/60 dark:border-white/[0.06]",
+            "bg-white/90 dark:bg-dark-surface/90 shadow-e3"
           )}
         >
           <div className="px-4 py-4 space-y-2">
@@ -175,9 +181,9 @@ export default function Navbar() {
               <button
                 onClick={() => handleDropdownClick("Categories")}
                 className={cn(
-                  "w-full px-4 py-3 text-left rounded-lg transition-colors duration-200 flex items-center justify-between",
-                  "text-slate-800 hover:text-magenta hover:bg-slate-50",
-                  "dark:text-dark-text dark:hover:bg-dark-surfaceHover"
+                  "w-full px-4 py-3 text-left rounded-card transition-colors duration-200 flex items-center justify-between",
+                  "text-body-sm font-medium text-slate-700 dark:text-dark-text",
+                  "hover:text-magenta hover:bg-slate-100 dark:hover:bg-dark-surfaceHover"
                 )}
               >
                 {t('nav').categories}
@@ -200,9 +206,9 @@ export default function Navbar() {
                         setMobileMenuOpen(false)
                       }}
                       className={cn(
-                        "block w-full text-left px-4 py-2 rounded-lg transition-colors duration-200",
-                        "text-slate-600 hover:text-magenta hover:bg-slate-50",
-                        "dark:text-dark-textMuted dark:hover:bg-dark-surfaceHover"
+                        "block w-full text-left px-4 py-2 rounded-card transition-colors duration-200",
+                        "text-body-sm text-slate-600 dark:text-dark-textMuted",
+                        "hover:text-magenta hover:bg-slate-100 dark:hover:bg-dark-surfaceHover"
                       )}
                     >
                       {category}
@@ -217,9 +223,9 @@ export default function Navbar() {
               href="/about"
               onClick={() => setMobileMenuOpen(false)}
               className={cn(
-                "block px-4 py-3 rounded-lg transition-colors duration-200",
-                "text-slate-800 hover:text-magenta hover:bg-slate-50",
-                "dark:text-dark-text dark:hover:bg-dark-surfaceHover"
+                "block px-4 py-3 rounded-card transition-colors duration-200",
+                "text-body-sm font-medium text-slate-700 dark:text-dark-text",
+                "hover:text-magenta hover:bg-slate-100 dark:hover:bg-dark-surfaceHover"
               )}
             >
               {t('nav').about}

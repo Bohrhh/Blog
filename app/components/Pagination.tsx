@@ -45,7 +45,7 @@ export default function Pagination({
         href={currentPage > 1 ? getPageUrl(currentPage - 1) : "#"}
         onClick={(e) => currentPage <= 1 && e.preventDefault()}
         className={cn(
-          "flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-medium transition-colors",
+          "flex items-center gap-1 px-3 py-2 rounded-card text-sm font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-magenta/40",
           currentPage > 1
             ? "text-slate-700 dark:text-dark-text hover:bg-slate-100 dark:hover:bg-dark-surfaceHover hover:text-magenta"
             : "text-slate-300 dark:text-dark-textMuted cursor-not-allowed"
@@ -68,9 +68,9 @@ export default function Pagination({
               <a
                 href={getPageUrl(page)}
                 className={cn(
-                  "w-10 h-10 flex items-center justify-center rounded-lg text-sm font-medium transition-colors",
+                  "w-10 h-10 flex items-center justify-center rounded-card text-sm font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-magenta/40",
                   page === currentPage
-                    ? "bg-magenta text-white"
+                    ? "bg-magenta text-white shadow-glow"
                     : "text-slate-700 dark:text-dark-text hover:bg-slate-100 dark:hover:bg-dark-surfaceHover hover:text-magenta"
                 )}
                 aria-current={page === currentPage ? "page" : undefined}
@@ -87,7 +87,7 @@ export default function Pagination({
         href={currentPage < totalPages ? getPageUrl(currentPage + 1) : "#"}
         onClick={(e) => currentPage >= totalPages && e.preventDefault()}
         className={cn(
-          "flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-medium transition-colors",
+          "flex items-center gap-1 px-3 py-2 rounded-card text-sm font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-magenta/40",
           currentPage < totalPages
             ? "text-slate-700 dark:text-dark-text hover:bg-slate-100 dark:hover:bg-dark-surfaceHover hover:text-magenta"
             : "text-slate-300 dark:text-dark-textMuted cursor-not-allowed"

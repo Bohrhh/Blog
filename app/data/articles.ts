@@ -51,8 +51,14 @@ export function getAllCategories(): string[] {
 export const categories = ["Career"]
 
 export const categoryColors: Record<string, { bg: string; text: string; border: string; dot: string }> = {
-  Career: { bg: "bg-amber-100 dark:bg-amber-900/30", text: "text-amber-700 dark:text-amber-300", border: "border-amber-200 dark:border-amber-800", dot: "bg-amber-500" },
-  General: { bg: "bg-slate-100 dark:bg-slate-800/50", text: "text-slate-700 dark:text-slate-300", border: "border-slate-200 dark:border-slate-700", dot: "bg-slate-500" },
+  Animation: { bg: "bg-violet-50 dark:bg-violet-500/10", text: "text-violet-700 dark:text-violet-300", border: "border-violet-200 dark:border-violet-500/20", dot: "bg-violet-500" },
+  CSS: { bg: "bg-sky-50 dark:bg-sky-500/10", text: "text-sky-700 dark:text-sky-300", border: "border-sky-200 dark:border-sky-500/20", dot: "bg-sky-500" },
+  Career: { bg: "bg-amber-50 dark:bg-amber-500/10", text: "text-amber-700 dark:text-amber-300", border: "border-amber-200 dark:border-amber-500/20", dot: "bg-amber-500" },
+  General: { bg: "bg-slate-100 dark:bg-slate-700/30", text: "text-slate-700 dark:text-slate-300", border: "border-slate-200 dark:border-slate-600/40", dot: "bg-slate-500" },
+  "Next.js": { bg: "bg-slate-100 dark:bg-slate-500/10", text: "text-slate-700 dark:text-slate-300", border: "border-slate-200 dark:border-slate-500/20", dot: "bg-slate-500" },
+  React: { bg: "bg-cyan-50 dark:bg-cyan-500/10", text: "text-cyan-700 dark:text-cyan-300", border: "border-cyan-200 dark:border-cyan-500/20", dot: "bg-cyan-500" },
+  SVG: { bg: "bg-emerald-50 dark:bg-emerald-500/10", text: "text-emerald-700 dark:text-emerald-300", border: "border-emerald-200 dark:border-emerald-500/20", dot: "bg-emerald-500" },
+  "Web Development": { bg: "bg-indigo-50 dark:bg-indigo-500/10", text: "text-indigo-700 dark:text-indigo-300", border: "border-indigo-200 dark:border-indigo-500/20", dot: "bg-indigo-500" },
 }
 
 export const popularContent: string[] = []

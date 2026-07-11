@@ -52,7 +52,7 @@ export default function ToolButtons({
         pressed={isSoundEnabled}
         className={cn(
           showOnMobile ? "flex" : "hidden sm:flex",
-          isSoundEnabled && "text-magenta"
+          isSoundEnabled && "bg-magenta/10 text-magenta"
         )}
       />
 
@@ -63,7 +63,7 @@ export default function ToolButtons({
         pressed={theme === "dark"}
         className={cn(
           showOnMobile ? "flex" : "hidden sm:flex",
-          theme === "dark" && "text-magenta"
+          theme === "dark" && "bg-magenta/10 text-magenta"
         )}
       />
     </div>

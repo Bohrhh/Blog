@@ -55,7 +55,7 @@ export default async function ArticlePage({ params }: PageProps) {
             <div className="max-w-3xl mx-auto xl:mx-0 w-full">
               <ArticleHeader article={article} slug={slug} />
 
-              <div className="border-t border-slate-200 dark:border-dark-border mb-8" />
+              <div className="border-t border-slate-200/60 dark:border-white/[0.06] mb-8" />
 
               <ArticleBody slug={slug} />
 

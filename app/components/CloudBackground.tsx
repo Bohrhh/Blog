@@ -54,7 +54,7 @@ export default function CloudBackground() {
 
       {/* Cloud 1 - Top left */}
       <div
-        className="absolute -left-20 top-20 opacity-80"
+        className="absolute -left-20 top-20 opacity-80 dark:opacity-30"
         style={cloudStyles[0]}
       >
         <svg width="300" height="150" viewBox="0 0 300 150" fill="none">
@@ -67,7 +67,7 @@ export default function CloudBackground() {
 
       {/* Cloud 2 - Top right */}
       <div
-        className="absolute right-10 top-10 opacity-70"
+        className="absolute right-10 top-10 opacity-70 dark:opacity-25"
         style={cloudStyles[1]}
       >
         <svg width="250" height="120" viewBox="0 0 250 120" fill="none">
@@ -80,7 +80,7 @@ export default function CloudBackground() {
 
       {/* Cloud 3 - Bottom left */}
       <div
-        className="absolute left-1/4 bottom-20 opacity-60"
+        className="absolute left-1/4 bottom-20 opacity-60 dark:opacity-20"
         style={cloudStyles[2]}
       >
         <svg width="200" height="100" viewBox="0 0 200 100" fill="none">
@@ -92,7 +92,7 @@ export default function CloudBackground() {
 
       {/* Cloud 4 - Bottom right */}
       <div
-        className="absolute right-1/4 bottom-32 opacity-50"
+        className="absolute right-1/4 bottom-32 opacity-50 dark:opacity-15"
         style={cloudStyles[3]}
       >
         <svg width="180" height="90" viewBox="0 0 180 90" fill="none">
@@ -107,7 +107,7 @@ export default function CloudBackground() {
         {dotPositions.map((pos, i) => (
           <div
             key={i}
-            className="absolute w-1 h-1 rounded-full bg-amber-300"
+            className="absolute w-1 h-1 rounded-full bg-magenta"
             style={{
               left: pos.left,
               top: pos.top,

@@ -36,19 +36,15 @@ function ArticleCardComponent({ article, index, viewCount }: ArticleCardProps) {
       <Link
         href={`/${article.slug}`}
         className={cn(
-          "group block rounded-xl border transition-all duration-300",
+          "group block rounded-card backdrop-blur-glass backdrop-saturate-150 transition-all duration-300 hover:-translate-y-0.5",
           article.featured
-            ? "bg-magenta/[0.02] dark:bg-magenta/5 border-magenta/20 dark:border-magenta/30"
-            : "bg-white/70 dark:bg-dark-surface/60 border-slate-200/70 dark:border-dark-border/60",
-          "hover:border-magenta/40 dark:hover:border-magenta/40",
-          "hover:shadow-lg hover:shadow-magenta/5 dark:hover:shadow-magenta/10",
-          "hover:-translate-y-0.5",
-          article.featured && "relative overflow-hidden"
+            ? "relative border border-magenta/20 dark:border-magenta/30 bg-magenta/[0.03] dark:bg-magenta/[0.06] shadow-e2 overflow-hidden hover:border-magenta/50 hover:shadow-glow"
+            : "border border-slate-200/60 dark:border-white/[0.06] bg-white/70 dark:bg-dark-surface/55 shadow-e1 hover:border-magenta/40 hover:shadow-e2"
         )}
         onMouseEnter={() => playSound("hover")}
       >
         {article.featured && (
-          <div className="absolute left-0 top-4 bottom-4 w-1 rounded-r-full bg-magenta" />
+          <div className="absolute left-0 top-4 bottom-4 w-1 rounded-r-full bg-gradient-to-b from-magenta to-magenta-dark" />
         )}
         <div className="p-6">
           {/* Top row: category + date + featured */}
@@ -56,7 +52,8 @@ function ArticleCardComponent({ article, index, viewCount }: ArticleCardProps) {
             <div className="flex items-center gap-2 flex-wrap">
               {category && (
                 <span className={cn(
-                  "inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium rounded-full",
+                  "inline-flex items-center gap-1.5 px-2.5 py-1 text-caption font-medium rounded-full border",
+                  colors.border,
                   colors.bg,
                   colors.text
                 )}>
@@ -64,12 +61,12 @@ function ArticleCardComponent({ article, index, viewCount }: ArticleCardProps) {
                   {category}
                 </span>
               )}
-              <span className="text-xs text-slate-400 dark:text-dark-textMuted">
+              <span className="text-body-sm text-slate-500 dark:text-dark-textMuted">
                 {article.date}
               </span>
             </div>
             {article.featured && (
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 text-xs font-medium rounded-full bg-magenta/10 text-magenta">
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 text-caption font-medium rounded-full bg-magenta/10 text-magenta">
                 <Star className="w-3 h-3" />
                 {t("article").featured}
               </span>
@@ -78,9 +75,9 @@ function ArticleCardComponent({ article, index, viewCount }: ArticleCardProps) {
 
           {/* Title */}
           <h3 className={cn(
-            "text-xl sm:text-2xl font-bold mb-2 transition-colors duration-200",
+            "text-h3 mb-2 transition-colors duration-200",
             "text-slate-900 group-hover:text-magenta",
-            "dark:text-dark-text dark:group-hover:text-magenta"
+            "dark:text-dark-text dark:group-hover:text-magenta-light"
           )}>
             {title}
           </h3>
@@ -88,8 +85,8 @@ function ArticleCardComponent({ article, index, viewCount }: ArticleCardProps) {
           {/* Subtitle */}
           {subtitle && (
             <p className={cn(
-              "text-base sm:text-lg font-medium mb-3",
-              "text-slate-600",
+              "text-body-lg font-medium mb-3",
+              "text-slate-700",
               "dark:text-dark-text"
             )}>
               {subtitle}
@@ -98,7 +95,7 @@ function ArticleCardComponent({ article, index, viewCount }: ArticleCardProps) {
 
           {/* Description */}
           <p className={cn(
-            "leading-relaxed mb-4 line-clamp-2",
+            "text-body-sm mb-4 line-clamp-2",
             "text-slate-600",
             "dark:text-dark-textMuted"
           )}>
@@ -106,16 +103,16 @@ function ArticleCardComponent({ article, index, viewCount }: ArticleCardProps) {
           </p>
 
           {/* Bottom row */}
-          <div className="flex items-center justify-between pt-3 border-t border-slate-100 dark:border-dark-border/50">
+          <div className="flex items-center justify-between pt-3 border-t border-slate-200/60 dark:border-white/[0.06]">
             <span className={cn(
-              "inline-flex items-center gap-2 text-sm font-semibold transition-colors duration-200",
+              "inline-flex items-center gap-2 text-body-sm font-semibold transition-colors duration-200",
               "text-slate-700 group-hover:text-magenta",
-              "dark:text-dark-text dark:group-hover:text-magenta"
+              "dark:text-dark-text dark:group-hover:text-magenta-light"
             )}>
               {t("common").readMore}
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
             </span>
-            <div className="flex items-center gap-3 text-xs text-slate-400 dark:text-dark-textMuted">
+            <div className="flex items-center gap-3 text-body-sm text-slate-500 dark:text-dark-textMuted">
               <span>{article.readTime}</span>
               {viewCount !== undefined && viewCount > 0 && (
                 <span className="flex items-center gap-1">

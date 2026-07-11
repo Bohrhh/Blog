@@ -8,6 +8,7 @@ import { cn, MotionLink } from "@/app/lib/utils"
 import { useSound } from "@/app/context/AppContext"
 import { useTranslation, getTranslatedContent } from "@/app/lib/i18n"
 import { API } from "@/app/lib/constants"
+import GlassPanel from "@/app/components/GlassPanel"
 
 export default function PopularContent() {
   const { playSound } = useSound()
@@ -42,12 +43,12 @@ export default function PopularContent() {
   }, [])
 
   return (
-    <div className="space-y-4">
-      <h3 className="text-sm font-semibold tracking-widest text-magenta uppercase">
+    <GlassPanel className="p-5">
+      <h3 className="text-caption font-semibold uppercase tracking-widest text-magenta mb-3">
         {t("common").popularContent}
       </h3>
 
-      <ul className="space-y-3">
+      <ul className="space-y-1">
         {popularArticles.map((article, index) => {
           const { title } = getTranslatedContent(article, language)
           return (
@@ -61,18 +62,19 @@ export default function PopularContent() {
                 href={`/${article.slug}`}
                 onMouseEnter={() => playSound("hover")}
                 className={cn(
-                  "group flex items-start gap-2 transition-colors duration-200",
-                  "text-slate-800 hover:text-magenta",
-                  "dark:text-dark-text dark:hover:text-magenta"
+                  "group flex items-start gap-2 py-1.5 px-2 rounded-card",
+                  "text-slate-700 dark:text-dark-textMuted",
+                  "hover:bg-slate-100 dark:hover:bg-dark-surfaceHover hover:text-magenta",
+                  "transition-colors duration-150"
                 )}
               >
-                <ArrowRight className="w-4 h-4 mt-1 flex-shrink-0 group-hover:translate-x-1 transition-transform duration-200" />
-                <span className="leading-snug text-sm">{title}</span>
+                <ArrowRight className="w-4 h-4 mt-0.5 flex-shrink-0 group-hover:translate-x-1 transition-transform duration-200" />
+                <span className="text-body-sm">{title}</span>
               </MotionLink>
             </motion.li>
           )
         })}
       </ul>
-    </div>
+    </GlassPanel>
   )
 }

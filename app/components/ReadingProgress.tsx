@@ -21,13 +21,13 @@ export default function ReadingProgress() {
 
   return (
     <motion.div
-      className="absolute bottom-0 left-0 right-0 h-0.5 bg-transparent"
+      className="absolute bottom-0 inset-x-0 h-0.5 bg-transparent"
       initial={{ opacity: 0 }}
       animate={{ opacity: progress > 0 ? 1 : 0 }}
       transition={{ duration: 0.2 }}
     >
       <div
-        className="h-full bg-magenta transition-all duration-150 ease-out"
+        className="h-full bg-gradient-to-r from-magenta to-sky-deep transition-all duration-150 ease-out"
         style={{ width: `${progress}%` }}
       />
     </motion.div>

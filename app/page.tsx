@@ -13,7 +13,7 @@ export default function Home() {
       <Hero />
 
       {/* Main content area */}
-      <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
+      <div id="articles" className="max-w-[1200px] mx-auto px-4 sm:px-6 scroll-mt-24">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
           {/* Articles - takes up 2 columns on large screens */}
           <div className="lg:col-span-2">

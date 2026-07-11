@@ -15,9 +15,10 @@ export default function Footer() {
 
   return (
     <footer className={cn(
-      "border-t mt-16",
-      "bg-slate-50 border-slate-200",
-      "dark:bg-dark-surface dark:border-dark-border"
+      "relative border-t mt-16",
+      "border-slate-200/60 dark:border-white/[0.06]",
+      "bg-slate-50/60 dark:bg-dark-surface/50",
+      "backdrop-blur-glass"
     )}>
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6 py-12">
         {/* Top section */}
@@ -26,7 +27,7 @@ export default function Footer() {
           <div className="lg:col-span-1">
             <Logo className="mb-4" />
             <p className={cn(
-              "text-sm leading-relaxed",
+              "text-body-sm",
               "text-slate-600 dark:text-dark-textMuted"
             )}>
               {t('footer').tagline} ✨
@@ -36,13 +37,13 @@ export default function Footer() {
           {/* Newsletter */}
           <div className="lg:col-span-1">
             <h4 className={cn(
-              "text-sm font-semibold mb-3",
+              "text-h4 mb-3",
               "text-slate-900 dark:text-dark-text"
             )}>
               {t('footer').newsletterTitle}
             </h4>
             <p className={cn(
-              "text-sm mb-4",
+              "text-body-sm mb-4",
               "text-slate-600 dark:text-dark-textMuted"
             )}>
               {t('footer').newsletterText}
@@ -52,17 +53,22 @@ export default function Footer() {
                 type="email"
                 placeholder={t('footer').emailPlaceholder}
                 className={cn(
-                  "flex-1 px-3 py-2 text-sm border rounded-lg",
-                  "border-slate-300 bg-white focus:ring-blue-500",
-                  "dark:border-dark-border dark:bg-dark-surfaceHover dark:text-dark-text",
-                  "focus:outline-none focus:ring-2 focus:border-transparent"
+                  "flex-1 px-3.5 py-2.5 text-body-sm border rounded-card",
+                  "border-slate-200 bg-white/70 dark:bg-dark-surfaceHover/60",
+                  "dark:border-white/[0.08] dark:text-dark-text",
+                  "focus:outline-none focus:ring-2 focus:ring-magenta/40 focus:border-transparent"
                 )}
               />
               <button
                 type="submit"
-                className="px-4 py-2 text-sm font-medium text-white bg-slate-900
-                         rounded-lg hover:bg-slate-800 transition-colors duration-200
-                         dark:bg-dark-surfaceHover dark:hover:bg-slate-600"
+                className={cn(
+                  "inline-flex items-center justify-center gap-2 px-5 py-2.5",
+                  "text-sm font-semibold text-white bg-magenta rounded-card",
+                  "shadow-glow transition-all duration-200",
+                  "hover:-translate-y-0.5 hover:bg-magenta-dark dark:hover:bg-magenta-light",
+                  "focus:outline-none focus-visible:ring-2 focus-visible:ring-magenta/50",
+                  "focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
+                )}
               >
                 {t('footer').submit}
               </button>
@@ -71,22 +77,22 @@ export default function Footer() {
 
           {/* Browse By Category */}
           <div>
-            <h4 className="text-sm font-semibold tracking-widest text-magenta uppercase mb-4">
+            <h4 className="text-caption font-semibold uppercase tracking-widest text-magenta mb-3">
               {t('footer').browseByCategory}
             </h4>
             <ul className="space-y-2">
               {categories.map((category) => (
                 <li key={category}>
-                  <a
+                  <Link
                     href={`/category/${category.toLowerCase()}`}
                     className={cn(
-                      "text-sm transition-colors duration-200",
+                      "text-body-sm transition-colors duration-200",
                       "text-slate-600 hover:text-magenta",
                       "dark:text-dark-textMuted dark:hover:text-magenta"
                     )}
                   >
                     {category}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -94,7 +100,7 @@ export default function Footer() {
 
           {/* General */}
           <div>
-            <h4 className="text-sm font-semibold tracking-widest text-magenta uppercase mb-4">
+            <h4 className="text-caption font-semibold uppercase tracking-widest text-magenta mb-3">
               {t('footer').general}
             </h4>
             <ul className="space-y-2">
@@ -102,7 +108,7 @@ export default function Footer() {
                 <Link
                   href="/about"
                   className={cn(
-                    "text-sm transition-colors duration-200",
+                    "text-body-sm transition-colors duration-200",
                     "text-slate-600 hover:text-magenta",
                     "dark:text-dark-textMuted dark:hover:text-magenta"
                   )}
@@ -117,8 +123,7 @@ export default function Footer() {
         {/* Bottom section */}
         <div className={cn(
           "pt-8 border-t",
-          "border-slate-200",
-          "dark:border-dark-border"
+          "border-slate-200/60 dark:border-white/[0.06]"
         )}>
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             {/* Tools */}
@@ -166,31 +171,30 @@ export default function Footer() {
           {/* Copyright */}
           <div className={cn(
             "mt-6 pt-6 border-t text-center sm:text-left",
-            "border-slate-200",
-            "dark:border-dark-border"
+            "border-slate-200/60 dark:border-white/[0.06]"
           )}>
-            <p className="text-slate-500 dark:text-slate-500 text-sm">
+            <p className="text-body-sm text-slate-500 dark:text-dark-textMuted">
               {t('footer').copyright}
             </p>
-            <div className="mt-2 flex flex-wrap items-center justify-center sm:justify-start gap-x-4 gap-y-1 text-sm">
-              <a href="/terms" className={cn(
+            <div className="mt-2 flex flex-wrap items-center justify-center sm:justify-start gap-x-4 gap-y-1 text-body-sm">
+              <Link href="/terms" className={cn(
                 "transition-colors duration-200",
-                "text-slate-500 hover:text-magenta"
+                "text-slate-500 dark:text-dark-textMuted hover:text-magenta"
               )}>
                 {t('footer').termsOfUse}
-              </a>
-              <a href="/privacy" className={cn(
+              </Link>
+              <Link href="/privacy" className={cn(
                 "transition-colors duration-200",
-                "text-slate-500 hover:text-magenta"
+                "text-slate-500 dark:text-dark-textMuted hover:text-magenta"
               )}>
                 {t('footer').privacyPolicy}
-              </a>
-              <a href="/code-of-conduct" className={cn(
+              </Link>
+              <Link href="/code-of-conduct" className={cn(
                 "transition-colors duration-200",
-                "text-slate-500 hover:text-magenta"
+                "text-slate-500 dark:text-dark-textMuted hover:text-magenta"
               )}>
                 {t('footer').codeOfConduct}
-              </a>
+              </Link>
             </div>
           </div>
         </div>

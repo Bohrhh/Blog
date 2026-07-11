@@ -63,6 +63,8 @@ export const zh = {
     minRead: (readTime: string) => readTime,
     featured: "精选",
     relatedArticles: "相关文章",
+    copyCode: "复制",
+    copied: "已复制",
   },
   category: {
     categoryNotFound: "分类未找到",

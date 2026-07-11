@@ -8,7 +8,7 @@ import { cn } from "@/app/lib/utils"
  * components that need a non-`div` element (e.g. `motion.div`, `<Link>`).
  */
 export const glassPanelClasses =
-  "rounded-xl border border-slate-200/70 dark:border-dark-border/60 bg-white/70 dark:bg-dark-surface/60 backdrop-blur-sm"
+  "rounded-card border border-slate-200/60 dark:border-white/[0.06] bg-white/70 dark:bg-dark-surface/55 backdrop-blur-glass backdrop-saturate-150 shadow-e1"
 
 interface GlassPanelProps extends React.HTMLAttributes<HTMLDivElement> {
   children?: React.ReactNode

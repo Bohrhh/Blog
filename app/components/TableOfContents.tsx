@@ -91,7 +91,7 @@ export default function TableOfContents({ contentEn, contentZh }: TableOfContent
       className="sticky top-24 max-h-[calc(100vh-8rem)] overflow-y-auto"
     >
       <GlassPanel className="p-4">
-        <h4 className="text-xs font-semibold uppercase tracking-widest text-slate-500 dark:text-dark-textMuted mb-3 px-1">
+        <h4 className="text-caption font-semibold uppercase tracking-widest text-slate-500 dark:text-dark-textMuted mb-3 px-1">
           {t("common").onThisPage}
         </h4>
         <ul className="space-y-1">
@@ -100,7 +100,7 @@ export default function TableOfContents({ contentEn, contentZh }: TableOfContent
               <button
                 onClick={() => handleClick(heading.id)}
                 className={cn(
-                  "block w-full text-left text-sm leading-snug py-1.5 px-2 rounded-md transition-colors duration-150 break-words",
+                  "block w-full text-left text-body-sm leading-snug py-1.5 px-2 rounded-card transition-colors duration-150 break-words",
                   heading.level === 3 && "pl-4",
                   activeId === heading.id
                     ? "bg-magenta/10 text-magenta font-medium"

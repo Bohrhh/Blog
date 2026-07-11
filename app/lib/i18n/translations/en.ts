@@ -63,6 +63,8 @@ export const en = {
     minRead: (readTime: string) => readTime,
     featured: "Featured",
     relatedArticles: "Related Articles",
+    copyCode: "Copy",
+    copied: "Copied",
   },
   category: {
     categoryNotFound: "Category Not Found",

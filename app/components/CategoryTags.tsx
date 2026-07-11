@@ -11,7 +11,7 @@ export default function CategoryTags() {
 
   return (
     <div className="space-y-4">
-      <h3 className="text-sm font-semibold tracking-widest text-magenta uppercase">
+      <h3 className="text-caption font-semibold uppercase tracking-widest text-magenta">
         {t('common').browseByCategory}
       </h3>
 
@@ -28,13 +28,14 @@ export default function CategoryTags() {
               transition={{ duration: 0.3, delay: index * 0.05 }}
               onMouseEnter={() => playSound("hover")}
               className={cn(
-                "px-3 py-1.5 text-sm font-medium rounded-lg transition-all duration-150 border",
-                "hover:scale-105 hover:shadow-sm",
+                "inline-flex items-center gap-1.5 px-3 py-1.5 text-body-sm font-medium rounded-full border transition-all duration-200",
+                "hover:-translate-y-0.5 hover:shadow-e1",
                 colors.bg,
                 colors.text,
                 colors.border
               )}
             >
+              <span className={cn("w-1.5 h-1.5 rounded-full", colors.dot)} />
               {category}
             </MotionLink>
           )

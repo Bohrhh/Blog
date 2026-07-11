@@ -3,46 +3,73 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 26, 26, 46;
-  --background-start-rgb: 168, 216, 240;
-  --background-end-rgb: 255, 255, 255;
+  --foreground-rgb: 15, 23, 42;
+  --background-start-rgb: 207, 228, 245;
+  --background-mid-rgb: 233, 241, 250;
+  --background-end-rgb: 251, 252, 254;
+  --surface: #ffffff;
+  --surface-hover: #f3f7fb;
+  --raised: #f7faff;
+  --border: #e2e8f0;
+  --text-muted: #64748b;
+  --accent: #d63384;
+  --accent-hover: #b52a6f;
+  --secondary: #0284c7;
+  --glass-bg: rgba(255, 255, 255, 0.70);
+  --glass-border: rgba(226, 232, 240, 0.60);
+  --highlight: rgba(255, 255, 255, 0.55);
+  --shadow-e1: 0 1px 2px 0 rgba(15,23,42,0.05), 0 1px 3px -1px rgba(15,23,42,0.03), inset 0 1px 0 0 rgba(255,255,255,0.55);
+  --shadow-e2: 0 2px 6px -1px rgba(15,23,42,0.07), 0 4px 12px -2px rgba(15,23,42,0.05), inset 0 1px 0 0 rgba(255,255,255,0.6);
+  --shadow-e3: 0 6px 16px -3px rgba(15,23,42,0.10), 0 10px 28px -6px rgba(15,23,42,0.07), inset 0 1px 0 0 rgba(255,255,255,0.65);
+  --shadow-e4: 0 14px 40px -8px rgba(15,23,42,0.16), 0 24px 56px -12px rgba(15,23,42,0.10), inset 0 1px 0 0 rgba(255,255,255,0.7);
+  --shadow-glow: 0 4px 14px -2px rgba(214,51,132,0.35), 0 2px 6px -1px rgba(214,51,132,0.25);
+  --shadow-glow-strong: 0 8px 24px -4px rgba(214,51,132,0.45), 0 4px 10px -2px rgba(214,51,132,0.3);
 }
 
 .dark {
-  --foreground-rgb: 255, 255, 255;
-  --background-start-rgb: 29, 29, 29;
-  --background-end-rgb: 29, 29, 29;
+  --foreground-rgb: 232, 236, 241;
+  --background-start-rgb: 18, 20, 25;
+  --background-mid-rgb: 23, 26, 33;
+  --background-end-rgb: 28, 32, 41;
+  --surface: #1c2029;
+  --surface-hover: #252a35;
+  --raised: #222732;
+  --border: #2a2f3a;
+  --text-muted: #94a0b0;
+  --accent: #d63384;
+  --accent-hover: #e0559d;
+  --secondary: #38bdf8;
+  --glass-bg: rgba(28, 32, 41, 0.55);
+  --glass-border: rgba(255, 255, 255, 0.06);
+  --highlight: rgba(255, 255, 255, 0.04);
+  --shadow-e1: 0 1px 2px 0 rgba(0,0,0,0.45), inset 0 1px 0 0 rgba(255,255,255,0.04);
+  --shadow-e2: 0 2px 6px -1px rgba(0,0,0,0.5), 0 4px 12px -2px rgba(0,0,0,0.35), inset 0 1px 0 0 rgba(255,255,255,0.05);
+  --shadow-e3: 0 8px 20px -4px rgba(0,0,0,0.6), 0 12px 32px -6px rgba(0,0,0,0.4), inset 0 1px 0 0 rgba(255,255,255,0.06);
+  --shadow-e4: 0 18px 48px -10px rgba(0,0,0,0.7), 0 28px 64px -16px rgba(0,0,0,0.45), inset 0 1px 0 0 rgba(255,255,255,0.07);
+  --shadow-glow: 0 4px 14px -2px rgba(214,51,132,0.4), 0 2px 6px -1px rgba(214,51,132,0.3);
+  --shadow-glow-strong: 0 8px 24px -4px rgba(224,85,157,0.5), 0 4px 10px -2px rgba(224,85,157,0.35);
 }
 
-html {
-  scroll-behavior: smooth;
-  overscroll-behavior: none;
-}
+html { scroll-behavior: smooth; overscroll-behavior: none; }
 
-html,
-body {
+html, body {
   min-height: 100vh;
   color: rgb(var(--foreground-rgb));
   transition: background 0.3s ease, color 0.3s ease;
 }
 
 body {
-  background: linear-gradient(
-    180deg,
-    #a8d8f0 0%,
-    #e8f4fc 30%,
-    #ffffff 60%
-  ) !important;
+  background:
+    radial-gradient(1200px 600px at 50% -10%, rgba(207,228,245,0.9) 0%, rgba(207,228,245,0) 60%),
+    linear-gradient(180deg, rgb(var(--background-start-rgb)) 0%, rgb(var(--background-mid-rgb)) 35%, rgb(var(--background-end-rgb)) 75%, #ffffff 100%) !important;
   background-attachment: fixed !important;
 }
 
 .dark body {
-  background: linear-gradient(
-    180deg,
-    #1d1d1d 0%,
-    #1d1d1d 50%,
-    #1d1d1d 100%
-  ) !important;
+  background:
+    radial-gradient(1000px 520px at 50% -10%, rgba(40,46,58,0.9) 0%, rgba(40,46,58,0) 55%),
+    radial-gradient(820px 420px at 100% 0%, rgba(214,51,132,0.07) 0%, rgba(214,51,132,0) 50%),
+    linear-gradient(180deg, rgb(var(--background-start-rgb)) 0%, rgb(var(--background-mid-rgb)) 50%, rgb(var(--background-end-rgb)) 100%) !important;
   background-attachment: fixed !important;
 }
 

@@ -25,8 +25,8 @@ export default function RelatedArticles({ currentSlug, category }: RelatedArticl
   const colors = categoryColors[category] || categoryColors.General
 
   return (
-    <section className="mt-12 pt-8 border-t border-slate-200 dark:border-dark-border">
-      <h3 className="text-sm font-semibold tracking-widest text-magenta uppercase mb-6">
+    <section className="mt-12 pt-8 border-t border-slate-200/60 dark:border-white/[0.06]">
+      <h3 className="text-caption font-semibold uppercase tracking-widest text-magenta mb-6">
         {t("article").relatedArticles}
       </h3>
 
@@ -46,13 +46,14 @@ export default function RelatedArticles({ currentSlug, category }: RelatedArticl
                 className={cn(
                   glassPanelClasses,
                   "group block h-full p-5 transition-all duration-300",
-                  "hover:border-magenta/40 dark:hover:border-magenta/40",
-                  "hover:shadow-md hover:-translate-y-0.5"
+                  "hover:border-magenta/40",
+                  "hover:shadow-e2 hover:-translate-y-0.5"
                 )}
               >
                 {cat && (
                   <span className={cn(
-                    "inline-flex items-center gap-1.5 px-2 py-0.5 text-xs font-medium rounded-full mb-3",
+                    "inline-flex items-center gap-1.5 px-2.5 py-1 text-caption font-medium rounded-full border mb-3",
+                    colors.border,
                     colors.bg,
                     colors.text
                   )}>
@@ -61,19 +62,19 @@ export default function RelatedArticles({ currentSlug, category }: RelatedArticl
                   </span>
                 )}
                 <h4 className={cn(
-                  "font-semibold mb-2 transition-colors duration-200",
+                  "text-h4 font-semibold mb-2 transition-colors duration-200",
                   "text-slate-900 group-hover:text-magenta",
-                  "dark:text-dark-text dark:group-hover:text-magenta"
+                  "dark:text-dark-text dark:group-hover:text-magenta-light"
                 )}>
                   {title}
                 </h4>
-                <p className="text-sm text-slate-600 dark:text-dark-textMuted line-clamp-2 mb-3">
+                <p className="text-body-sm text-slate-600 dark:text-dark-textMuted line-clamp-2 mb-3">
                   {description}
                 </p>
                 <span className={cn(
-                  "inline-flex items-center gap-1 text-xs font-medium transition-colors duration-200",
+                  "inline-flex items-center gap-1 text-body-sm font-medium transition-colors duration-200",
                   "text-slate-700 group-hover:text-magenta",
-                  "dark:text-dark-text dark:group-hover:text-magenta"
+                  "dark:text-dark-text dark:group-hover:text-magenta-light"
                 )}>
                   {t("common").readMore}
                   <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform duration-200" />

@@ -22,21 +22,24 @@ const sizeMap = {
 
 const variantMap: Record<string, string> = {
   default: cn(
-    "hover:text-magenta transition-colors duration-200 rounded-lg",
-    "hover:bg-slate-100/50 dark:hover:bg-dark-surfaceHover/50",
-    "text-slate-700 dark:text-dark-text"
+    "text-slate-700 dark:text-dark-text rounded-card transition-colors duration-200",
+    "hover:text-magenta hover:bg-slate-100/60 dark:hover:bg-dark-surfaceHover/60",
+    "focus:outline-none focus-visible:ring-2 focus-visible:ring-magenta/40"
   ),
   footer: cn(
-    "transition-colors duration-200 rounded-lg",
-    "hover:bg-slate-100 dark:hover:bg-dark-surfaceHover",
-    "text-slate-600 hover:text-magenta dark:text-dark-textMuted"
+    "text-slate-600 dark:text-dark-textMuted rounded-card transition-colors duration-200",
+    "hover:text-magenta hover:bg-slate-100/60 dark:hover:bg-dark-surfaceHover/60",
+    "focus:outline-none focus-visible:ring-2 focus-visible:ring-magenta/40"
   ),
   social: cn(
-    "transition-all duration-200 rounded-lg hover:scale-110",
-    "hover:bg-slate-100 dark:hover:bg-dark-surfaceHover",
-    "text-slate-600 hover:text-magenta dark:text-dark-textMuted"
+    "text-slate-600 dark:text-dark-textMuted rounded-card transition-all duration-200 hover:scale-110",
+    "hover:text-magenta hover:bg-slate-100/60 dark:hover:bg-dark-surfaceHover/60",
+    "focus:outline-none focus-visible:ring-2 focus-visible:ring-magenta/40"
   ),
-  ghost: cn("hover:text-magenta transition-colors duration-200 rounded-lg"),
+  ghost: cn(
+    "text-slate-700 dark:text-dark-text rounded-card transition-colors duration-200 hover:text-magenta",
+    "focus:outline-none focus-visible:ring-2 focus-visible:ring-magenta/40"
+  ),
 }
 
 export default function IconButton({

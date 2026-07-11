@@ -35,7 +35,7 @@ export default function ViewCount({ slug }: ViewCountProps) {
   }
 
   return (
-    <span className="flex items-center gap-1">
+    <span className="flex items-center gap-1 text-body-sm text-slate-600 dark:text-dark-textMuted">
       <Eye className="w-4 h-4" />
       {views.toLocaleString()}
     </span>

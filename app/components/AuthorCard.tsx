@@ -17,22 +17,22 @@ export default function AuthorCard() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5 }}
-      className={cn(glassPanelClasses, "p-5")}
+      className={cn(glassPanelClasses, "p-5 transition-shadow duration-300 hover:shadow-e2")}
     >
       <div className="flex items-center gap-3 mb-3">
-        <div className="w-12 h-12 rounded-full bg-magenta/10 flex items-center justify-center text-magenta font-bold text-lg">
+        <div className="w-12 h-12 rounded-full bg-magenta/10 flex items-center justify-center text-magenta font-bold text-lg ring-1 ring-magenta/20">
           {author.name.charAt(0)}
         </div>
         <div>
-          <h4 className="font-semibold text-slate-900 dark:text-dark-text">
+          <h4 className="text-h4 font-semibold text-slate-900 dark:text-dark-text">
             {author.name}
           </h4>
-          <p className="text-xs text-slate-500 dark:text-dark-textMuted">
+          <p className="text-caption text-slate-500 dark:text-dark-textMuted">
             {author.role}
           </p>
         </div>
       </div>
-      <p className="text-sm text-slate-600 dark:text-dark-textMuted leading-relaxed mb-4">
+      <p className="text-body-sm text-slate-600 dark:text-dark-textMuted leading-relaxed mb-4">
         {author.bio}
       </p>
       <div className="flex items-center gap-2">

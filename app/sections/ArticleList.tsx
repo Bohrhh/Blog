@@ -70,13 +70,13 @@ function ArticleListContent({ articles, title, basePath = "/", showPagination = 
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.4 }}
-          className="text-sm font-semibold tracking-widest text-magenta uppercase mb-6"
+          className="text-caption font-semibold uppercase tracking-widest text-magenta mb-6"
         >
           {title}
         </motion.h2>
       )}
 
-      <div className="space-y-0">
+      <div className="space-y-6">
         {paginatedArticles.map((article, index) => (
           <ArticleCard
             key={article.id}

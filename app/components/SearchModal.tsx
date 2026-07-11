@@ -99,7 +99,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[60]"
+            className="fixed inset-0 z-[60] bg-slate-900/30 dark:bg-black/60 backdrop-blur-glass"
             onClick={handleClose}
           />
 
@@ -111,23 +111,23 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
             transition={{ duration: 0.2 }}
             className="fixed top-[20%] left-4 right-4 mx-auto max-w-xl z-[70]"
           >
-            <div className="bg-white dark:bg-dark-surface rounded-xl shadow-2xl border border-slate-200 dark:border-dark-border overflow-hidden">
+            <div className="relative rounded-overlay border border-slate-200/70 dark:border-white/[0.08] bg-white/95 dark:bg-dark-surface/95 backdrop-blur-glass-xl backdrop-saturate-150 shadow-e4 overflow-hidden">
               {/* Search Input */}
-              <div className="flex items-center px-4 border-b border-slate-200 dark:border-dark-border">
-                <Search className="w-5 h-5 text-slate-400" />
+              <div className="flex items-center px-4 border-b border-slate-200/60 dark:border-white/[0.06]">
+                <Search className="w-5 h-5 text-slate-400 dark:text-dark-textMuted" />
                 <input
                   ref={inputRef}
                   type="text"
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder={t('common').searchPlaceholder}
-                  className="flex-1 px-3 py-4 bg-transparent text-slate-900 dark:text-dark-text placeholder-slate-400 focus:outline-none"
+                  className="flex-1 px-3 py-4 bg-transparent text-body text-slate-900 dark:text-dark-text placeholder-slate-400 dark:placeholder-dark-textMuted focus:outline-none"
                 />
                 <button
                   onClick={handleClose}
-                  className="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors"
+                  className="p-2 rounded-card text-slate-400 dark:text-dark-textMuted hover:bg-slate-100 dark:hover:bg-dark-surfaceHover hover:text-magenta transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-magenta/40"
                 >
-                  <X className="w-5 h-5 text-slate-400" />
+                  <X className="w-5 h-5" />
                 </button>
               </div>
 
@@ -141,19 +141,19 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                         key={article.id}
                         href={`/${article.slug}`}
                         onClick={handleClose}
-                        className="flex items-start gap-3 px-4 py-3 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors border-b border-slate-100 dark:border-dark-border last:border-0"
+                        className="flex items-start gap-3 px-4 py-3 hover:bg-slate-50 dark:hover:bg-dark-surfaceHover transition-colors border-b border-slate-100 dark:border-white/[0.04] last:border-0"
                       >
                         <FileText className="w-5 h-5 text-magenta mt-0.5 flex-shrink-0" />
                         <div>
-                          <h4 className="text-sm font-medium text-slate-900 dark:text-dark-text line-clamp-1">
+                          <h4 className="text-body-sm font-medium text-slate-900 dark:text-dark-text line-clamp-1">
                             {title}
                           </h4>
                           {subtitle && (
-                            <p className="text-xs text-slate-500 dark:text-dark-textMuted line-clamp-1">
+                            <p className="text-body-sm text-slate-500 dark:text-dark-textMuted line-clamp-1">
                               {subtitle}
                             </p>
                           )}
-                          <p className="text-xs text-slate-400 mt-1 line-clamp-1">
+                          <p className="text-caption text-slate-400 dark:text-dark-textMuted mt-1 line-clamp-1">
                             {article.category} · {article.date}
                           </p>
                         </div>
@@ -165,14 +165,14 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
 
               {/* No results */}
               {query.trim() && results.length === 0 && (
-                <div className="px-4 py-8 text-center text-slate-500 dark:text-dark-textMuted">
+                <div className="px-4 py-8 text-center text-body-sm text-slate-500 dark:text-dark-textMuted">
                   {t('common').noResults(query)}
                 </div>
               )}
 
               {/* Empty state */}
               {!query.trim() && (
-                <div className="px-4 py-8 text-center text-slate-500 dark:text-dark-textMuted text-sm">
+                <div className="px-4 py-8 text-center text-body-sm text-slate-500 dark:text-dark-textMuted">
                   {t('common').startSearching}
                 </div>
               )}
