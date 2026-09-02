@@ -79,6 +79,22 @@ body {
   }
 }
 
+/* Shiki syntax-highlighted code blocks (rendered inside CodeHighlighter) */
+.article-code .shiki {
+  margin: 0;
+  padding: 1rem 1.125rem;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  overflow-x: auto;
+  background-color: transparent !important;
+}
+
+.article-code .shiki code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  background: transparent;
+  display: block;
+}
+
 /* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
   *,

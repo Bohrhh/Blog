@@ -1,11 +1,27 @@
 "use client"
 
-import { useState } from "react"
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter"
-import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism"
+import { useEffect, useState } from "react"
+import { codeToHtml } from "shiki/bundle/web"
 import { Check, Copy } from "lucide-react"
 import { useTranslation } from "@/app/lib/i18n"
 import { cn } from "@/app/lib/utils"
+
+// Grammars referenced by articles that shiki doesn't bundle under that name.
+const LANG_ALIASES: Record<string, string> = {
+  react: "jsx",
+  svg: "xml",
+}
+
+function resolveLanguage(language: string): string {
+  return LANG_ALIASES[language] || language || "text"
+}
+
+function escapeHtml(text: string): string {
+  return text
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+}
 
 interface CodeHighlighterProps {
   language: string
@@ -14,7 +30,29 @@ interface CodeHighlighterProps {
 
 export default function CodeHighlighter({ language, code }: CodeHighlighterProps) {
   const [copied, setCopied] = useState(false)
+  const [html, setHtml] = useState<string | null>(null)
   const { t } = useTranslation()
+
+  useEffect(() => {
+    let cancelled = false
+    const lang = resolveLanguage(language)
+
+    codeToHtml(code, { lang, theme: "one-dark-pro" })
+      .then((result) => {
+        if (!cancelled) setHtml(result)
+      })
+      .catch((err) => {
+        console.error("shiki failed:", err)
+        // Unknown grammar — render as plain text rather than failing.
+        if (!cancelled) {
+          setHtml(`<pre class="shiki"><code>${escapeHtml(code)}</code></pre>`)
+        }
+      })
+
+    return () => {
+      cancelled = true
+    }
+  }, [code, language])
 
   const handleCopy = async () => {
     try {
@@ -50,21 +88,10 @@ export default function CodeHighlighter({ language, code }: CodeHighlighterProps
           {label}
         </button>
       </div>
-      <SyntaxHighlighter
-        style={oneDark}
-        language={language}
-        PreTag="div"
-        customStyle={{
-          margin: 0,
-          background: "#0f1115",
-          borderRadius: "0",
-          padding: "1rem 1.125rem",
-          fontSize: "0.9375rem",
-          lineHeight: "1.6",
-        }}
-      >
-        {code}
-      </SyntaxHighlighter>
+      <div
+        className="article-code"
+        dangerouslySetInnerHTML={{ __html: html ?? `<pre class="shiki"><code>${escapeHtml(code)}</code></pre>` }}
+      />
     </div>
   )
 }
