@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { motion } from "framer-motion"
-import { ArrowRight, Eye } from "lucide-react"
+import { ArrowRight } from "lucide-react"
 import { articles as allArticles } from "@/app/data/articles"
 import { cn, MotionLink } from "@/app/lib/utils"
 import { useSound } from "@/app/context/AppContext"

@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useState, useCallback, useRef, useEffect } from "react"
 import { STORAGE_KEYS } from "@/app/lib/constants"
+import { safeStorage } from "@/app/lib/utils"
 
 // 类型定义
 type Theme = "light" | "dark"
@@ -24,7 +25,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   // Theme state - default to dark mode
   const [theme, setTheme] = useState<Theme>(() => {
     if (typeof window !== "undefined") {
-      const stored = localStorage.getItem(STORAGE_KEYS.THEME) as Theme | null
+      const stored = safeStorage.getItem(STORAGE_KEYS.THEME) as Theme | null
       return stored || "dark"
     }
     return "dark"
@@ -32,11 +33,9 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 
   // Sound state
   const [isSoundEnabled, setIsSoundEnabled] = useState(false)
-  const [mounted, setMounted] = useState(false)
 
   // Refs
   const audioContextRef = useRef<AudioContext | null>(null)
-  const timeoutsRef = useRef<NodeJS.Timeout[]>([])
   const audioUnlockedRef = useRef(false)
 
   // 尝试解锁 AudioContext
@@ -72,20 +71,18 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 
   // Save theme to localStorage when it changes
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEYS.THEME, theme)
+    safeStorage.setItem(STORAGE_KEYS.THEME, theme)
   }, [theme])
 
   // Sound initialization
   useEffect(() => {
-    const stored = localStorage.getItem(STORAGE_KEYS.SOUND)
+    const stored = safeStorage.getItem(STORAGE_KEYS.SOUND)
 
     // 读取上次保存的状态，如果没有记录默认开启
     if (stored === "true" || stored === null) {
       setIsSoundEnabled(true)
       unlockAudio()
     }
-
-    setMounted(true)
   }, [unlockAudio])
 
   // 监听用户交互来解锁音频
@@ -106,23 +103,6 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       document.removeEventListener("touchstart", handleInteraction)
     }
   }, [isSoundEnabled, unlockAudio])
-
-  // Cleanup timeouts
-  useEffect(() => {
-    return () => {
-      timeoutsRef.current.forEach(timeout => clearTimeout(timeout))
-      timeoutsRef.current = []
-    }
-  }, [])
-
-  // Safe timeout helper
-  const safeTimeout = useCallback((callback: () => void, delay: number) => {
-    const timeout = setTimeout(() => {
-      callback()
-      timeoutsRef.current = timeoutsRef.current.filter(t => t !== timeout)
-    }, delay)
-    timeoutsRef.current.push(timeout)
-  }, [])
 
   // Play sound
   const playSound = useCallback((type: SoundType) => {
@@ -205,7 +185,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const toggleSound = useCallback(() => {
     setIsSoundEnabled((prev) => {
       const newState = !prev
-      localStorage.setItem(STORAGE_KEYS.SOUND, newState.toString())
+      safeStorage.setItem(STORAGE_KEYS.SOUND, newState.toString())
 
       // 切换时解锁音频
       if (newState) {

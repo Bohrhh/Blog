@@ -2,18 +2,17 @@
 
 import { createContext, useContext, useState, useCallback, useEffect } from "react"
 import { STORAGE_KEYS } from "@/app/lib/constants"
+import { safeStorage } from "@/app/lib/utils"
 import { en } from "./translations/en"
 import { zh } from "./translations/zh"
 
 export type Language = "en" | "zh"
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const translations: Record<Language, Record<string, any>> = { en, zh }
 
 interface I18nContextType {
   language: Language
   setLanguage: (lang: Language) => void
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   t: (section: string) => Record<string, any>
 }
 
@@ -25,7 +24,7 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
 
   // Initialize from localStorage (only on client)
   useEffect(() => {
-    const stored = localStorage.getItem(STORAGE_KEYS.LANGUAGE) as Language | null
+    const stored = safeStorage.getItem(STORAGE_KEYS.LANGUAGE) as Language | null
     if (stored && (stored === "en" || stored === "zh")) {
       setLanguage(stored)
     }
@@ -35,7 +34,7 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
   // Persist to localStorage when language changes
   useEffect(() => {
     if (mounted) {
-      localStorage.setItem(STORAGE_KEYS.LANGUAGE, language)
+      safeStorage.setItem(STORAGE_KEYS.LANGUAGE, language)
     }
   }, [language, mounted])
 

@@ -1,7 +1,6 @@
 "use client"
 
 import Link from "next/link"
-import { motion } from "framer-motion"
 import { Rss, Github, Linkedin } from "lucide-react"
 import { categories } from "@/app/data/articles"
 import { cn } from "@/app/lib/utils"

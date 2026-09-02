@@ -21,8 +21,8 @@ A personal blog built with Next.js 15, featuring articles about CSS, React, Anim
 
 ## Tech Stack
 
-- **Next.js 15.5** - App Router, Static Site Generation
-- **React 18** - UI framework
+- **Next.js 15.5** - App Router, Node.js server mode (with API routes)
+- **React 19** - UI framework
 - **Tailwind CSS** - Styling
 - **Framer Motion** - Animations
 - **Lucide React** - Icons
@@ -80,10 +80,11 @@ app/
 │   ├── ToolButtons.tsx
 │   └── ViewCount.tsx
 ├── context/                 # React Context (theme, sound)
-├── data/articles/           # Article content (markdown files)
+├── data/                    # Article data
 │   ├── articles.ts          # Article metadata and helpers
-│   ├── content.ts           # Article content imports
-│   └── *.md                 # Individual article files
+│   └── articles/            # Article content (markdown files)
+│       ├── content.ts       # Article content imports
+│       └── *.md / *.zh.md   # Individual article files (EN + ZH)
 ├── sections/                # Page sections
 │   ├── ArticleList.tsx
 │   ├── Footer.tsx
@@ -94,14 +95,19 @@ app/
     ├── constants.ts
     └── utils.ts
 data/
-└── views.json               # Article view counts storage
+└── views.json               # Article view counts (runtime-generated, gitignored)
 ```
 
-## Adding New Articles
+## Adding New Articles (Bilingual)
 
-1. Create a markdown file in `app/data/articles/` (e.g., `my-article.md`)
-2. Import and export the file in `app/data/articles/content.ts`
-3. Add article metadata to `app/data/articles.ts`
+Every article requires both English and Chinese variants — this is a mandatory rule, not optional.
+
+1. Create an English markdown file in `app/data/articles/` (e.g., `my-article.md`)
+2. Create a Chinese markdown file (e.g., `my-article.zh.md`)
+3. Import both in `app/data/articles/content.ts` with the `?raw` suffix, adding them to both `articleContent` and `zhArticleContent`
+4. Add article metadata to `app/data/articles.ts` including the bilingual fields: `id`, `title`, `titleZh`, `subtitle?`, `subtitleZh?`, `description`, `descriptionZh`, `slug`, `date`, `category`, `categoryZh`, `readTime`, `featured?`
+
+Articles can be marked `featured: true` to appear first on the home page.
 
 ## License
 

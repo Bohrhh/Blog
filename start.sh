@@ -6,6 +6,18 @@
 BACKGROUND=false
 PORT=3000
 
+# 预扫描端口参数：-k/--kill 会在轮到 -p 之前就 exit，所以必须先解析出来
+for ((i = 1; i <= $#; i++)); do
+    case "${!i}" in
+        -p|--port)
+            next=$((i + 1))
+            if [[ $next -le $# ]]; then
+                PORT="${!next}"
+            fi
+            ;;
+    esac
+done
+
 while [[ $# -gt 0 ]]; do
     case $1 in
         -k|--kill)

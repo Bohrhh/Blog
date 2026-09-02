@@ -20,7 +20,7 @@ const cloudAnimations = [
   { name: "cloud4", duration: "4.5s", delay: "2s" },
 ]
 
-const cloudStyles = cloudAnimations.map((cloud, i) => ({
+const cloudStyles = cloudAnimations.map((cloud) => ({
   ...cloud,
   animation: `${cloud.name} ${cloud.duration} ease-in-out infinite`,
   animationDelay: cloud.delay,

@@ -14,7 +14,11 @@ yarn-debug.log*
 yarn-error.log*
 
 # Local env files
+.env
 .env*.local
+.env.development
+.env.production
+!.env.example
 
 # Vercel
 .vercel
@@ -22,6 +26,13 @@ yarn-error.log*
 # TypeScript
 *.tsbuildinfo
 next-env.d.ts
+
+# Runtime data (rewritten on every view; never commit live state)
+data/views.json
+data/views.json.tmp
+
+# Runtime logs
+blog.log
 
 # IDE
 .idea/

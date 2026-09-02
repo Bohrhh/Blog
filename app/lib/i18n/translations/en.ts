@@ -123,7 +123,6 @@ export const en = {
   },
 } as const
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type Translations = typeof en
 type TranslationsType = {
   nav: Record<string, string>
